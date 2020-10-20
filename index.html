@@ -7,11 +7,11 @@
 </head>
 
 <body>
-    <h1>test data</h1>
+    <h1>test data text</h1>
 </body>
 <script>
     fetch('/asset/bio_in.json')
-        .then(response => response.json())
+        .then(response => response.text())
         .then(data => console.log(data));
 </script>
 
