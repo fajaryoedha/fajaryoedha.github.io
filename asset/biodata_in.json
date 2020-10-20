@@ -1,0 +1,91 @@
+{
+    "name" : "Fajar Yuda Pratama",
+    "birth" : "Cirebon 15 Oktober 1998",
+    "address" : "Blok Daraindah RT.19 RW.06, Desa Cipinang,  Kecamatan Beber, Kabupaten Cirebon, Jawa Barat, 45172",
+    "nationaly" : "Indonesia",
+    "phone" : "085222507113",
+    "email" : "fajaryoedha@gmail.com",
+    "educations" : [
+        {
+            "year" : "2005-2011",
+            "school" : "SDN 1 Cipinang",
+            "study" : "-"
+        },
+        {
+            "year" : "2011-2014",
+            "school" : "SMPN 1 Beber",
+            "study" : "-"
+        },
+        {
+            "year" : "2014-2017",
+            "school" : "SMKN 1 Mundu",
+            "study" : "Teknik Komputer dan Jaringan"
+        },
+        {
+            "year" : "2017-2020",
+            "school" : "Politeknik Negeri Cilacap",
+            "study" : "D3 Teknik Elektro"
+        }
+    ],
+    "Projects" : [
+        {
+            "year" : "2019",
+            "name" : "Sistem Informasi Parkir",
+            "description" : "Dengan team dari PT.Nocola membuat sistem informasi parkir didukung dengan 221 sensor deteksi keberadaan kendaraan di setiap slot parkir serta palang pintu masuk dan keluar yang mendukung barcode dan NFC, user dapat memantau jumlah dan lokasi slot kosong serta memantau log akses keluar masuk pada gedung parkir, semua dapat dipantau pada sebuah web apps realtime"
+        },
+        {
+            "year" : "2020",
+            "name" : "Implementasi NI MyRIO Pada Segway Sebagai Kendaraan di Lingkungan Kampus",
+            "description" : "Tugas akhir D3 probadi, membuat self balancing scooter dengan kontroler NI MyRIO dengan pemrograman LabVIEW tentunya, segway dapat seimbang dan berjalan serta berbelok dengan baik, menggunakan 2 buah baterai kering 7,2Ah dengan waktu pakai 31 menit 28 detik"
+        },
+        {
+            "year" : "2020",
+            "name" : "Monitoring Kematangan Nanas dengan Image Processing dan IoT",
+            "description" : "Monitoring kematangan nanas menggiunakan kamera esp-cam yang dihubungkan ke raspberry, hasil deteksi akan dikirimkan ke web dengan socket.io"
+        }
+    ],
+    "programming_language" : [
+        {
+            "name" : "Python",
+            "value" : 85
+        },
+        {
+            "name" : "Javascript",
+            "value" : 90
+        },
+        {
+            "name" : "C++",
+            "value" : 60
+        },
+        {
+            "name" : "PHP",
+            "value" : 70
+        },
+        {
+            "name" : "SQL",
+            "value" : 80
+        }
+    ],
+    "programming_framework" : [
+        {
+            "name" : "OpenCV",
+            "value" : 85
+        },
+        {
+            "name" : "Express.js",
+            "value" : 90
+        },
+        {
+            "name" : "React.js",
+            "value" : 75
+        },
+        {
+            "name" : "ionic",
+            "value" : 55
+        },
+        {
+            "name" : "Arduino",
+            "value" : 99
+        }
+    ]
+}
