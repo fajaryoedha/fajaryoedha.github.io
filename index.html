@@ -1,10 +1,18 @@
 <html>
-    <head>
-        <title>
-            Fajar Yuda Pratama
-        </title>
-    </head>
-    <body>
-        <h1>welcome to sample hehehe</h1>
-    </body>
+
+<head>
+    <title>
+        Fajar Yuda Pratama
+    </title>
+</head>
+
+<body>
+    <h1>welcome to sample hehe</h1>
+</body>
+<script>
+    fetch('/asset/bio_in.json')
+        .then(response => response.json())
+        .then(data => console.log(data));
+</script>
+
 </html>
