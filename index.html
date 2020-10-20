@@ -10,8 +10,8 @@
     <h1>test data text !!!</h1>
 </body>
 <script>
-    fetch('/asset/bio_in.json')
-        .then(response => response.text())
+    fetch('asset/bio_in.json')
+        .then(response => response.json())
         .then(data => console.log(data));
 </script>
 
