@@ -1,0 +1,96 @@
+{
+    "name" : "Fajar Yuda Pratama",
+    "moto" : "IoT Maker, WEB Programmer, Electrical Enginer",
+    "birth" : "Cirebon 15 Oktober 1998",
+    "address" : "Cipinang Village, Beber District, Cirebon Regency, West Java, Indonesia, 45172",
+    "nationaly" : "Indonesia",
+    "phone" : "085222507113",
+    "email" : "fajaryoedha@gmail.com",
+    "educations" : [
+        {
+            "year" : "2005-2011",
+            "school" : "SDN 1 Cipinang",
+            "study" : "-"
+        },
+        {
+            "year" : "2011-2014",
+            "school" : "SMPN 1 Beber",
+            "study" : "-"
+        },
+        {
+            "year" : "2014-2017",
+            "school" : "SMKN 1 Mundu",
+            "study" : "Computer and Network Engineering"
+        },
+        {
+            "year" : "2017-2020",
+            "school" : "Cilacap State Polytechnic",
+            "study" : "Electrical Engineering"
+        }
+    ],
+    "Projects" : [
+        {
+            "year" : "2019",
+            "name" : "Parking Information System",
+            "description" : "With a team from PT.Nocola creating a parking information system supported by 221 sensors to detect the presence of vehicles in each parking slot as well as entrance and exit bars that support barcode and NFC, users can monitor the number and location of empty slots and monitor access logs in and out of parking buildings, all can be monitored on a realtime web apps"
+        },
+        {
+            "year" : "2020",
+            "name" : "Implementation of NI MyRIO on Segway as a Vehicle in the Campus Area",
+            "description" : "My final diploma project is to make a self balancing scooter with an NI MyRIO controller with LabVIEW programming, of course, the segway can be balanced and run and turn well, using 2 7,2Ah batteries with 31 minutes 28 seconds of life time."
+        },
+        {
+            "year" : "2020",
+            "name" : "Pineapple Maturity Monitoring with Image Processing and IoT",
+            "description" : "Monitoring the ripeness of pineapples using an esp-cam camera connected to a raspberry, the detection results will be sent to the web via socket.io"
+        }
+    ],
+    "programming_language" : [
+        {
+            "name" : "Python",
+            "value" : 85
+        },
+        {
+            "name" : "Javascript",
+            "value" : 90
+        },
+        {
+            "name" : "C++",
+            "value" : 60
+        },
+        {
+            "name" : "PHP",
+            "value" : 70
+        },
+        {
+            "name" : "SQL",
+            "value" : 80
+        }
+    ],
+    "programming_framework" : [
+        {
+            "name" : "OpenCV",
+            "value" : 85
+        },
+        {
+            "name" : "Express.js",
+            "value" : 90
+        },
+        {
+            "name" : "React.js",
+            "value" : 75
+        },
+        {
+            "name" : "ionic",
+            "value" : 55
+        },
+        {
+            "name" : "Arduino",
+            "value" : 99
+        },
+        {
+            "name" : "Bootstrap",
+            "value" : 85
+        }
+    ]
+}
