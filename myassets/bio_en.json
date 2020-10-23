@@ -12,42 +12,49 @@
         {
             "year": "2005-2011",
             "name": "SDN 1 Cipinang",
-            "study": "-"
+            "study": "-",
+            "img" : "myassets/media/school_0.jpg"
         },
         {
             "year": "2011-2014",
             "name": "SMPN 1 Beber",
-            "study": "-"
+            "study": "-",
+            "img" : "myassets/media/school_1.jpg"
         },
         {
             "year": "2014-2017",
             "name": "SMKN 1 Mundu",
-            "study": "Computer and Network Engineering"
+            "study": "Computer and Network Engineering",
+            "img" : "myassets/media/school_2.jpg"
         },
         {
             "year": "2017-2020",
             "name": "Cilacap State Polytechnic",
-            "study": "Electrical Engineering"
+            "study": "Electrical Engineering",
+            "img" : "myassets/media/school_3.jpg"
         }
     ],
-    "Projects": [
+    "projects": [
         {
             "year": "2019",
-            "name": "Parking Information System",
-            "description": "With a team from PT.Nocola creating a parking information system supported by 221 sensors to detect the presence of vehicles in each parking slot as well as entrance and exit bars that support barcode and NFC, users can monitor the number and location of empty slots and monitor access logs in and out of parking buildings, all can be monitored on a realtime web apps",
-            "img": "myassets/media/project_parking_1.jpg"
+            "name": "Parking Guide System",
+            "description": "With a team from PT.Nocola creating a parking Guide system supported by 221 sensors to detect the presence of vehicles in each parking slot as well as entrance and exit bars that support barcode and NFC, users can monitor the number and location of empty slots and monitor access logs in and out of parking buildings, all can be monitored on a realtime web apps",
+            "skills": ["Arduino", "Python", "React.js", "NodeJs", "mySQL", "Express.js"],
+            "img": ["myassets/media/project_parking_0.jpg", "myassets/media/project_parking_1.jpg"]
         },
         {
             "year": "2020",
             "name": "Implementation of NI MyRIO on Segway as a Vehicle in the Campus Area",
             "description": "My final diploma project is to make a self balancing scooter with an NI MyRIO controller with LabVIEW programming, of course, the segway can be balanced and run and turn well, using 2 7,2Ah batteries with 31 minutes 28 seconds of life time.",
-            "img": "myassets/media/project_parking_1.jpg"
+            "skills": ["LabVIEW", "NI MyRIO"],
+            "img": ["myassets/media/project_segway_0.png", "myassets/media/project_segway_1.png"]
         },
         {
             "year": "2020",
             "name": "Pineapple Maturity Monitoring with Image Processing and IoT",
             "description": "Monitoring the ripeness of pineapples using an esp-cam camera connected to a raspberry, the detection results will be sent to the web via socket.io",
-            "img": "myassets/media/project_parking_1.jpg"
+            "skills": ["Python", "OpenCV", "Socket.io", "React.js", "NodeJs", "Express.js"],
+            "img": ["myassets/media/project_parking_0.jpg", "myassets/media/project_parking_1.jpg"]
         }
     ],
     "skills": [
@@ -61,6 +68,11 @@
         "React.js",
         "ionic",
         "Arduino",
-        "Bootstrap"
+        "Bootstrap",
+        "NodeJs",
+        "mySQL",
+        "LabVIEW",
+        "NI MyRIO",
+        "Socket.io"
     ]
 }
