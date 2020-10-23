@@ -9,7 +9,6 @@ fetch('myassets/bio_en.json')
         document.getElementById("bio_address").innerHTML = data.address
         document.getElementById("bio_nationality").innerHTML = data.nationality
         document.getElementById("bio_phone").innerHTML = data.phone
-        // document.getElementById("bio_whatsapp").innerHTML = data.whatsapp
         document.getElementById("bio_email").innerHTML = data.email
         var educationsStr = ""
         data.educations.map((education, index) => {

@@ -54,7 +54,7 @@
             "name": "Pineapple Maturity Monitoring with Image Processing and IoT",
             "description": "Monitoring the ripeness of pineapples using an esp-cam camera connected to a raspberry, the detection results will be sent to the web via socket.io",
             "skills": ["Python", "OpenCV", "Socket.io", "React.js", "NodeJs", "Express.js"],
-            "img": ["myassets/media/project_parking_0.jpg", "myassets/media/project_parking_1.jpg"]
+            "img": ["myassets/media/project_on_going.jpg", "myassets/media/project_on_going.jpg"]
         }
     ],
     "skills": [
