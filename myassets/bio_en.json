@@ -36,10 +36,17 @@
     ],
     "projects": [
         {
+            "year": "2018",
+            "name": "KRAI 2018",
+            "description": "with the polytechnic robotics team building the 2018 KRAI robot, 2018 was my first year in the robotics team and I was already responsible for the code of the two KRAI robots, the first robot was an automatic robot and the second was semi automatic with wireless remote control",
+            "skills": ["Arduino", "C++"],
+            "img": ["myassets/media/project_kri2018_0.jpg", "myassets/media/project_kri2018_1.jpg"]
+        },
+        {
             "year": "2019",
             "name": "Parking Guide System",
             "description": "With a team from PT.Nocola creating a parking Guide system supported by 221 sensors to detect the presence of vehicles in each parking slot as well as entrance and exit bars that support barcode and NFC, users can monitor the number and location of empty slots and monitor access logs in and out of parking buildings, all can be monitored on a realtime web apps",
-            "skills": ["Arduino", "Python", "React.js", "NodeJs", "mySQL", "Express.js"],
+            "skills": ["Arduino", "Python", "React.js", "NodeJs", "mySQL", "Express.js", "Core.UI", "SQL"],
             "img": ["myassets/media/project_parking_0.jpg", "myassets/media/project_parking_1.jpg"]
         },
         {
@@ -53,26 +60,41 @@
             "year": "2020",
             "name": "Pineapple Maturity Monitoring with Image Processing and IoT",
             "description": "Monitoring the ripeness of pineapples using an esp-cam camera connected to a raspberry, the detection results will be sent to the web via socket.io",
-            "skills": ["Python", "OpenCV", "Socket.io", "React.js", "NodeJs", "Express.js"],
+            "skills": ["Python", "OpenCV", "Socket.io", "React.js", "NodeJs", "Express.js", "Core.UI", "mySQL", "SQL"],
             "img": ["myassets/media/project_on_going.jpg", "myassets/media/project_on_going.jpg"]
         }
     ],
     "skills": [
+
+        "Linux",
+        "Ubuntu",
+        "Raspbian",
         "Python",
         "Javascript",
         "C++",
-        "PHP",
         "SQL",
+        "HTML",
+        "CSS",
+        "LabVIEW",
+        "PHP",
+
         "OpenCV",
+
+        "NodeJs",
         "Express.js",
         "React.js",
         "ionic",
-        "Arduino",
-        "Bootstrap",
-        "NodeJs",
+        "Socket.io",
+
         "mySQL",
-        "LabVIEW",
+
+        "Bootstrap",
+        "Core.UI",
+
         "NI MyRIO",
-        "Socket.io"
+        "Arduino",
+        "NodeMCU",
+        "Raspberry"
+
     ]
 }

@@ -55,7 +55,6 @@ fetch('myassets/bio_en.json')
         document.getElementById("bio_skills").innerHTML = skillsStr
         var projectsStr = ""
         data.projects.map((project, index) => {
-            console.log(project.year)
             var skillUsedStr = ""
             project.skills.map(skill => {
                 skillUsedStr += skill + ', '
