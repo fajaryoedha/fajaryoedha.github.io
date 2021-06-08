@@ -36,9 +36,7 @@ fetch('myassets/bio_in.json')
                 <div class="timeline-image">
                     <h4>
                         <br/>
-                        Still learn
-                        <br />
-                        till die!
+                        Masih terus belajar
                     </h4>
                 </div>
             </li>
