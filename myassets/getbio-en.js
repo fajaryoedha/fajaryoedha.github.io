@@ -67,7 +67,7 @@ fetch('myassets/bio_en.json')
                             <div class="portfolio-hover">
                                 <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
                             </div>
-                            <img class="img-fluid img-thumbnail" src="`+project.img[0]+`" alt="" />
+                            <img class="img-thumbnail" src="`+project.img[0]+`" alt="" />
                         </a>
                         <div class="portfolio-caption">
                             <div class="portfolio-caption-heading">`+project.name+`</div>

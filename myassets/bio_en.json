@@ -1,12 +1,12 @@
 {
-    "name": "Fajar Yuda Pratamaa",
+    "name": "Fajar Yuda Pratama",
     "title": "Fajar Yuda Pratama Official Resume",
-    "moto": "IoT Maker, WEB Programmer, Robotic Hobbies",
+    "moto": "IoT Maker, WEB and Android Developer, Robotic Hobbies",
     "birth": "Cirebon, 15 October 1998",
     "address": "Cipinang Village, Beber District, Cirebon Regency, West Java, 45172",
     "nationality": "Indonesia",
-    "phone": "+6285222507113",
-    "whatsapp": "+6285222507113",
+    "phone": "+6285156563252",
+    "whatsapp": "+6285156563252",
     "email": "fajaryoedha@gmail.com",
     "educations": [
         {
@@ -55,13 +55,6 @@
             "description": "My final diploma project is to make a self balancing scooter with an NI MyRIO controller with LabVIEW programming, of course, the segway can be balanced and run and turn well, using 2 7,2Ah batteries with 31 minutes 28 seconds of life time.",
             "skills": ["LabVIEW", "NI MyRIO"],
             "img": ["myassets/media/project_segway_0.png", "myassets/media/project_segway_1.png"]
-        },
-        {
-            "year": "2020",
-            "name": "Pineapple Maturity Monitoring with Image Processing and IoT",
-            "description": "Monitoring the ripeness of pineapples using an esp-cam camera connected to a raspberry, the detection results will be sent to the web via socket.io",
-            "skills": ["Python", "OpenCV", "Socket.io", "React.js", "NodeJs", "Express.js", "Core.UI", "mySQL", "SQL"],
-            "img": ["myassets/media/project_on_going.jpg", "myassets/media/project_on_going.jpg"]
         }
     ],
     "skills": [
@@ -83,6 +76,7 @@
         "NodeJs",
         "Express.js",
         "React.js",
+        "React Native",
         "ionic",
         "Socket.io",
 
