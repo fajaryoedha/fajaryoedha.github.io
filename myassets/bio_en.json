@@ -55,6 +55,13 @@
             "description": "My final diploma project is to make a self balancing scooter with an NI MyRIO controller with LabVIEW programming, of course, the segway can be balanced and run and turn well, using 2 7,2Ah batteries with 31 minutes 28 seconds of life time.",
             "skills": ["LabVIEW", "NI MyRIO"],
             "img": ["myassets/media/project_segway_0.png", "myassets/media/project_segway_1.png"]
+        },
+        {
+            "year": "2021",
+            "name": "Integrated Point of Sale with Timer for Therapist Timing at Radja Spa & Reflexy",
+            "description": "The cashier system that is connected to 9 Spa & Reflexy branches and continues to grow, is synchronized semi offline so that transactions can still be carried out even though the internet connection is weak or even dead, the data will remain connected, also connected in real time with a timer machine in each spa room, making it easier for guests and therapists to know the remaining time, centralized transaction data in one CMS so that business owners can only monitor in one screen.",
+            "skills": ["Javascript", "SQL", "mySQL", "HTML", "CSS", "NodeJs", "Express.js", "React Native", "React.js", "Socket.io", "Core.UI"],
+            "img": ["myassets/media/project_radja_0.png", "myassets/media/project_radja_1.png"]
         }
     ],
     "skills": [
@@ -79,6 +86,7 @@
         "React Native",
         "ionic",
         "Socket.io",
+        "mqtt",
 
         "mySQL",
 
