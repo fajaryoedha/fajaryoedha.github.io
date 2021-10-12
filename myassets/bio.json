@@ -54,14 +54,25 @@
             "name": "Implementasi NI MyRIO pada Segway sebagai Kendaraan di Area Kampus",
             "description": "Tugas akhir diploma saya adalah membuat self balancing scooter dengan kontroler NI MyRIO dengan pemrograman LabVIEW, tentunya segway tersebut dapat diseimbangkan dan berjalan serta berbelok dengan baik, menggunakan 2 baterai 7,2Ah dengan life time 31 menit 28 detik.",
             "skills": ["LabVIEW", "NI MyRIO"],
-            "img": ["myassets/media/project_segway_0.png", "myassets/media/project_segway_1.png"]
+            "img": ["myassets/media/project_segway_1.png", "myassets/media/project_segway_0.png"]
         },
         {
             "year": "2021",
-            "name": "Point of Sale Terintegrasi dengan Timer untuk Penunjuk Waktu Terapis di Radja Spa & Reflexy",
-            "description": "Sistem kasir yang terhubung dengan 9 cabang Spa & Reflexy dan terus bertambah, tersinkronisasi secara semi offline sehingga transaksi tetap bisa dijalankan meskupun koneksi internet lemah atau bahkan mati, data akan tetap terhubung, terkoneksi pula secara realtime dengan mesin timer di setiap ruangan spa sehingga memudahkan tamu dan terapis untuk mengetahuui sisa waktu, data transaksi terpusat dalam satu CMS sehingga pemilik usaha cukup memantau dalam satu layar saja.",
-            "skills": ["Javascript", "SQL", "mySQL", "HTML", "CSS", "NodeJs", "Express.js", "React Native", "React.js", "Socket.io", "Core.UI"],
-            "img": ["myassets/media/project_radja_0.png", "myassets/media/project_radja_1.png"]
+            "name": "CMS Radja Spa & Reflexy",
+            "description": "Pusat data transaksi, karyawan, member, penggajian, keuangan untuk Radja Spa & Reflexy. CMS ini terhubung ke aplikasi kasir",
+            "skills": ["Javascript", "SQL", "mySQL", "HTML", "CSS", "NodeJs", "Express.js", "React.js", "Core.UI"],
+            "img": [
+                "myassets/media/project_radja_cms_0.png", 
+                "myassets/media/project_radja_cms_1.png", 
+                "myassets/media/project_radja_cms_2.png", 
+                "myassets/media/project_radja_cms_3.png", 
+                "myassets/media/project_radja_cms_4.png", 
+                "myassets/media/project_radja_cms_5.png", 
+                "myassets/media/project_radja_cms_6.png", 
+                "myassets/media/project_radja_cms_7.png", 
+                "myassets/media/project_radja_cms_8.png", 
+                "myassets/media/project_radja_cms_9.png"
+            ]
         }
     ],
     "skills": [
@@ -96,7 +107,8 @@
         "NI MyRIO",
         "Arduino",
         "NodeMCU",
-        "Raspberry"
+        "Raspberry",
+        "STM32"
 
     ]
 }

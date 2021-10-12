@@ -1,4 +1,4 @@
-fetch('myassets/bio_en.json')
+fetch('myassets/bio.json')
     .then(response => response.json())
     .then(data => {
         document.getElementById("bio_name").innerHTML = data.name
@@ -7,7 +7,6 @@ fetch('myassets/bio_en.json')
         document.getElementById("bio_moto").innerHTML = data.moto
         document.getElementById("bio_birth").innerHTML = data.birth
         document.getElementById("bio_address").innerHTML = data.address
-        document.getElementById("bio_nationality").innerHTML = data.nationality
         document.getElementById("bio_phone").innerHTML = data.phone
         document.getElementById("bio_email").innerHTML = data.email
         var educationsStr = ""
@@ -37,9 +36,7 @@ fetch('myassets/bio_en.json')
                 <div class="timeline-image">
                     <h4>
                         <br/>
-                        Still learn
-                        <br />
-                        till die!
+                        Masih terus belajar
                     </h4>
                 </div>
             </li>
@@ -58,6 +55,23 @@ fetch('myassets/bio_en.json')
             var skillUsedStr = ""
             project.skills.map(skill => {
                 skillUsedStr += skill + ', '
+            })
+            var imgStr = ""
+            project.img.map((img, imgIndex) => {
+                if(imgIndex == 0) {
+                    imgStr += `
+                        <div class="carousel-item active">
+                            <img class="d-block w-100" src="`+img+`">
+                        </div>
+                    `
+                }
+                else {
+                    imgStr += `
+                        <div class="carousel-item">
+                            <img class="d-block w-100" src="`+img+`">
+                        </div>
+                    `
+                }
             })
             projectsStr += `
                 <div class="col-lg-4 col-sm-6 mb-4">
@@ -89,7 +103,16 @@ fetch('myassets/bio_en.json')
                                                 <!-- Project Details Go Here-->
                                                 <h2 class="text-uppercase">`+project.name+`</h2>
                                                 </p>
-                                                <img class="img-fluid d-block mx-auto" src="`+project.img[1]+`" alt="" />
+                                                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                                                    <ol class="carousel-indicators">
+                                                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                                                        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                                                        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                                                    </ol>
+                                                    <div class="carousel-inner">
+                                                        `+imgStr+`
+                                                    </div>
+                                                </div>
                                                 <p>
                                                     `+project.description+`
                                                 </p>
@@ -112,4 +135,7 @@ fetch('myassets/bio_en.json')
             `
         })
         document.getElementById("bio_projects").innerHTML = projectsStr
+        $('.carousel').carousel({
+            interval: 500
+        })
     });
