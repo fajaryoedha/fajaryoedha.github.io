@@ -1,6 +1,7 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "porto",
+  "name": "Fajar Yuda Pratama Portofolio",
+  "version": "20230828",
   "icons": [
     {
       "src": "favicon.ico",
