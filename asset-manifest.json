@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.4b7eab2a.css",
-    "main.js": "/static/js/main.bd073250.js",
+    "main.css": "/static/css/main.1eafc8d8.css",
+    "main.js": "/static/js/main.e0fbf2a5.js",
     "static/js/787.1ed0c42c.chunk.js": "/static/js/787.1ed0c42c.chunk.js",
     "static/media/project_radja_timer_5.jpg": "/static/media/project_radja_timer_5.0b865efc6bfbc999161f.jpg",
     "static/media/project_uf_2.png": "/static/media/project_uf_2.d88720bbf6bc517b9a57.png",
@@ -99,12 +99,12 @@
     "static/media/project_fp_1.png": "/static/media/project_fp_1.1fee4ee37e0b9a0a76a3.png",
     "static/media/whatsapp.png": "/static/media/whatsapp.52fd64cd6a30df829505.png",
     "index.html": "/index.html",
-    "main.4b7eab2a.css.map": "/static/css/main.4b7eab2a.css.map",
-    "main.bd073250.js.map": "/static/js/main.bd073250.js.map",
+    "main.1eafc8d8.css.map": "/static/css/main.1eafc8d8.css.map",
+    "main.e0fbf2a5.js.map": "/static/js/main.e0fbf2a5.js.map",
     "787.1ed0c42c.chunk.js.map": "/static/js/787.1ed0c42c.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.4b7eab2a.css",
-    "static/js/main.bd073250.js"
+    "static/css/main.1eafc8d8.css",
+    "static/js/main.e0fbf2a5.js"
   ]
 }
