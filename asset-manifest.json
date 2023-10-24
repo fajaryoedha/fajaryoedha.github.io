@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.76f06980.css",
-    "main.js": "/static/js/main.bb6c0488.js",
+    "main.js": "/static/js/main.db2d5240.js",
     "static/js/787.1ed0c42c.chunk.js": "/static/js/787.1ed0c42c.chunk.js",
     "static/media/project_radja_timer_5.jpg": "/static/media/project_radja_timer_5.0b865efc6bfbc999161f.jpg",
     "static/media/project_uf_2.png": "/static/media/project_uf_2.d88720bbf6bc517b9a57.png",
@@ -156,11 +156,11 @@
     "static/media/whatsapp.png": "/static/media/whatsapp.52fd64cd6a30df829505.png",
     "index.html": "/index.html",
     "main.76f06980.css.map": "/static/css/main.76f06980.css.map",
-    "main.bb6c0488.js.map": "/static/js/main.bb6c0488.js.map",
+    "main.db2d5240.js.map": "/static/js/main.db2d5240.js.map",
     "787.1ed0c42c.chunk.js.map": "/static/js/787.1ed0c42c.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.76f06980.css",
-    "static/js/main.bb6c0488.js"
+    "static/js/main.db2d5240.js"
   ]
 }
