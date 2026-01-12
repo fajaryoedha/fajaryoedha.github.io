@@ -1,0 +1,18 @@
+{
+  "title": "Implementasi Auto Refresh pada Alarm Database Viewer AVEVA InTouch",
+  "date": "2024-07-18",
+  "slug": "aveva-intouch-alarm-auto-refresh",
+  "description": "Pelajari cara mengimplementasikan fitur refresh otomatis untuk Alarm Database Viewer di sistem SCADA AVEVA InTouch untuk meningkatkan efisiensi monitoring.",
+  "tags": [
+    "SCADA",
+    "AVEVA",
+    "InTouch",
+    "Automation",
+    "Alarm Management"
+  ],
+  "author": "Fajar Yuda Pratama",
+  "published": true,
+  "featured": false,
+  "language": "ID",
+  "htmlContent": "<h1>Implementasi Auto Refresh pada Alarm Database Viewer AVEVA InTouch</h1>\n<p>Dalam sistem SCADA AVEVA InTouch, pengelolaan tampilan alarm history menjadi salah satu aspek penting untuk memastikan operator dapat memantau kondisi sistem secara efektif. Kebutuhan untuk menampilkan alarm terbaru beserta riwayat alarm dari database menjadi tantangan tersendiri dalam implementasi sistem monitoring.</p>\n<h2>Pemahaman Komponen Alarm Viewer</h2>\n<p>AVEVA InTouch menyediakan dua komponen utama untuk menampilkan alarm: Alarm Viewer dan Alarm DB Viewer. Kedua komponen ini memiliki karakteristik yang berbeda dalam menampilkan data alarm. Alarm Viewer dirancang untuk menampilkan alarm yang terjadi secara realtime, sehingga setiap kali ada alarm baru, informasi tersebut akan langsung muncul di layar tanpa perlu intervensi manual. Namun, komponen ini tidak menyimpan riwayat alarm yang telah lewat.</p>\n<p>Di sisi lain, Alarm DB Viewer berfungsi menampilkan alarm yang telah tersimpan dalam database. Kelemahan dari komponen ini adalah tidak adanya fitur auto-refresh, sehingga operator harus melakukan refresh secara manual untuk melihat data terbaru. Hal ini tentu kurang efisien dalam operasional yang membutuhkan monitoring berkelanjutan.</p>\n<h2>Pendekatan Solusi</h2>\n<p>Untuk mengoptimalkan penggunaan kedua komponen tersebut, pendekatan yang diterapkan adalah menempatkan Alarm Viewer pada footer di setiap screen. Dengan cara ini, operator dapat selalu melihat daftar alarm realtime di bagian bawah layar, terlepas dari halaman mana yang sedang dibuka. Untuk halaman khusus yang didedikasikan untuk monitoring alarm, digunakan Alarm DB Viewer agar operator dapat melihat seluruh riwayat alarm, baik yang lampau maupun yang terbaru.</p>\n<h2>Implementasi Auto Refresh</h2>\n<p>Tantangan utama adalah bagaimana membuat Alarm DB Viewer menampilkan data terbaru secara otomatis tanpa harus di-refresh manual oleh operator. Solusinya adalah dengan membuat script yang melakukan reload data secara periodik dengan interval waktu tertentu. Script yang digunakan cukup sederhana:</p>\n<pre><code>#AlarmDBViewCtrl1.Refresh();\n</code></pre>\n<p>Untuk mengimplementasikan script ini, ikuti langkah-langkah berikut:</p>\n<p>Pertama, buka editor script dengan cara klik kanan pada menu Script, kemudian pilih New Script dan pilih Application Script.</p>\n<p><img src=\"/articles/images/Pasted%20image%2020240718152402.png\" alt=\"Pasted image 20240718152402.png\"></p>\n<p>Setelah jendela editor script terbuka, masukkan script di atas dan atur interval eksekusinya dalam satuan miliseconds sesuai dengan kebutuhan sistem. Interval yang tepat akan memastikan data alarm selalu ter-update tanpa membebani performa sistem.</p>\n<p><img src=\"/articles/images/Pasted%20image%2020240718152610.png\" alt=\"Pasted image 20240718152610.png\"></p>\n<p>Dengan implementasi ini, operator tidak perlu lagi melakukan refresh manual pada Alarm DB Viewer. Data alarm akan diperbarui secara otomatis sesuai dengan interval yang telah ditentukan, sehingga meningkatkan efisiensi monitoring dan memastikan tidak ada alarm penting yang terlewatkan.</p>"
+}

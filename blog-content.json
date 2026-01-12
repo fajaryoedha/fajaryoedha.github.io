@@ -1,0 +1,40 @@
+{
+  "EN": [
+    {
+      "title": "Implementing Auto Refresh on AVEVA InTouch Alarm Database Viewer",
+      "date": "2024-07-18",
+      "slug": "aveva-intouch-alarm-auto-refresh",
+      "description": "Learn how to implement automatic refresh functionality for the Alarm Database Viewer in AVEVA InTouch SCADA systems to improve monitoring efficiency.",
+      "tags": [
+        "SCADA",
+        "AVEVA",
+        "InTouch",
+        "Automation",
+        "Alarm Management"
+      ],
+      "author": "Fajar Yuda Pratama",
+      "published": true,
+      "featured": false,
+      "language": "EN"
+    }
+  ],
+  "ID": [
+    {
+      "title": "Implementasi Auto Refresh pada Alarm Database Viewer AVEVA InTouch",
+      "date": "2024-07-18",
+      "slug": "aveva-intouch-alarm-auto-refresh",
+      "description": "Pelajari cara mengimplementasikan fitur refresh otomatis untuk Alarm Database Viewer di sistem SCADA AVEVA InTouch untuk meningkatkan efisiensi monitoring.",
+      "tags": [
+        "SCADA",
+        "AVEVA",
+        "InTouch",
+        "Automation",
+        "Alarm Management"
+      ],
+      "author": "Fajar Yuda Pratama",
+      "published": true,
+      "featured": false,
+      "language": "ID"
+    }
+  ]
+}
