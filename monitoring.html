@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Line Monitoring — OEE System</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <span>Manufacturing</span>
+      OEE System
+    </div>
+    <nav>
+      <div class="sidebar-section-label">Overview</div>
+      <ul class="sidebar-nav">
+        <li><a href="index.html"><span class="sidebar-nav-icon">&#9632;</span> Dashboard</a></li>
+      </ul>
+      <div class="sidebar-section-label">Operations</div>
+      <ul class="sidebar-nav">
+        <li><a href="monitoring.html" class="active"><span class="sidebar-nav-icon">&#9675;</span> Line Monitoring</a></li>
+        <li><a href="downtime.html"><span class="sidebar-nav-icon">&#9650;</span> Downtime Entry</a></li>
+      </ul>
+      <div class="sidebar-section-label">Analysis</div>
+      <ul class="sidebar-nav">
+        <li><a href="report.html"><span class="sidebar-nav-icon">&#9781;</span> OEE Reports</a></li>
+        <li><a href="schedule.html"><span class="sidebar-nav-icon">&#9654;</span> Prod. Schedule</a></li>
+      </ul>
+      <div class="sidebar-section-label">Configuration</div>
+      <ul class="sidebar-nav">
+        <li><a href="master.html"><span class="sidebar-nav-icon">&#9881;</span> Master Data</a></li>
+      </ul>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="text-xs text-muted">Operator: John Doe</div>
+      <div class="text-xs text-muted">Shift: Morning (06:00–14:00)</div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="main-wrapper">
+
+    <header class="topbar">
+      <div class="topbar-title">Line Monitoring</div>
+      <div class="topbar-breadcrumb">Home / Operations / Line Monitoring</div>
+      <div class="topbar-spacer"></div>
+      <div class="topbar-info">
+        <span class="topbar-badge">LIVE</span>
+        <span class="text-sm text-muted">21 May 2026 &nbsp;|&nbsp; Morning Shift</span>
+      </div>
+    </header>
+
+    <main class="page-content">
+
+      <div class="page-header flex-between">
+        <div>
+          <h1 class="page-title">Line &amp; Machine Monitoring</h1>
+          <p class="page-subtitle">Real-time status of all production lines and machines</p>
+        </div>
+        <button class="btn btn--outline">&#8635; Refresh</button>
+      </div>
+
+      <!-- FILTER BAR -->
+      <div class="filter-bar">
+        <div class="form-group">
+          <label class="form-label">Line</label>
+          <select class="form-control">
+            <option selected>All Lines</option>
+            <option>Line 1</option>
+            <option>Line 2</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Status</label>
+          <select class="form-control">
+            <option selected>All Status</option>
+            <option>Running</option>
+            <option>Down</option>
+            <option>Idle</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Shift</label>
+          <select class="form-control">
+            <option selected>Morning (06:00–14:00)</option>
+            <option>Afternoon (14:00–22:00)</option>
+            <option>Night (22:00–06:00)</option>
+          </select>
+        </div>
+        <div class="form-group" style="display:flex;align-items:flex-end;">
+          <button class="btn btn--primary">Apply</button>
+        </div>
+      </div>
+
+      <!-- LINE SUMMARY ROW -->
+      <div class="grid-2 mb-lg">
+
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Line 1</div>
+              <div class="card-subtitle">3 machines &nbsp;|&nbsp; 2 Running &nbsp;|&nbsp; 1 Down &nbsp;|&nbsp; 0 Idle</div>
+            </div>
+            <div style="text-align:right;">
+              <div style="font-size:var(--font-size-xl);font-weight:700;color:var(--color-idle)">72%</div>
+              <div class="text-xs text-muted">OEE</div>
+            </div>
+          </div>
+          <div class="line-stat">
+            <div class="line-stat__label"><span>Availability</span><span>85%</span></div>
+            <div class="progress-bar"><div class="progress-fill progress-fill--avail" style="width:85%"></div></div>
+          </div>
+          <div class="line-stat">
+            <div class="line-stat__label"><span>Performance</span><span>91%</span></div>
+            <div class="progress-bar"><div class="progress-fill progress-fill--perf" style="width:91%"></div></div>
+          </div>
+          <div class="line-stat">
+            <div class="line-stat__label"><span>Quality</span><span>93%</span></div>
+            <div class="progress-bar"><div class="progress-fill progress-fill--qual" style="width:93%"></div></div>
+          </div>
+          <div class="line-stat mt-sm">
+            <div class="line-stat__label"><span>Line Utilization</span><span style="color:var(--color-idle)">67%</span></div>
+            <div class="progress-bar"><div class="progress-fill" style="width:67%;background:var(--color-idle)"></div></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Line 2</div>
+              <div class="card-subtitle">3 machines &nbsp;|&nbsp; 2 Running &nbsp;|&nbsp; 1 Down &nbsp;|&nbsp; 0 Idle</div>
+            </div>
+            <div style="text-align:right;">
+              <div style="font-size:var(--font-size-xl);font-weight:700;color:var(--color-idle)">68%</div>
+              <div class="text-xs text-muted">OEE</div>
+            </div>
+          </div>
+          <div class="line-stat">
+            <div class="line-stat__label"><span>Availability</span><span>83%</span></div>
+            <div class="progress-bar"><div class="progress-fill progress-fill--avail" style="width:83%"></div></div>
+          </div>
+          <div class="line-stat">
+            <div class="line-stat__label"><span>Performance</span><span>88%</span></div>
+            <div class="progress-bar"><div class="progress-fill progress-fill--perf" style="width:88%"></div></div>
+          </div>
+          <div class="line-stat">
+            <div class="line-stat__label"><span>Quality</span><span>93%</span></div>
+            <div class="progress-bar"><div class="progress-fill progress-fill--qual" style="width:93%"></div></div>
+          </div>
+          <div class="line-stat mt-sm">
+            <div class="line-stat__label"><span>Line Utilization</span><span style="color:var(--color-idle)">61%</span></div>
+            <div class="progress-bar"><div class="progress-fill" style="width:61%;background:var(--color-idle)"></div></div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- MACHINE CARDS -->
+      <div class="card mb-lg">
+        <div class="card-header">
+          <div>
+            <div class="card-title">Machine Detail</div>
+            <div class="card-subtitle">6 machines total — morning shift</div>
+          </div>
+          <div class="flex gap-sm">
+            <span class="badge badge--running">&#9679; 4 Running</span>
+            <span class="badge badge--down">&#9679; 2 Down</span>
+            <span class="badge badge--idle">&#9679; 0 Idle</span>
+          </div>
+        </div>
+
+        <div class="grid-auto">
+
+          <!-- M-01 Running -->
+          <div class="machine-card machine-card--running">
+            <div class="machine-card__header">
+              <div>
+                <div class="machine-card__name">M-01</div>
+                <div class="machine-card__line">Line 1</div>
+              </div>
+              <span class="badge badge--running"><span class="status-dot status-dot--running"></span>Running</span>
+            </div>
+            <div class="machine-card__body">
+              <div class="machine-card__row"><span class="machine-card__key">Batch</span><span class="machine-card__val">B-2605-001</span></div>
+              <div class="machine-card__row"><span class="machine-card__key">Product</span><span class="machine-card__val">PRD-A</span></div>
+              <div class="machine-card__row"><span class="machine-card__key">Recipe</span><span class="machine-card__val">RCP-001</span></div>
+              <div class="machine-card__row"><span class="machine-card__key">Start</span><span class="machine-card__val">06:05</span></div>
+              <div class="machine-card__row"><span class="machine-card__key">Elapsed</span><span class="machine-card__val">3h 52m</span></div>
+              <div class="machine-card__row"><span class="machine-card__key">OEE</span><span class="machine-card__val" style="color:var(--color-oee-green)">88%</span></div>
+            </div>
+            <div class="machine-card__actions">
+              <a href="downtime.html" class="btn btn--danger btn--sm">&#9650; Report Downtime</a>
+              <button class="btn btn--outline btn--sm">Details</button>
+            </div>
+          </div>
+
+          <!-- M-02 Down -->
+          <div class="machine-card machine-card--down">
+            <div class="machine-card__header">
+              <div>
+                <div class="machine-card__name">M-02</div>
+                <div class="machine-card__line">Line 1</div>
+              </div>
+              <span class="badge badge--down"><span class="status-dot status-dot--down"></span>Down</span>
+            </div>
+            <div class="machine-card__body">
+              <div class="machine-card__row"><span class="machine-card__key">Category</span><span class="machine-card__val" style="color:var(--color-down)">Unplanned</span></div>
+              <div class="machine-card__row"><span class="machine-card__key">Code</span><span class="machine-card__val">U-001</span></div>
+              <div class="machine-card__row"><span class="machine-card__key">Reason</span><span class="machine-card__val">Mechanical Failure</span></div>
+              <div class="machine-card__row"><span class="machine-card__key">Down Since</span><span class="machine-card__val">08:42</span></div>
+              <div class="machine-card__row"><span class="machine-card__key">Duration</span><span class="machine-card__val" style="color:var(--color-down)">34 min</span></div>
+              <div class="machine-card__row"><span class="machine-card__key">Operator</span><span class="machine-card__val">John Doe</span></div>
+            </div>
+            <div class="machine-card__actions">
+              <a href="downtime.html" class="btn btn--warning btn--sm">&#9998; Update</a>
+              <button class="btn btn--success btn--sm">&#9654; Resolve</button>
+            </div>
+          </div>
+
+          <!-- M-03 Idle -->
+          <div class="machine-card machine-card--idle">
+            <div class="machine-card__header">
+              <div>
+                <div class="machine-card__name">M-03</div>
+                <div class="machine-card__line">Line 1</div>
+              </div>
+              <span class="badge badge--idle"><span class="status-dot status-dot--idle"></span>Idle</span>
+            </div>
+            <div class="machine-card__body">
+              <div class="machine-card__row"><span class="machine-card__key">Reason</span><span class="machine-card__val">Planned Stop</span></div>
+              <div class="machine-card__row"><span class="machine-card__key">Code</span><span class="machine-card__val">P-003</span></div>
+              <div class="machine-card__row"><span class="machine-card__key">Batch Next</span><span class="machine-card__val">B-2605-003</span></div>
+              <div class="machine-card__row"><span class="machine-card__key">Product</span><span class="machine-card__val">PRD-B</span></div>
+              <div class="machine-card__row"><span class="machine-card__key">Scheduled</span><span class="machine-card__val">10:00</span></div>
+              <div class="machine-card__row"><span class="machine-card__key">Idle Since</span><span class="machine-card__val">09:30</span></div>
+            </div>
+            <div class="machine-card__actions">
+              <a href="downtime.html" class="btn btn--danger btn--sm">&#9650; Report Downtime</a>
+              <button class="btn btn--outline btn--sm">Details</button>
+            </div>
+          </div>
+
+          <!-- M-04 Running -->
+          <div class="machine-card machine-card--running">
+            <div class="machine-card__header">
+              <div>
+                <div class="machine-card__name">M-04</div>
+                <div class="machine-card__line">Line 2</div>
+              </div>
+              <span class="badge badge--running"><span class="status-dot status-dot--running"></span>Running</span>
+            </div>
+            <div class="machine-card__body">
+              <div class="machine-card__row"><span class="machine-card__key">Batch</span><span class="machine-card__val">B-2605-004</span></div>
+              <div class="machine-card__row"><span class="machine-card__key">Product</span><span class="machine-card__val">PRD-C</span></div>
+              <div class="machine-card__row"><span class="machine-card__key">Recipe</span><span class="machine-card__val">RCP-003</span></div>
+              <div class="machine-card__row"><span class="machine-card__key">Start</span><span class="machine-card__val">06:00</span></div>
+              <div class="machine-card__row"><span class="machine-card__key">Elapsed</span><span class="machine-card__val">3h 57m</span></div>
+              <div class="machine-card__row"><span class="machine-card__key">OEE</span><span class="machine-card__val" style="color:var(--color-idle)">79%</span></div>
+            </div>
+            <div class="machine-card__actions">
+              <a href="downtime.html" class="btn btn--danger btn--sm">&#9650; Report Downtime</a>
+              <button class="btn btn--outline btn--sm">Details</button>
+            </div>
+          </div>
+
+          <!-- M-05 Running -->
+          <div class="machine-card machine-card--running">
+            <div class="machine-card__header">
+              <div>
+                <div class="machine-card__name">M-05</div>
+                <div class="machine-card__line">Line 2</div>
+              </div>
+              <span class="badge badge--running"><span class="status-dot status-dot--running"></span>Running</span>
+            </div>
+            <div class="machine-card__body">
+              <div class="machine-card__row"><span class="machine-card__key">Batch</span><span class="machine-card__val">B-2605-005</span></div>
+              <div class="machine-card__row"><span class="machine-card__key">Product</span><span class="machine-card__val">PRD-A</span></div>
+              <div class="machine-card__row"><span class="machine-card__key">Recipe</span><span class="machine-card__val">RCP-001</span></div>
+              <div class="machine-card__row"><span class="machine-card__key">Start</span><span class="machine-card__val">06:10</span></div>
+              <div class="machine-card__row"><span class="machine-card__key">Elapsed</span><span class="machine-card__val">3h 47m</span></div>
+              <div class="machine-card__row"><span class="machine-card__key">OEE</span><span class="machine-card__val" style="color:var(--color-oee-green)">91%</span></div>
+            </div>
+            <div class="machine-card__actions">
+              <a href="downtime.html" class="btn btn--danger btn--sm">&#9650; Report Downtime</a>
+              <button class="btn btn--outline btn--sm">Details</button>
+            </div>
+          </div>
+
+          <!-- M-06 Down -->
+          <div class="machine-card machine-card--down">
+            <div class="machine-card__header">
+              <div>
+                <div class="machine-card__name">M-06</div>
+                <div class="machine-card__line">Line 2</div>
+              </div>
+              <span class="badge badge--down"><span class="status-dot status-dot--down"></span>Down</span>
+            </div>
+            <div class="machine-card__body">
+              <div class="machine-card__row"><span class="machine-card__key">Category</span><span class="machine-card__val" style="color:var(--color-planned-stops)">Planned</span></div>
+              <div class="machine-card__row"><span class="machine-card__key">Code</span><span class="machine-card__val">P-001</span></div>
+              <div class="machine-card__row"><span class="machine-card__key">Reason</span><span class="machine-card__val">Changeover / Setup</span></div>
+              <div class="machine-card__row"><span class="machine-card__key">Down Since</span><span class="machine-card__val">09:15</span></div>
+              <div class="machine-card__row"><span class="machine-card__key">Duration</span><span class="machine-card__val" style="color:var(--color-down)">11 min</span></div>
+              <div class="machine-card__row"><span class="machine-card__key">Operator</span><span class="machine-card__val">Jane Smith</span></div>
+            </div>
+            <div class="machine-card__actions">
+              <a href="downtime.html" class="btn btn--warning btn--sm">&#9998; Update</a>
+              <button class="btn btn--success btn--sm">&#9654; Resolve</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ACTIVE DOWNTIME TABLE -->
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title">Active Downtime Events</div>
+            <div class="card-subtitle">Currently open — requires resolution</div>
+          </div>
+          <a href="downtime.html" class="btn btn--primary btn--sm">+ New Entry</a>
+        </div>
+        <div class="table-wrapper">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Machine</th>
+                <th>Line</th>
+                <th>Loss Category</th>
+                <th>Reason Code</th>
+                <th>Reason</th>
+                <th>Start Time</th>
+                <th>Duration</th>
+                <th>Operator</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="row-alert">
+                <td class="font-600">M-02</td>
+                <td>Line 1</td>
+                <td><span class="loss-badge loss-badge--unplanned">Unplanned Stop</span></td>
+                <td>U-001</td>
+                <td>Mechanical Failure</td>
+                <td>08:42</td>
+                <td style="color:var(--color-down);font-weight:600">34 min</td>
+                <td>John Doe</td>
+                <td><button class="btn btn--success btn--sm">Resolve</button></td>
+              </tr>
+              <tr>
+                <td class="font-600">M-06</td>
+                <td>Line 2</td>
+                <td><span class="loss-badge loss-badge--planned">Planned Stop</span></td>
+                <td>P-001</td>
+                <td>Changeover / Setup</td>
+                <td>09:15</td>
+                <td>11 min</td>
+                <td>Jane Smith</td>
+                <td><button class="btn btn--success btn--sm">Resolve</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+</body>
+</html>

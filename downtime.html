@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Downtime Entry — OEE System</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <span>Manufacturing</span>
+      OEE System
+    </div>
+    <nav>
+      <div class="sidebar-section-label">Overview</div>
+      <ul class="sidebar-nav">
+        <li><a href="index.html"><span class="sidebar-nav-icon">&#9632;</span> Dashboard</a></li>
+      </ul>
+      <div class="sidebar-section-label">Operations</div>
+      <ul class="sidebar-nav">
+        <li><a href="monitoring.html"><span class="sidebar-nav-icon">&#9675;</span> Line Monitoring</a></li>
+        <li><a href="downtime.html" class="active"><span class="sidebar-nav-icon">&#9650;</span> Downtime Entry</a></li>
+      </ul>
+      <div class="sidebar-section-label">Analysis</div>
+      <ul class="sidebar-nav">
+        <li><a href="report.html"><span class="sidebar-nav-icon">&#9781;</span> OEE Reports</a></li>
+        <li><a href="schedule.html"><span class="sidebar-nav-icon">&#9654;</span> Prod. Schedule</a></li>
+      </ul>
+      <div class="sidebar-section-label">Configuration</div>
+      <ul class="sidebar-nav">
+        <li><a href="master.html"><span class="sidebar-nav-icon">&#9881;</span> Master Data</a></li>
+      </ul>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="text-xs text-muted">Operator: John Doe</div>
+      <div class="text-xs text-muted">Shift: Morning (06:00–14:00)</div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="main-wrapper">
+
+    <header class="topbar">
+      <div class="topbar-title">Downtime Entry</div>
+      <div class="topbar-breadcrumb">Home / Operations / Downtime Entry</div>
+      <div class="topbar-spacer"></div>
+      <div class="topbar-info">
+        <span class="text-sm text-muted">21 May 2026 &nbsp;|&nbsp; Morning Shift</span>
+      </div>
+    </header>
+
+    <main class="page-content">
+
+      <div class="page-header">
+        <h1 class="page-title">Downtime Entry</h1>
+        <p class="page-subtitle">Input Downtime / Laporan Downtime &mdash; Daftar Alasan Downtime</p>
+      </div>
+
+      <div class="grid-2 mb-lg" style="align-items:start;">
+
+        <!-- ENTRY FORM -->
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Input Downtime</div>
+              <div class="card-subtitle">Laporan Downtime &mdash; Manual Input</div>
+            </div>
+            <span class="badge badge--submitted">Form</span>
+          </div>
+
+          <form>
+            <!-- Row 1: Machine, Line, Batch -->
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Machine / Mesin</label>
+                <select class="form-control">
+                  <option value="">-- Select Machine --</option>
+                  <option>M-01 (Line 1)</option>
+                  <option selected>M-02 (Line 1)</option>
+                  <option>M-03 (Line 1)</option>
+                  <option>M-04 (Line 2)</option>
+                  <option>M-05 (Line 2)</option>
+                  <option>M-06 (Line 2)</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Line <span class="label-id">(auto-filled)</span></label>
+                <input type="text" class="form-control" value="Line 1" readonly>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Batch</label>
+                <select class="form-control">
+                  <option value="">-- Select Batch --</option>
+                  <option selected>B-2605-002</option>
+                  <option>B-2605-001</option>
+                  <option>B-2605-003</option>
+                </select>
+              </div>
+            </div>
+
+            <hr class="section-divider">
+
+            <!-- Row 2: Date, Time Start, Duration -->
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Date / Tanggal</label>
+                <input type="date" class="form-control" value="2026-05-21">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Time Start / Jam Mulai</label>
+                <input type="time" class="form-control" value="08:42">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Duration (minutes) / Durasi</label>
+                <input type="number" class="form-control" placeholder="e.g. 30" min="1" value="34">
+              </div>
+            </div>
+
+            <hr class="section-divider">
+
+            <!-- Row 3: Loss Category, Reason Code -->
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Loss Category / Kategori Kerugian</label>
+                <select class="form-control">
+                  <option value="">-- Select Category --</option>
+                  <optgroup label="Availability Loss">
+                    <option selected style="color:var(--color-unplanned-stops)">Unplanned Stop (Gangguan Tak Terencana)</option>
+                    <option>Planned Stop (Berhenti Terencana)</option>
+                  </optgroup>
+                  <optgroup label="Performance Loss">
+                    <option>Small Stop (Berhenti Singkat)</option>
+                    <option>Slow Cycle (Siklus Lambat)</option>
+                  </optgroup>
+                  <optgroup label="Quality Loss">
+                    <option>Production Reject (Produk Cacat)</option>
+                    <option>Startup Reject (Cacat Awal Produksi)</option>
+                  </optgroup>
+                </select>
+                <div class="form-hint">
+                  <span class="loss-badge loss-badge--unplanned" style="font-size:10px;padding:1px 6px;">Unplanned Stop</span> &nbsp; selected
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Reason Code / Kode Alasan</label>
+                <select class="form-control">
+                  <option value="">-- Select Reason --</option>
+                  <optgroup label="Unplanned Stop">
+                    <option selected>U-001 — Mechanical Failure</option>
+                    <option>U-002 — Electrical Failure</option>
+                    <option>U-003 — Instrument Failure</option>
+                    <option>U-004 — Process Failure</option>
+                  </optgroup>
+                  <optgroup label="Planned Stop">
+                    <option>P-001 — Changeover / Setup</option>
+                    <option>P-002 — Preventive Maintenance</option>
+                    <option>P-003 — Scheduled Cleaning</option>
+                  </optgroup>
+                </select>
+              </div>
+            </div>
+
+            <!-- Row 4: Notes -->
+            <div class="form-group">
+              <label class="form-label">Notes / Keterangan</label>
+              <textarea class="form-control" placeholder="Describe the issue in detail / Jelaskan masalah secara rinci...">Bearing on conveyor drive shaft failed. Replacement part ordered.</textarea>
+            </div>
+
+            <!-- Row 5: Operator -->
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Operator</label>
+                <input type="text" class="form-control" value="John Doe" readonly>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Shift</label>
+                <input type="text" class="form-control" value="Morning" readonly>
+              </div>
+            </div>
+
+            <div class="flex gap-sm mt-md">
+              <button type="submit" class="btn btn--primary btn--lg">Submit Downtime Report</button>
+              <button type="reset" class="btn btn--outline">Reset</button>
+            </div>
+          </form>
+        </div>
+
+        <!-- REASON REFERENCE -->
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Daftar Alasan Downtime</div>
+              <div class="card-subtitle">Downtime Reason Reference — Sumber Data</div>
+            </div>
+            <a href="master.html#reasons" class="btn btn--outline btn--sm">Manage</a>
+          </div>
+          <div class="table-wrapper">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>&#9632;</th>
+                  <th>Code</th>
+                  <th>Category</th>
+                  <th>Reason (EN)</th>
+                  <th>Alasan (ID)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><span class="color-swatch" style="background:var(--color-unplanned-stops)"></span></td>
+                  <td class="font-600">U-001</td>
+                  <td><span class="loss-badge loss-badge--unplanned" style="font-size:10px">Unplanned</span></td>
+                  <td>Mechanical Failure</td>
+                  <td class="text-muted">Kerusakan Mekanik</td>
+                </tr>
+                <tr>
+                  <td><span class="color-swatch" style="background:var(--color-unplanned-stops)"></span></td>
+                  <td class="font-600">U-002</td>
+                  <td><span class="loss-badge loss-badge--unplanned" style="font-size:10px">Unplanned</span></td>
+                  <td>Electrical Failure</td>
+                  <td class="text-muted">Kerusakan Listrik</td>
+                </tr>
+                <tr>
+                  <td><span class="color-swatch" style="background:var(--color-unplanned-stops)"></span></td>
+                  <td class="font-600">U-003</td>
+                  <td><span class="loss-badge loss-badge--unplanned" style="font-size:10px">Unplanned</span></td>
+                  <td>Instrument Failure</td>
+                  <td class="text-muted">Kerusakan Instrumen</td>
+                </tr>
+                <tr>
+                  <td><span class="color-swatch" style="background:var(--color-unplanned-stops)"></span></td>
+                  <td class="font-600">U-004</td>
+                  <td><span class="loss-badge loss-badge--unplanned" style="font-size:10px">Unplanned</span></td>
+                  <td>Process Failure</td>
+                  <td class="text-muted">Kegagalan Proses</td>
+                </tr>
+                <tr>
+                  <td><span class="color-swatch" style="background:var(--color-planned-stops)"></span></td>
+                  <td class="font-600">P-001</td>
+                  <td><span class="loss-badge loss-badge--planned" style="font-size:10px">Planned</span></td>
+                  <td>Changeover / Setup</td>
+                  <td class="text-muted">Pergantian Produk / Setup</td>
+                </tr>
+                <tr>
+                  <td><span class="color-swatch" style="background:var(--color-planned-stops)"></span></td>
+                  <td class="font-600">P-002</td>
+                  <td><span class="loss-badge loss-badge--planned" style="font-size:10px">Planned</span></td>
+                  <td>Preventive Maintenance</td>
+                  <td class="text-muted">Perawatan Preventif</td>
+                </tr>
+                <tr>
+                  <td><span class="color-swatch" style="background:var(--color-planned-stops)"></span></td>
+                  <td class="font-600">P-003</td>
+                  <td><span class="loss-badge loss-badge--planned" style="font-size:10px">Planned</span></td>
+                  <td>Scheduled Cleaning</td>
+                  <td class="text-muted">Pembersihan Terjadwal</td>
+                </tr>
+                <tr>
+                  <td><span class="color-swatch" style="background:var(--color-small-stops)"></span></td>
+                  <td class="font-600">S-001</td>
+                  <td><span class="loss-badge loss-badge--small-stops" style="font-size:10px">Small Stop</span></td>
+                  <td>Material Jam</td>
+                  <td class="text-muted">Macet Material</td>
+                </tr>
+                <tr>
+                  <td><span class="color-swatch" style="background:var(--color-slow-cycles)"></span></td>
+                  <td class="font-600">SC-001</td>
+                  <td><span class="loss-badge loss-badge--slow-cycles" style="font-size:10px">Slow Cycle</span></td>
+                  <td>Reduced Speed</td>
+                  <td class="text-muted">Kecepatan Dikurangi</td>
+                </tr>
+                <tr>
+                  <td><span class="color-swatch" style="background:var(--color-production-rejects)"></span></td>
+                  <td class="font-600">Q-001</td>
+                  <td><span class="loss-badge loss-badge--prod-reject" style="font-size:10px">Prod. Reject</span></td>
+                  <td>Out of Spec</td>
+                  <td class="text-muted">Di Luar Spesifikasi</td>
+                </tr>
+                <tr>
+                  <td><span class="color-swatch" style="background:var(--color-startup-rejects)"></span></td>
+                  <td class="font-600">Q-002</td>
+                  <td><span class="loss-badge loss-badge--start-reject" style="font-size:10px">Startup Reject</span></td>
+                  <td>Startup Scrap</td>
+                  <td class="text-muted">Scrap Awal Produksi</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- RECENT ENTRIES -->
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title">Recent Downtime Entries</div>
+            <div class="card-subtitle">Riwayat Laporan Downtime — current shift</div>
+          </div>
+          <div class="flex gap-sm">
+            <select class="form-control" style="min-width:120px;font-size:var(--font-size-xs);">
+              <option>All Status</option>
+              <option>Submitted</option>
+              <option>Verified</option>
+            </select>
+          </div>
+        </div>
+        <div class="table-wrapper">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Machine</th>
+                <th>Batch</th>
+                <th>Loss Category</th>
+                <th>Code</th>
+                <th>Reason / Alasan</th>
+                <th>Start</th>
+                <th>Duration</th>
+                <th>Operator</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="row-alert">
+                <td class="font-600">DT-2024</td>
+                <td>M-02</td>
+                <td>B-2605-002</td>
+                <td><span class="loss-badge loss-badge--unplanned">Unplanned Stop</span></td>
+                <td>U-001</td>
+                <td>Mechanical Failure</td>
+                <td>08:42</td>
+                <td style="color:var(--color-down);font-weight:600">34 min &#9679;</td>
+                <td>John Doe</td>
+                <td><span class="badge badge--submitted">Submitted</span></td>
+                <td><button class="btn btn--outline btn--sm">&#9998; Edit</button></td>
+              </tr>
+              <tr>
+                <td class="font-600">DT-2023</td>
+                <td>M-06</td>
+                <td>B-2605-006</td>
+                <td><span class="loss-badge loss-badge--planned">Planned Stop</span></td>
+                <td>P-001</td>
+                <td>Changeover / Setup</td>
+                <td>09:15</td>
+                <td>11 min</td>
+                <td>Jane Smith</td>
+                <td><span class="badge badge--submitted">Submitted</span></td>
+                <td><button class="btn btn--outline btn--sm">&#9998; Edit</button></td>
+              </tr>
+              <tr>
+                <td class="font-600">DT-2022</td>
+                <td>M-01</td>
+                <td>B-2605-001</td>
+                <td><span class="loss-badge loss-badge--small-stops">Small Stop</span></td>
+                <td>S-001</td>
+                <td>Material Jam</td>
+                <td>07:30</td>
+                <td>4 min</td>
+                <td>John Doe</td>
+                <td><span class="badge badge--verified">Verified</span></td>
+                <td><button class="btn btn--outline btn--sm">View</button></td>
+              </tr>
+              <tr>
+                <td class="font-600">DT-2021</td>
+                <td>M-04</td>
+                <td>B-2605-004</td>
+                <td><span class="loss-badge loss-badge--slow-cycles">Slow Cycle</span></td>
+                <td>SC-001</td>
+                <td>Reduced Speed</td>
+                <td>07:05</td>
+                <td>18 min</td>
+                <td>Jane Smith</td>
+                <td><span class="badge badge--verified">Verified</span></td>
+                <td><button class="btn btn--outline btn--sm">View</button></td>
+              </tr>
+              <tr>
+                <td class="font-600">DT-2020</td>
+                <td>M-05</td>
+                <td>B-2605-005</td>
+                <td><span class="loss-badge loss-badge--prod-reject">Production Reject</span></td>
+                <td>Q-001</td>
+                <td>Out of Spec</td>
+                <td>06:55</td>
+                <td>6 min</td>
+                <td>John Doe</td>
+                <td><span class="badge badge--verified">Verified</span></td>
+                <td><button class="btn btn--outline btn--sm">View</button></td>
+              </tr>
+              <tr>
+                <td class="font-600">DT-2019</td>
+                <td>M-03</td>
+                <td>B-2605-003</td>
+                <td><span class="loss-badge loss-badge--start-reject">Startup Reject</span></td>
+                <td>Q-002</td>
+                <td>Startup Scrap</td>
+                <td>06:05</td>
+                <td>8 min</td>
+                <td>Jane Smith</td>
+                <td><span class="badge badge--verified">Verified</span></td>
+                <td><button class="btn btn--outline btn--sm">View</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+</body>
+</html>

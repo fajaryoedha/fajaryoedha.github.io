@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Production Schedule — OEE System</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <span>Manufacturing</span>
+      OEE System
+    </div>
+    <nav>
+      <div class="sidebar-section-label">Overview</div>
+      <ul class="sidebar-nav">
+        <li><a href="index.html"><span class="sidebar-nav-icon">&#9632;</span> Dashboard</a></li>
+      </ul>
+      <div class="sidebar-section-label">Operations</div>
+      <ul class="sidebar-nav">
+        <li><a href="monitoring.html"><span class="sidebar-nav-icon">&#9675;</span> Line Monitoring</a></li>
+        <li><a href="downtime.html"><span class="sidebar-nav-icon">&#9650;</span> Downtime Entry</a></li>
+      </ul>
+      <div class="sidebar-section-label">Analysis</div>
+      <ul class="sidebar-nav">
+        <li><a href="report.html"><span class="sidebar-nav-icon">&#9781;</span> OEE Reports</a></li>
+        <li><a href="schedule.html" class="active"><span class="sidebar-nav-icon">&#9654;</span> Prod. Schedule</a></li>
+      </ul>
+      <div class="sidebar-section-label">Configuration</div>
+      <ul class="sidebar-nav">
+        <li><a href="master.html"><span class="sidebar-nav-icon">&#9881;</span> Master Data</a></li>
+      </ul>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="text-xs text-muted">Operator: John Doe</div>
+      <div class="text-xs text-muted">Shift: Morning (06:00–14:00)</div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="main-wrapper">
+
+    <header class="topbar">
+      <div class="topbar-title">Production Schedule</div>
+      <div class="topbar-breadcrumb">Home / Analysis / Production Schedule</div>
+      <div class="topbar-spacer"></div>
+      <div class="topbar-info">
+        <span class="text-sm text-muted">21 May 2026 &nbsp;|&nbsp; Morning Shift</span>
+      </div>
+    </header>
+
+    <main class="page-content">
+
+      <div class="page-header flex-between">
+        <div>
+          <h1 class="page-title">Production Schedule</h1>
+          <p class="page-subtitle">Batch planning and schedule management — Jadwal Produksi</p>
+        </div>
+        <button class="btn btn--primary">+ Add Schedule</button>
+      </div>
+
+      <!-- FILTER BAR -->
+      <div class="filter-bar">
+        <div class="form-group">
+          <label class="form-label">Date</label>
+          <input type="date" class="form-control" value="2026-05-21">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Line</label>
+          <select class="form-control">
+            <option selected>All Lines</option>
+            <option>Line 1</option>
+            <option>Line 2</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Status</label>
+          <select class="form-control">
+            <option selected>All Status</option>
+            <option>In Progress</option>
+            <option>Pending</option>
+            <option>Completed</option>
+            <option>Cancelled</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Product</label>
+          <select class="form-control">
+            <option selected>All Products</option>
+            <option>PRD-A</option>
+            <option>PRD-B</option>
+            <option>PRD-C</option>
+          </select>
+        </div>
+        <div class="form-group" style="display:flex;align-items:flex-end;">
+          <button class="btn btn--primary">Apply</button>
+        </div>
+      </div>
+
+      <!-- SCHEDULE TABLE -->
+      <div class="card mb-lg">
+        <div class="card-header">
+          <div>
+            <div class="card-title">Production Batches</div>
+            <div class="card-subtitle">Jadwal Batch — 21 May 2026</div>
+          </div>
+          <div class="flex gap-sm">
+            <span class="badge badge--inprogress">3 In Progress</span>
+            <span class="badge badge--pending">2 Pending</span>
+            <span class="badge badge--completed">1 Completed</span>
+          </div>
+        </div>
+        <div class="table-wrapper">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Batch ID</th>
+                <th>Product</th>
+                <th>Recipe</th>
+                <th>Line</th>
+                <th>Machine</th>
+                <th>Planned Start</th>
+                <th>Planned End</th>
+                <th>Actual Start</th>
+                <th>Actual End</th>
+                <th>Target (units)</th>
+                <th>Output %</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="font-600">B-2605-001</td>
+                <td>PRD-A</td>
+                <td>RCP-001</td>
+                <td>Line 1</td>
+                <td>M-01</td>
+                <td>06:00</td>
+                <td>14:00</td>
+                <td>06:05</td>
+                <td class="text-muted">—</td>
+                <td>1,440</td>
+                <td>
+                  <div style="font-weight:600;color:var(--color-small-stops)">62%</div>
+                  <div class="progress-bar" style="margin-top:3px;width:80px;"><div class="progress-fill" style="width:62%;background:var(--color-small-stops)"></div></div>
+                </td>
+                <td><span class="badge badge--inprogress">In Progress</span></td>
+                <td class="flex gap-sm">
+                  <button class="btn btn--outline btn--sm">&#9998; Edit</button>
+                </td>
+              </tr>
+              <tr class="row-alert">
+                <td class="font-600">B-2605-002</td>
+                <td>PRD-A</td>
+                <td>RCP-001</td>
+                <td>Line 1</td>
+                <td>M-02</td>
+                <td>06:00</td>
+                <td>14:00</td>
+                <td>06:00</td>
+                <td class="text-muted">—</td>
+                <td>1,440</td>
+                <td>
+                  <div style="font-weight:600;color:var(--color-down)">38%</div>
+                  <div class="progress-bar" style="margin-top:3px;width:80px;"><div class="progress-fill" style="width:38%;background:var(--color-down)"></div></div>
+                </td>
+                <td><span class="badge badge--inprogress">In Progress</span></td>
+                <td class="flex gap-sm">
+                  <button class="btn btn--outline btn--sm">&#9998; Edit</button>
+                </td>
+              </tr>
+              <tr>
+                <td class="font-600">B-2605-003</td>
+                <td>PRD-B</td>
+                <td>RCP-002</td>
+                <td>Line 1</td>
+                <td>M-03</td>
+                <td>10:00</td>
+                <td>18:00</td>
+                <td class="text-muted">—</td>
+                <td class="text-muted">—</td>
+                <td>960</td>
+                <td class="text-muted">—</td>
+                <td><span class="badge badge--pending">Pending</span></td>
+                <td class="flex gap-sm">
+                  <button class="btn btn--outline btn--sm">&#9998; Edit</button>
+                  <button class="btn btn--ghost btn--sm">&#10005;</button>
+                </td>
+              </tr>
+              <tr>
+                <td class="font-600">B-2605-004</td>
+                <td>PRD-C</td>
+                <td>RCP-003</td>
+                <td>Line 2</td>
+                <td>M-04</td>
+                <td>06:00</td>
+                <td>14:00</td>
+                <td>06:00</td>
+                <td class="text-muted">—</td>
+                <td>1,440</td>
+                <td>
+                  <div style="font-weight:600;color:var(--color-idle)">55%</div>
+                  <div class="progress-bar" style="margin-top:3px;width:80px;"><div class="progress-fill" style="width:55%;background:var(--color-idle)"></div></div>
+                </td>
+                <td><span class="badge badge--inprogress">In Progress</span></td>
+                <td class="flex gap-sm">
+                  <button class="btn btn--outline btn--sm">&#9998; Edit</button>
+                </td>
+              </tr>
+              <tr>
+                <td class="font-600">B-2605-005</td>
+                <td>PRD-A</td>
+                <td>RCP-001</td>
+                <td>Line 2</td>
+                <td>M-05</td>
+                <td>06:00</td>
+                <td>14:00</td>
+                <td>06:10</td>
+                <td class="text-muted">—</td>
+                <td>1,440</td>
+                <td>
+                  <div style="font-weight:600;color:var(--color-oee-green)">68%</div>
+                  <div class="progress-bar" style="margin-top:3px;width:80px;"><div class="progress-fill progress-fill--oee" style="width:68%"></div></div>
+                </td>
+                <td><span class="badge badge--inprogress">In Progress</span></td>
+                <td class="flex gap-sm">
+                  <button class="btn btn--outline btn--sm">&#9998; Edit</button>
+                </td>
+              </tr>
+              <tr>
+                <td class="font-600">B-2605-006</td>
+                <td>PRD-B</td>
+                <td>RCP-002</td>
+                <td>Line 2</td>
+                <td>M-06</td>
+                <td>10:00</td>
+                <td>18:00</td>
+                <td class="text-muted">—</td>
+                <td class="text-muted">—</td>
+                <td>960</td>
+                <td class="text-muted">—</td>
+                <td><span class="badge badge--pending">Pending</span></td>
+                <td class="flex gap-sm">
+                  <button class="btn btn--outline btn--sm">&#9998; Edit</button>
+                  <button class="btn btn--ghost btn--sm">&#10005;</button>
+                </td>
+              </tr>
+              <tr>
+                <td class="font-600">B-2604-010</td>
+                <td>PRD-A</td>
+                <td>RCP-001</td>
+                <td>Line 1</td>
+                <td>M-01</td>
+                <td class="text-muted">20 May 06:00</td>
+                <td class="text-muted">20 May 14:00</td>
+                <td class="text-muted">20 May 06:02</td>
+                <td class="text-muted">20 May 14:08</td>
+                <td>1,440</td>
+                <td>
+                  <div style="font-weight:600;color:var(--color-oee-green)">98%</div>
+                  <div class="progress-bar" style="margin-top:3px;width:80px;"><div class="progress-fill progress-fill--oee" style="width:98%"></div></div>
+                </td>
+                <td><span class="badge badge--completed">Completed</span></td>
+                <td><button class="btn btn--outline btn--sm">View</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ADD/EDIT SCHEDULE FORM -->
+      <div class="card mb-lg">
+        <div class="card-header">
+          <div>
+            <div class="card-title">Add / Edit Schedule</div>
+            <div class="card-subtitle">Tambah / Ubah Jadwal Produksi</div>
+          </div>
+          <span class="badge badge--pending">New Batch</span>
+        </div>
+
+        <form>
+          <!-- Row 1 -->
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Batch ID <span class="label-id">(auto-generated)</span></label>
+              <input type="text" class="form-control" value="B-2605-007" readonly>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Product</label>
+              <select class="form-control">
+                <option value="">-- Select Product --</option>
+                <option>PRD-A — Product Alpha</option>
+                <option>PRD-B — Product Beta</option>
+                <option>PRD-C — Product Gamma</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Recipe <span class="label-id">(auto-filled)</span></label>
+              <input type="text" class="form-control" placeholder="Select product first..." readonly>
+            </div>
+          </div>
+
+          <!-- Row 2 -->
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Line</label>
+              <select class="form-control">
+                <option value="">-- Select Line --</option>
+                <option>Line 1</option>
+                <option>Line 2</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Machine <span class="label-id">(auto-filled)</span></label>
+              <input type="text" class="form-control" placeholder="Select line first..." readonly>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Shift</label>
+              <select class="form-control">
+                <option selected>Morning (06:00–14:00)</option>
+                <option>Afternoon (14:00–22:00)</option>
+                <option>Night (22:00–06:00)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Row 3 -->
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Planned Start</label>
+              <input type="datetime-local" class="form-control" value="2026-05-22T06:00">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Planned End</label>
+              <input type="datetime-local" class="form-control" value="2026-05-22T14:00">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Target Output (units)</label>
+              <input type="number" class="form-control" placeholder="e.g. 1440" min="1">
+            </div>
+          </div>
+
+          <div class="flex gap-sm mt-md">
+            <button type="submit" class="btn btn--primary">Save Schedule</button>
+            <button type="reset" class="btn btn--outline">Cancel</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- SCHEDULE REVISION HISTORY -->
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title">Schedule Revision History</div>
+            <div class="card-subtitle">Riwayat Revisi Jadwal — Schedule Revision</div>
+          </div>
+        </div>
+        <div class="table-wrapper">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Batch ID</th>
+                <th>Revision #</th>
+                <th>Changed By</th>
+                <th>Changed At</th>
+                <th>Reason / Alasan</th>
+                <th>Field Changed</th>
+                <th>Old Value</th>
+                <th>New Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="font-600">B-2605-002</td>
+                <td>Rev 2</td>
+                <td>Supervisor A</td>
+                <td>21 May 07:00</td>
+                <td>Machine down — U-001</td>
+                <td>Planned End</td>
+                <td class="text-muted">14:00</td>
+                <td>16:00</td>
+              </tr>
+              <tr>
+                <td class="font-600">B-2605-003</td>
+                <td>Rev 1</td>
+                <td>Planner B</td>
+                <td>20 May 16:30</td>
+                <td>Raw material delay</td>
+                <td>Planned Start</td>
+                <td class="text-muted">08:00</td>
+                <td>10:00</td>
+              </tr>
+              <tr>
+                <td class="font-600">B-2604-010</td>
+                <td>Rev 1</td>
+                <td>Supervisor A</td>
+                <td>19 May 09:15</td>
+                <td>Recipe update — new cycle time</td>
+                <td>Recipe</td>
+                <td class="text-muted">RCP-001 v1</td>
+                <td>RCP-001 v2</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+</body>
+</html>
