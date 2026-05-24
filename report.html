@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>OEE Reports — OEE System</title>
   <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
 </head>
 <body>
 <div class="app-layout">
@@ -29,10 +30,13 @@
       <ul class="sidebar-nav">
         <li><a href="report.html" class="active"><span class="sidebar-nav-icon">&#9781;</span> OEE Reports</a></li>
         <li><a href="schedule.html"><span class="sidebar-nav-icon">&#9654;</span> Prod. Schedule</a></li>
+        <li><a href="operator_schedule.html"><span class="sidebar-nav-icon">&#9660;</span> Operator Schedule</a></li>
       </ul>
       <div class="sidebar-section-label">Configuration</div>
       <ul class="sidebar-nav">
         <li><a href="master.html"><span class="sidebar-nav-icon">&#9881;</span> Master Data</a></li>
+        <li><a href="roles.html"><span class="sidebar-nav-icon">&#9670;</span> Role Management</a></li>
+        <li><a href="users.html"><span class="sidebar-nav-icon">&#9671;</span> User Management</a></li>
       </ul>
     </nav>
     <div class="sidebar-footer">
@@ -67,11 +71,20 @@
       <div class="filter-bar">
         <div class="form-group">
           <label class="form-label">Date From</label>
-          <input type="date" class="form-control" value="2026-05-15">
+          <input type="date" class="form-control" value="2026-05-15" id="date-from">
         </div>
         <div class="form-group">
           <label class="form-label">Date To</label>
-          <input type="date" class="form-control" value="2026-05-21">
+          <input type="date" class="form-control" value="2026-05-21" id="date-to">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Aggregate</label>
+          <select class="form-control" id="aggregate-select">
+            <option value="hourly">Hourly</option>
+            <option value="daily" selected>Daily</option>
+            <option value="weekly">Weekly</option>
+            <option value="monthly">Monthly</option>
+          </select>
         </div>
         <div class="form-group">
           <label class="form-label">Line</label>
@@ -99,7 +112,7 @@
           </select>
         </div>
         <div class="form-group" style="display:flex;align-items:flex-end;">
-          <button class="btn btn--primary">Apply</button>
+          <button class="btn btn--primary" id="apply-btn">Apply</button>
         </div>
       </div>
 
@@ -110,7 +123,7 @@
           <div class="kpi-card__accent"></div>
           <div class="kpi-card__label">OEE (Period Avg)</div>
           <div class="kpi-card__value" style="color:var(--color-oee-green)">80.8%</div>
-          <div class="kpi-card__trend mt-sm text-muted">Target: 85%</div>
+          <div class="kpi-card__trend mt-sm text-muted" style="font-size:11px">Target: 85% &nbsp;|&nbsp; Gap: -4.2%</div>
           <div class="progress-bar mt-sm"><div class="progress-fill progress-fill--oee" style="width:80.8%"></div></div>
         </div>
 
@@ -118,9 +131,9 @@
           <div class="kpi-card__accent"></div>
           <div class="kpi-card__label">Availability</div>
           <div class="kpi-card__value" style="color:var(--color-availability)">88.5%</div>
-          <div class="kpi-card__trend mt-sm">
-            <span class="loss-badge loss-badge--unplanned" style="font-size:10px;padding:1px 6px">-6.3%</span>&nbsp;
-            <span class="loss-badge loss-badge--planned" style="font-size:10px;padding:1px 6px">-4.2%</span>
+          <div class="kpi-card__trend mt-sm" style="font-size:11px">
+            <span class="loss-badge loss-badge--unplanned" style="font-size:10px;padding:1px 6px">Unplanned -6.3%</span>&nbsp;
+            <span class="loss-badge loss-badge--planned" style="font-size:10px;padding:1px 6px">Planned -4.2%</span>
           </div>
           <div class="progress-bar mt-sm"><div class="progress-fill progress-fill--avail" style="width:88.5%"></div></div>
         </div>
@@ -129,9 +142,9 @@
           <div class="kpi-card__accent"></div>
           <div class="kpi-card__label">Performance</div>
           <div class="kpi-card__value" style="color:var(--color-performance)">93.4%</div>
-          <div class="kpi-card__trend mt-sm">
-            <span class="loss-badge loss-badge--small-stops" style="font-size:10px;padding:1px 6px">-2.8%</span>&nbsp;
-            <span class="loss-badge loss-badge--slow-cycles" style="font-size:10px;padding:1px 6px">-2.1%</span>
+          <div class="kpi-card__trend mt-sm" style="font-size:11px">
+            <span class="loss-badge loss-badge--small-stops" style="font-size:10px;padding:1px 6px">Small -2.8%</span>&nbsp;
+            <span class="loss-badge loss-badge--slow-cycles" style="font-size:10px;padding:1px 6px">Slow -2.1%</span>
           </div>
           <div class="progress-bar mt-sm"><div class="progress-fill progress-fill--perf" style="width:93.4%"></div></div>
         </div>
@@ -140,19 +153,33 @@
           <div class="kpi-card__accent"></div>
           <div class="kpi-card__label">Quality</div>
           <div class="kpi-card__value" style="color:var(--color-quality)">97.6%</div>
-          <div class="kpi-card__trend mt-sm">
-            <span class="loss-badge loss-badge--prod-reject" style="font-size:10px;padding:1px 6px">-1.4%</span>&nbsp;
-            <span class="loss-badge loss-badge--start-reject" style="font-size:10px;padding:1px 6px">-0.7%</span>
+          <div class="kpi-card__trend mt-sm" style="font-size:11px">
+            <span class="loss-badge loss-badge--prod-reject" style="font-size:10px;padding:1px 6px">Prod -1.4%</span>&nbsp;
+            <span class="loss-badge loss-badge--start-reject" style="font-size:10px;padding:1px 6px">Start -0.7%</span>
           </div>
           <div class="progress-bar mt-sm"><div class="progress-fill progress-fill--qual" style="width:97.6%"></div></div>
         </div>
 
       </div>
 
-      <!-- SIX BIG LOSSES TABLE + OEE TREND -->
+      <!-- TREND CHART (full width) -->
+      <div class="card mb-lg">
+        <div class="card-header">
+          <div>
+            <div class="card-title">OEE &amp; Component Trend</div>
+            <div class="card-subtitle" id="chart-subtitle">15 May – 21 May 2026 &nbsp;|&nbsp; Aggregate: Daily</div>
+          </div>
+          <div class="flex gap-sm">
+            <button class="btn btn--outline btn--sm">&#8659; Export CSV</button>
+          </div>
+        </div>
+        <div id="trend-chart" style="height:300px;width:100%;padding:0 8px 8px;box-sizing:border-box;"></div>
+      </div>
+
+      <!-- MIDDLE ROW: Six Big Losses Table + Loss Breakdown Chart -->
       <div class="grid-2 mb-lg" style="align-items:start;">
 
-        <!-- Six Big Losses Table — with rowspan matching reference image -->
+        <!-- Six Big Losses Table -->
         <div class="card">
           <div class="card-header">
             <div>
@@ -167,17 +194,16 @@
                   <th>OEE Component</th>
                   <th>Loss Type</th>
                   <th>Minutes</th>
-                  <th>% of Scheduled</th>
+                  <th>% of Sched.</th>
                   <th>OEE Impact</th>
                 </tr>
               </thead>
               <tbody>
 
-                <!-- Availability Loss (rowspan 2) -->
                 <tr>
                   <td rowspan="2" class="loss-group" style="border-left:4px solid var(--color-availability);">
-                    <div style="color:var(--color-availability)">Availability</div>
-                    <div class="text-xs text-muted font-bold" style="margin-top:2px;">Loss</div>
+                    <div style="color:var(--color-availability);font-weight:600">Availability</div>
+                    <div class="text-xs text-muted" style="margin-top:2px;">Loss</div>
                     <div class="text-xs text-muted">Total: 75 min</div>
                     <div class="text-xs text-muted">Impact: -10.4%</div>
                   </td>
@@ -193,11 +219,10 @@
                   <td style="color:var(--color-down)">&#9660; 4.2%</td>
                 </tr>
 
-                <!-- Performance Loss (rowspan 2) -->
                 <tr>
                   <td rowspan="2" class="loss-group" style="border-left:4px solid var(--color-performance);">
-                    <div style="color:var(--color-performance)">Performance</div>
-                    <div class="text-xs text-muted font-bold" style="margin-top:2px;">Loss</div>
+                    <div style="color:var(--color-performance);font-weight:600">Performance</div>
+                    <div class="text-xs text-muted" style="margin-top:2px;">Loss</div>
                     <div class="text-xs text-muted">Total: 35 min</div>
                     <div class="text-xs text-muted">Impact: -4.9%</div>
                   </td>
@@ -213,11 +238,10 @@
                   <td style="color:var(--color-down)">&#9660; 2.1%</td>
                 </tr>
 
-                <!-- Quality Loss (rowspan 2) -->
                 <tr>
                   <td rowspan="2" class="loss-group" style="border-left:4px solid var(--color-quality);">
-                    <div style="color:var(--color-quality)">Quality</div>
-                    <div class="text-xs text-muted font-bold" style="margin-top:2px;">Loss</div>
+                    <div style="color:var(--color-quality);font-weight:600">Quality</div>
+                    <div class="text-xs text-muted" style="margin-top:2px;">Loss</div>
                     <div class="text-xs text-muted">Total: 15 min</div>
                     <div class="text-xs text-muted">Impact: -2.1%</div>
                   </td>
@@ -233,7 +257,6 @@
                   <td style="color:var(--color-down)">&#9660; 0.7%</td>
                 </tr>
 
-                <!-- OEE Row -->
                 <tr style="background:#F0FFF1;">
                   <td colspan="2" class="loss-group" style="border-left:4px solid var(--color-oee-green);">
                     <span class="loss-badge loss-badge--oee">Fully Productive Time</span>
@@ -246,99 +269,47 @@
               </tbody>
             </table>
           </div>
-
           <div class="mt-md text-xs text-muted">
-            Scheduled Time: 720 min (8h shift) &nbsp;|&nbsp; Total Losses: 125 min &nbsp;|&nbsp; Productive: 590 min
+            Scheduled Time: 720 min (8h) &nbsp;|&nbsp; Total Losses: 125 min &nbsp;|&nbsp; Productive: 590 min
           </div>
         </div>
 
-        <!-- OEE Trend Chart -->
+        <!-- Loss Breakdown Horizontal Bar Chart -->
         <div class="card">
           <div class="card-header">
             <div>
-              <div class="card-title">OEE Trend — 7 Days</div>
-              <div class="card-subtitle">Tren OEE — 7 hari terakhir &nbsp;|&nbsp; Target: 85%</div>
+              <div class="card-title">Loss by Category</div>
+              <div class="card-subtitle">Minutes lost per loss type — period total</div>
             </div>
           </div>
-          <div class="ascii-bar-chart">
-            <div class="bar-row">
-              <div class="bar-label">Mon 15</div>
-              <div class="bar-track"><div class="bar-fill bar-fill--warning" style="width:76%">76%</div></div>
-              <div class="bar-value">76%</div>
-            </div>
-            <div class="bar-row">
-              <div class="bar-label">Tue 16</div>
-              <div class="bar-track"><div class="bar-fill bar-fill--warning" style="width:79%">79%</div></div>
-              <div class="bar-value">79%</div>
-            </div>
-            <div class="bar-row">
-              <div class="bar-label">Wed 17</div>
-              <div class="bar-track"><div class="bar-fill bar-fill--good" style="width:86%">86%</div></div>
-              <div class="bar-value">86%</div>
-            </div>
-            <div class="bar-row">
-              <div class="bar-label">Thu 18</div>
-              <div class="bar-track"><div class="bar-fill bar-fill--good" style="width:88%">88%</div></div>
-              <div class="bar-value">88%</div>
-            </div>
-            <div class="bar-row">
-              <div class="bar-label">Fri 19</div>
-              <div class="bar-track"><div class="bar-fill bar-fill--danger" style="width:64%">64%</div></div>
-              <div class="bar-value">64%</div>
-            </div>
-            <div class="bar-row">
-              <div class="bar-label">Sat 20</div>
-              <div class="bar-track"><div class="bar-fill bar-fill--warning" style="width:81%">81%</div></div>
-              <div class="bar-value">81%</div>
-            </div>
-            <div class="bar-row">
-              <div class="bar-label">Sun 21</div>
-              <div class="bar-track"><div class="bar-fill bar-fill--warning" style="width:82.5%">82.5%</div></div>
-              <div class="bar-value">82.5%</div>
-            </div>
-          </div>
+          <div id="loss-bar-chart" style="height:320px;width:100%;padding:0 8px 8px;box-sizing:border-box;"></div>
+        </div>
 
-          <hr class="section-divider">
+      </div>
 
-          <div class="card-title text-sm mb-sm">Loss Breakdown by Category</div>
-          <div class="ascii-bar-chart">
-            <div class="bar-row">
-              <div class="bar-label" style="width:100px;font-size:10px">Unplanned</div>
-              <div class="bar-track"><div class="bar-fill" style="width:63%;background:var(--color-unplanned-stops)">45 min</div></div>
-              <div class="bar-value">6.3%</div>
-            </div>
-            <div class="bar-row">
-              <div class="bar-label" style="width:100px;font-size:10px">Planned</div>
-              <div class="bar-track"><div class="bar-fill" style="width:42%;background:var(--color-planned-stops)">30 min</div></div>
-              <div class="bar-value">4.2%</div>
-            </div>
-            <div class="bar-row">
-              <div class="bar-label" style="width:100px;font-size:10px">Small Stops</div>
-              <div class="bar-track"><div class="bar-fill" style="width:28%;background:var(--color-small-stops)">20 min</div></div>
-              <div class="bar-value">2.8%</div>
-            </div>
-            <div class="bar-row">
-              <div class="bar-label" style="width:100px;font-size:10px">Slow Cycles</div>
-              <div class="bar-track"><div class="bar-fill" style="width:21%;background:var(--color-slow-cycles)">15 min</div></div>
-              <div class="bar-value">2.1%</div>
-            </div>
-            <div class="bar-row">
-              <div class="bar-label" style="width:100px;font-size:10px">Prod. Reject</div>
-              <div class="bar-track"><div class="bar-fill" style="width:14%;background:var(--color-production-rejects)">10 min</div></div>
-              <div class="bar-value">1.4%</div>
-            </div>
-            <div class="bar-row">
-              <div class="bar-label" style="width:100px;font-size:10px">Start Reject</div>
-              <div class="bar-track"><div class="bar-fill" style="width:7%;background:var(--color-startup-rejects)">5 min</div></div>
-              <div class="bar-value">0.7%</div>
+      <!-- BOTTOM ROW: Machine OEE Comparison + Downtime Pareto -->
+      <div class="grid-2 mb-lg">
+
+        <!-- Machine OEE Comparison -->
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Machine OEE Comparison</div>
+              <div class="card-subtitle">OEE, Availability, Performance, Quality — period avg</div>
             </div>
           </div>
+          <div id="machine-chart" style="height:300px;width:100%;padding:0 8px 8px;box-sizing:border-box;"></div>
+        </div>
 
-          <div class="mt-sm flex gap-md" style="flex-wrap:wrap;">
-            <div class="flex-center gap-sm text-xs text-muted"><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:var(--color-oee-green)"></span> &ge;85%</div>
-            <div class="flex-center gap-sm text-xs text-muted"><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:var(--color-idle)"></span> 70–84%</div>
-            <div class="flex-center gap-sm text-xs text-muted"><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:var(--color-down)"></span> &lt;70%</div>
+        <!-- Downtime Pareto Chart -->
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Top Downtime Reasons — Pareto</div>
+              <div class="card-subtitle">Sorted by duration, cumulative % overlay</div>
+            </div>
           </div>
+          <div id="pareto-chart" style="height:300px;width:100%;padding:0 8px 8px;box-sizing:border-box;"></div>
         </div>
 
       </div>
@@ -348,7 +319,7 @@
         <div class="card-header">
           <div>
             <div class="card-title">Shift-by-Shift Detail</div>
-            <div class="card-subtitle">Per-shift OEE breakdown — current 7-day period</div>
+            <div class="card-subtitle">Per-shift OEE breakdown — selected period</div>
           </div>
           <button class="btn btn--outline btn--sm">&#8659; Export CSV</button>
         </div>
@@ -469,5 +440,420 @@
     </main>
   </div>
 </div>
+
+<script>
+// ── Trend Chart Data ─────────────────────────────────────────────────────────
+var chartData = {
+  hourly: {
+    labels: ['06:00','07:00','08:00','09:00','10:00','11:00','12:00','13:00'],
+    oee:     [88,   87,   80,   75,   82,   85,   83,   82.5],
+    avail:   [92,   91,   85,   81,   88,   90,   89,   89.6],
+    perf:    [96,   95,   94,   93,   93,   94,   93,   94.2],
+    quality: [100,  100,  100,   99,   99,  100,  100,   97.8]
+  },
+  daily: {
+    labels: ['May 08','May 09','May 10','May 11','May 12','May 13','May 14',
+             'May 15','May 16','May 17','May 18','May 19','May 20','May 21'],
+    oee:     [74,  78,  82,  80,  76,  85,  87,  76,  79,  86,  88,  64,  81,  82.5],
+    avail:   [82,  85,  88,  87,  84,  90,  92,  84,  86,  91,  93,  72,  87,  89.6],
+    perf:    [90,  92,  93,  92,  90,  94,  95,  91,  92,  95,  95,  89,  93,  94.2],
+    quality: [99,  99,  99, 100, 100, 100, 100,  99,  99, 100, 100, 100,  99,  97.8]
+  },
+  weekly: {
+    labels: ['W15','W16','W17','W18','W19','W20','W21','W22'],
+    oee:     [79,  82,  80,  83,  85,  78,  83,  82.5],
+    avail:   [86,  88,  87,  89,  91,  85,  89,  89.6],
+    perf:    [92,  93,  92,  94,  94,  92,  93,  94.2],
+    quality: [100,  99, 100,  99, 100, 100, 100,  97.8]
+  },
+  monthly: {
+    labels: ['Dec 25','Jan 26','Feb 26','Mar 26','Apr 26','May 26'],
+    oee:     [78,  80,  82,  83,  81,  82.5],
+    avail:   [85,  87,  88,  89,  88,  89.6],
+    perf:    [92,  92,  94,  94,  92,  94.2],
+    quality: [100, 100, 100,  99, 100,  97.8]
+  }
+};
+
+// ── Trend Chart ──────────────────────────────────────────────────────────────
+var trendChart = echarts.init(document.getElementById('trend-chart'));
+
+function buildTrendOption(agg) {
+  var d = chartData[agg];
+  return {
+    tooltip: {
+      trigger: 'axis',
+      backgroundColor: '#1E2A38',
+      borderColor: '#334155',
+      borderWidth: 1,
+      padding: [8, 12],
+      textStyle: { color: '#E2E8F0', fontSize: 12 },
+      formatter: function(params) {
+        var s = '<div style="font-weight:600;margin-bottom:6px;color:#CBD5E1">' + params[0].axisValue + '</div>';
+        params.forEach(function(p) {
+          s += '<div style="display:flex;justify-content:space-between;gap:20px;line-height:1.8">'
+            + '<span>' + p.marker + ' ' + p.seriesName + '</span>'
+            + '<span style="font-weight:700">' + p.value + '%</span></div>';
+        });
+        return s;
+      }
+    },
+    legend: {
+      data: ['OEE', 'Availability', 'Performance', 'Quality'],
+      bottom: 0,
+      icon: 'roundRect',
+      itemWidth: 14,
+      itemHeight: 8,
+      textStyle: { color: '#64748B', fontSize: 11 },
+      itemGap: 20
+    },
+    grid: { left: 48, right: 24, top: 16, bottom: 40 },
+    xAxis: {
+      type: 'category',
+      data: d.labels,
+      boundaryGap: false,
+      axisLine: { lineStyle: { color: '#E2E8F0' } },
+      axisTick: { show: false },
+      axisLabel: { color: '#94A3B8', fontSize: 11, margin: 8 }
+    },
+    yAxis: {
+      type: 'value',
+      min: 55,
+      max: 100,
+      interval: 5,
+      axisLabel: { formatter: '{value}%', color: '#94A3B8', fontSize: 11 },
+      splitLine: { lineStyle: { color: '#F1F5F9', type: 'dashed' } },
+      axisLine: { show: false },
+      axisTick: { show: false }
+    },
+    series: [
+      {
+        name: 'OEE',
+        type: 'line',
+        data: d.oee,
+        smooth: 0.3,
+        symbol: 'circle', symbolSize: 5,
+        lineStyle: { color: '#5BB85D', width: 2.5 },
+        itemStyle: { color: '#5BB85D', borderWidth: 2, borderColor: '#fff' },
+        areaStyle: {
+          color: {
+            type: 'linear', x: 0, y: 0, x2: 0, y2: 1,
+            colorStops: [
+              { offset: 0, color: 'rgba(91,184,93,0.18)' },
+              { offset: 1, color: 'rgba(91,184,93,0.0)' }
+            ]
+          }
+        },
+        markLine: {
+          silent: true,
+          symbol: ['none','none'],
+          lineStyle: { color: '#5BB85D', type: 'dashed', width: 1.5, opacity: 0.55 },
+          data: [{ yAxis: 85 }],
+          label: {
+            formatter: 'Target 85%',
+            position: 'insideEndTop',
+            color: '#5BB85D',
+            fontSize: 10,
+            backgroundColor: 'rgba(255,255,255,0.85)',
+            padding: [2, 5]
+          }
+        }
+      },
+      {
+        name: 'Availability',
+        type: 'line',
+        data: d.avail,
+        smooth: 0.3,
+        symbol: 'circle', symbolSize: 5,
+        lineStyle: { color: '#E8452B', width: 2 },
+        itemStyle: { color: '#E8452B', borderWidth: 2, borderColor: '#fff' }
+      },
+      {
+        name: 'Performance',
+        type: 'line',
+        data: d.perf,
+        smooth: 0.3,
+        symbol: 'circle', symbolSize: 5,
+        lineStyle: { color: '#4DA6E8', width: 2 },
+        itemStyle: { color: '#4DA6E8', borderWidth: 2, borderColor: '#fff' }
+      },
+      {
+        name: 'Quality',
+        type: 'line',
+        data: d.quality,
+        smooth: 0.3,
+        symbol: 'circle', symbolSize: 5,
+        lineStyle: { color: '#8B5BB4', width: 2 },
+        itemStyle: { color: '#8B5BB4', borderWidth: 2, borderColor: '#fff' }
+      }
+    ]
+  };
+}
+
+trendChart.setOption(buildTrendOption('daily'));
+
+// ── Loss Breakdown Horizontal Bar Chart ──────────────────────────────────────
+var lossBarChart = echarts.init(document.getElementById('loss-bar-chart'));
+lossBarChart.setOption({
+  tooltip: {
+    trigger: 'axis',
+    axisPointer: { type: 'shadow' },
+    backgroundColor: '#1E2A38',
+    borderColor: '#334155',
+    borderWidth: 1,
+    padding: [8, 12],
+    textStyle: { color: '#E2E8F0', fontSize: 12 },
+    formatter: function(params) {
+      var p = params[0];
+      return '<div style="font-weight:600;margin-bottom:4px;color:#CBD5E1">' + p.name + '</div>'
+        + p.marker + ' ' + p.seriesName
+        + ': <b>' + p.value + ' min</b> ('
+        + ((p.value / 125 * 100).toFixed(1)) + '% of total loss)';
+    }
+  },
+  grid: { left: 100, right: 60, top: 16, bottom: 24 },
+  xAxis: {
+    type: 'value',
+    axisLabel: { formatter: '{value} min', color: '#94A3B8', fontSize: 10 },
+    splitLine: { lineStyle: { color: '#F1F5F9', type: 'dashed' } },
+    axisLine: { show: false }, axisTick: { show: false }
+  },
+  yAxis: {
+    type: 'category',
+    data: ['Startup Rejects','Prod. Rejects','Slow Cycles','Small Stops','Planned Stops','Unplanned Stops'],
+    axisLabel: { color: '#475569', fontSize: 11 },
+    axisLine: { show: false }, axisTick: { show: false }
+  },
+  series: [{
+    name: 'Loss',
+    type: 'bar',
+    barMaxWidth: 28,
+    data: [
+      { value: 5,  itemStyle: { color: '#B08FCC', borderRadius: [0,4,4,0] } },
+      { value: 10, itemStyle: { color: '#8B5BB4', borderRadius: [0,4,4,0] } },
+      { value: 15, itemStyle: { color: '#6EA8C8', borderRadius: [0,4,4,0] } },
+      { value: 20, itemStyle: { color: '#4DA6E8', borderRadius: [0,4,4,0] } },
+      { value: 30, itemStyle: { color: '#F4821E', borderRadius: [0,4,4,0] } },
+      { value: 45, itemStyle: { color: '#E8452B', borderRadius: [0,4,4,0] } }
+    ],
+    label: {
+      show: true,
+      position: 'right',
+      color: '#64748B',
+      fontSize: 11,
+      formatter: function(p) { return p.value + ' min'; }
+    }
+  }]
+});
+
+// ── Machine OEE Comparison (Grouped Bar) ────────────────────────────────────
+var machineChart = echarts.init(document.getElementById('machine-chart'));
+machineChart.setOption({
+  tooltip: {
+    trigger: 'axis',
+    axisPointer: { type: 'shadow' },
+    backgroundColor: '#1E2A38',
+    borderColor: '#334155',
+    borderWidth: 1,
+    padding: [8, 12],
+    textStyle: { color: '#E2E8F0', fontSize: 12 },
+    formatter: function(params) {
+      var s = '<div style="font-weight:600;margin-bottom:6px;color:#CBD5E1">' + params[0].axisValue + '</div>';
+      params.forEach(function(p) {
+        s += '<div style="display:flex;justify-content:space-between;gap:16px;line-height:1.8">'
+          + '<span>' + p.marker + ' ' + p.seriesName + '</span>'
+          + '<span style="font-weight:700">' + p.value + '%</span></div>';
+      });
+      return s;
+    }
+  },
+  legend: {
+    data: ['OEE','Availability','Performance','Quality'],
+    bottom: 0,
+    icon: 'roundRect',
+    itemWidth: 12, itemHeight: 7,
+    textStyle: { color: '#64748B', fontSize: 10 },
+    itemGap: 14
+  },
+  grid: { left: 56, right: 16, top: 16, bottom: 40 },
+  xAxis: {
+    type: 'category',
+    data: ['M-01\nL1','M-02\nL1','M-03\nL1','M-04\nL2','M-05\nL2','M-06\nL2'],
+    axisLabel: { color: '#94A3B8', fontSize: 10 },
+    axisLine: { lineStyle: { color: '#E2E8F0' } },
+    axisTick: { show: false }
+  },
+  yAxis: {
+    type: 'value',
+    min: 60, max: 100,
+    interval: 5,
+    axisLabel: { formatter: '{value}%', color: '#94A3B8', fontSize: 10 },
+    splitLine: { lineStyle: { color: '#F1F5F9', type: 'dashed' } },
+    axisLine: { show: false }, axisTick: { show: false }
+  },
+  series: [
+    {
+      name: 'OEE',
+      type: 'bar',
+      barGap: '8%',
+      barCategoryGap: '30%',
+      data: [
+        { value: 88, itemStyle: { color: '#5BB85D' } },
+        { value: 65, itemStyle: { color: '#E8452B' } },
+        { value: 75, itemStyle: { color: '#F4C542' } },
+        { value: 79, itemStyle: { color: '#F4C542' } },
+        { value: 91, itemStyle: { color: '#5BB85D' } },
+        { value: 72, itemStyle: { color: '#F4C542' } }
+      ],
+      markLine: {
+        silent: true,
+        symbol: ['none','none'],
+        lineStyle: { color: '#5BB85D', type: 'dashed', width: 1.5, opacity: 0.6 },
+        data: [{ yAxis: 85 }],
+        label: { formatter: '85%', position: 'insideEndTop', color: '#5BB85D', fontSize: 10 }
+      }
+    },
+    {
+      name: 'Availability',
+      type: 'bar',
+      data: [92, 73, 83, 86, 95, 79],
+      itemStyle: { color: 'rgba(232,69,43,0.45)' }
+    },
+    {
+      name: 'Performance',
+      type: 'bar',
+      data: [96, 90, 91, 93, 96, 92],
+      itemStyle: { color: 'rgba(77,166,232,0.55)' }
+    },
+    {
+      name: 'Quality',
+      type: 'bar',
+      data: [100, 99, 100, 99, 100, 100],
+      itemStyle: { color: 'rgba(139,91,180,0.45)' }
+    }
+  ]
+});
+
+// ── Downtime Pareto Chart ────────────────────────────────────────────────────
+var paretoReasons = ['Mechanical\nFailure','Planned\nChangeover','Low Material\n(Slow Cycle)','Changeover\nL2','Quality\nHold','Startup\nReject','Sensor\nFault','Other'];
+var paretoMins    = [45, 30, 18, 11, 10, 5, 4, 2];
+var paretoTotal   = paretoMins.reduce(function(a,b){return a+b;}, 0);
+var paretoCumul   = [];
+var running = 0;
+paretoMins.forEach(function(v) {
+  running += v;
+  paretoCumul.push(+(running / paretoTotal * 100).toFixed(1));
+});
+var paretoColors  = ['#E8452B','#F4821E','#6EA8C8','#F4821E','#8B5BB4','#B08FCC','#4DA6E8','#94A3B8'];
+
+var paretoChart = echarts.init(document.getElementById('pareto-chart'));
+paretoChart.setOption({
+  tooltip: {
+    trigger: 'axis',
+    backgroundColor: '#1E2A38',
+    borderColor: '#334155',
+    borderWidth: 1,
+    padding: [8, 12],
+    textStyle: { color: '#E2E8F0', fontSize: 12 },
+    formatter: function(params) {
+      var s = '<div style="font-weight:600;margin-bottom:4px;color:#CBD5E1">' + params[0].axisValue.replace('\n',' ') + '</div>';
+      params.forEach(function(p) {
+        var unit = p.seriesName === 'Cumulative %' ? '%' : ' min';
+        s += p.marker + ' ' + p.seriesName + ': <b>' + p.value + unit + '</b><br/>';
+      });
+      return s;
+    }
+  },
+  legend: {
+    data: ['Duration (min)', 'Cumulative %'],
+    bottom: 0,
+    icon: 'roundRect',
+    itemWidth: 12, itemHeight: 7,
+    textStyle: { color: '#64748B', fontSize: 10 },
+    itemGap: 16
+  },
+  grid: { left: 48, right: 52, top: 16, bottom: 44 },
+  xAxis: {
+    type: 'category',
+    data: paretoReasons,
+    axisLabel: { color: '#94A3B8', fontSize: 9, lineHeight: 14 },
+    axisLine: { lineStyle: { color: '#E2E8F0' } },
+    axisTick: { show: false }
+  },
+  yAxis: [
+    {
+      type: 'value',
+      name: 'min',
+      nameTextStyle: { color: '#94A3B8', fontSize: 9 },
+      axisLabel: { color: '#94A3B8', fontSize: 10 },
+      splitLine: { lineStyle: { color: '#F1F5F9', type: 'dashed' } },
+      axisLine: { show: false }, axisTick: { show: false }
+    },
+    {
+      type: 'value',
+      name: '%',
+      nameTextStyle: { color: '#94A3B8', fontSize: 9 },
+      min: 0, max: 100,
+      axisLabel: { formatter: '{value}%', color: '#94A3B8', fontSize: 10 },
+      axisLine: { show: false }, axisTick: { show: false },
+      splitLine: { show: false }
+    }
+  ],
+  series: [
+    {
+      name: 'Duration (min)',
+      type: 'bar',
+      barMaxWidth: 32,
+      data: paretoMins.map(function(v, i) {
+        return { value: v, itemStyle: { color: paretoColors[i], borderRadius: [3,3,0,0] } };
+      }),
+      label: {
+        show: true,
+        position: 'top',
+        color: '#64748B',
+        fontSize: 9,
+        formatter: '{c}'
+      }
+    },
+    {
+      name: 'Cumulative %',
+      type: 'line',
+      yAxisIndex: 1,
+      data: paretoCumul,
+      smooth: false,
+      symbol: 'circle', symbolSize: 5,
+      lineStyle: { color: '#1E2A38', width: 2 },
+      itemStyle: { color: '#1E2A38', borderWidth: 2, borderColor: '#fff' },
+      markLine: {
+        silent: true,
+        symbol: ['none','none'],
+        lineStyle: { color: '#64748B', type: 'dashed', width: 1, opacity: 0.5 },
+        data: [{ yAxis: 80, yAxisIndex: 1 }],
+        label: { formatter: '80%', position: 'insideEndTop', color: '#64748B', fontSize: 9 }
+      }
+    }
+  ]
+});
+
+// ── Apply Filter ─────────────────────────────────────────────────────────────
+document.getElementById('apply-btn').addEventListener('click', function() {
+  var agg = document.getElementById('aggregate-select').value;
+  trendChart.setOption(buildTrendOption(agg), true);
+
+  var aggLabels = { hourly: 'Hourly', daily: 'Daily', weekly: 'Weekly', monthly: 'Monthly' };
+  var dateFrom = document.getElementById('date-from').value;
+  var dateTo   = document.getElementById('date-to').value;
+  document.getElementById('chart-subtitle').textContent =
+    dateFrom + ' – ' + dateTo + '  |  Aggregate: ' + aggLabels[agg];
+});
+
+// ── Responsive ───────────────────────────────────────────────────────────────
+window.addEventListener('resize', function() {
+  trendChart.resize();
+  lossBarChart.resize();
+  machineChart.resize();
+  paretoChart.resize();
+});
+</script>
 </body>
 </html>

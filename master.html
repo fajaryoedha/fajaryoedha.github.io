@@ -29,10 +29,13 @@
       <ul class="sidebar-nav">
         <li><a href="report.html"><span class="sidebar-nav-icon">&#9781;</span> OEE Reports</a></li>
         <li><a href="schedule.html"><span class="sidebar-nav-icon">&#9654;</span> Prod. Schedule</a></li>
+        <li><a href="operator_schedule.html"><span class="sidebar-nav-icon">&#9660;</span> Operator Schedule</a></li>
       </ul>
       <div class="sidebar-section-label">Configuration</div>
       <ul class="sidebar-nav">
         <li><a href="master.html" class="active"><span class="sidebar-nav-icon">&#9881;</span> Master Data</a></li>
+        <li><a href="roles.html"><span class="sidebar-nav-icon">&#9670;</span> Role Management</a></li>
+        <li><a href="users.html"><span class="sidebar-nav-icon">&#9671;</span> User Management</a></li>
       </ul>
     </nav>
     <div class="sidebar-footer">
@@ -67,6 +70,7 @@
       -->
       <div id="products"></div>
       <div id="recipes"></div>
+      <div id="lines"></div>
       <div id="machines"></div>
       <div id="operators"></div>
       <div id="reasons"></div>
@@ -75,7 +79,8 @@
       <nav class="tab-nav" aria-label="Master Data Tabs">
         <a href="#products"  class="tab-nav__item tab-nav__item--default">Products</a>
         <a href="#recipes"   class="tab-nav__item">Recipes</a>
-        <a href="#machines"  class="tab-nav__item">Machines &amp; Lines</a>
+        <a href="#lines"     class="tab-nav__item">Lines</a>
+        <a href="#machines"  class="tab-nav__item">Machines</a>
         <a href="#operators" class="tab-nav__item">Operators</a>
         <a href="#reasons"   class="tab-nav__item">Downtime Reasons</a>
       </nav>
@@ -255,13 +260,80 @@
           </div>
         </div>
 
-        <!-- TAB 3: Machines & Lines -->
+        <!-- TAB 3: Lines -->
+        <div id="panel-lines" class="tab-panel">
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <div class="card-title">Lines</div>
+                <div class="card-subtitle">Daftar Lini Produksi — production line master</div>
+              </div>
+              <button class="btn btn--primary btn--sm">+ Add Line</button>
+            </div>
+            <div class="table-wrapper">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Line ID</th>
+                    <th>Line Name</th>
+                    <th>Area / Plant</th>
+                    <th>Description / Deskripsi</th>
+                    <th>No. of Machines</th>
+                    <th>Shift Coverage</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="font-600">L-01</td>
+                    <td>Line 1</td>
+                    <td>Plant A</td>
+                    <td>Filling &amp; Packaging line for PRD-A, PRD-B</td>
+                    <td>3</td>
+                    <td>Morning / Afternoon</td>
+                    <td><span class="badge badge--running">Active</span></td>
+                    <td class="flex gap-sm">
+                      <button class="btn btn--outline btn--sm">&#9998; Edit</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="font-600">L-02</td>
+                    <td>Line 2</td>
+                    <td>Plant A</td>
+                    <td>Mixing, Filling &amp; Packaging line for PRD-C</td>
+                    <td>3</td>
+                    <td>Morning / Afternoon</td>
+                    <td><span class="badge badge--running">Active</span></td>
+                    <td class="flex gap-sm">
+                      <button class="btn btn--outline btn--sm">&#9998; Edit</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="font-600">L-03</td>
+                    <td>Line 3</td>
+                    <td>Plant B</td>
+                    <td>Reserved — under commissioning</td>
+                    <td>0</td>
+                    <td>—</td>
+                    <td><span class="badge badge--idle">Inactive</span></td>
+                    <td class="flex gap-sm">
+                      <button class="btn btn--outline btn--sm">&#9998; Edit</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 4: Machines -->
         <div id="panel-machines" class="tab-panel">
           <div class="card">
             <div class="card-header">
               <div>
-                <div class="card-title">Machines &amp; Lines</div>
-                <div class="card-subtitle">Daftar Mesin &amp; Lini Produksi — machine and line master</div>
+                <div class="card-title">Machines</div>
+                <div class="card-subtitle">Daftar Mesin — machine master</div>
               </div>
               <button class="btn btn--primary btn--sm">+ Add Machine</button>
             </div>

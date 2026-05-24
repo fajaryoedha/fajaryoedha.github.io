@@ -531,6 +531,7 @@ textarea.form-control { resize: vertical; min-height: 80px; }
 .tab-panel { display: none; }
 #products:target  ~ .tab-content #panel-products,
 #recipes:target   ~ .tab-content #panel-recipes,
+#lines:target     ~ .tab-content #panel-lines,
 #machines:target  ~ .tab-content #panel-machines,
 #operators:target ~ .tab-content #panel-operators,
 #reasons:target   ~ .tab-content #panel-reasons { display: block; }
@@ -541,6 +542,7 @@ textarea.form-control { resize: vertical; min-height: 80px; }
 /* Hide default when any target is active */
 #products:target  ~ .tab-content .tab-panel--default,
 #recipes:target   ~ .tab-content .tab-panel--default,
+#lines:target     ~ .tab-content .tab-panel--default,
 #machines:target  ~ .tab-content .tab-panel--default,
 #operators:target ~ .tab-content .tab-panel--default,
 #reasons:target   ~ .tab-content .tab-panel--default { display: none; }
@@ -548,6 +550,7 @@ textarea.form-control { resize: vertical; min-height: 80px; }
 /* Active tab link styling using :target */
 #products:target  ~ .tab-nav a[href="#products"],
 #recipes:target   ~ .tab-nav a[href="#recipes"],
+#lines:target     ~ .tab-nav a[href="#lines"],
 #machines:target  ~ .tab-nav a[href="#machines"],
 #operators:target ~ .tab-nav a[href="#operators"],
 #reasons:target   ~ .tab-nav a[href="#reasons"] {
@@ -561,6 +564,7 @@ textarea.form-control { resize: vertical; min-height: 80px; }
 
 #products:target  ~ .tab-nav .tab-nav__item--default,
 #recipes:target   ~ .tab-nav .tab-nav__item--default,
+#lines:target     ~ .tab-nav .tab-nav__item--default,
 #machines:target  ~ .tab-nav .tab-nav__item--default,
 #operators:target ~ .tab-nav .tab-nav__item--default,
 #reasons:target   ~ .tab-nav .tab-nav__item--default { color: var(--color-text-muted); border-bottom-color: transparent; font-weight: 400; }
@@ -607,3 +611,90 @@ textarea.form-control { resize: vertical; min-height: 80px; }
 /* Active downtime highlight */
 .row-alert { background: #FFF8F8 !important; }
 .row-alert:hover { background: #FFEFEF !important; }
+
+/* ===== PERMISSION MODAL ===== */
+.perm-modal { display: none; }
+.perm-modal:target { display: block; }
+
+.perm-modal__backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.48);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.perm-modal__box {
+  background: var(--color-card-bg);
+  border-radius: 8px;
+  width: 620px;
+  max-width: 100%;
+  max-height: 82vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.22);
+  overflow: hidden;
+}
+
+.perm-modal__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 20px 24px 14px;
+  border-bottom: 1px solid var(--color-border);
+  flex-shrink: 0;
+}
+
+.perm-modal__title { font-size: 15px; font-weight: 700; color: var(--color-text-primary); }
+.perm-modal__subtitle { font-size: var(--font-size-xs); color: var(--color-text-muted); margin-top: 2px; }
+
+.perm-modal__close {
+  font-size: 14px;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  flex-shrink: 0;
+  margin-left: 12px;
+  margin-top: -2px;
+}
+.perm-modal__close:hover { background: var(--color-border); color: var(--color-text-primary); }
+
+.perm-modal__body { flex: 1; overflow-y: auto; }
+
+.perm-modal__box--lg { width: 700px; }
+
+.perm-modal__footer {
+  display: flex;
+  gap: var(--space-sm);
+  padding: 14px 24px 16px;
+  border-top: 1px solid var(--color-border);
+  flex-shrink: 0;
+}
+
+/* ===== PERMISSION MATRIX ===== */
+.perm-group-row { background: #F8F9FA !important; }
+.perm-group-row:hover { background: #F8F9FA !important; }
+.perm-group-header {
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-text-muted);
+  padding: 8px var(--space-md) !important;
+}
+.perm-section-name { padding-left: 28px !important; }
+.perm-check {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  accent-color: var(--color-small-stops);
+}
+.text-center { text-align: center; }

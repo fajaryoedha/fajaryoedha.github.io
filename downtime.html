@@ -29,10 +29,13 @@
       <ul class="sidebar-nav">
         <li><a href="report.html"><span class="sidebar-nav-icon">&#9781;</span> OEE Reports</a></li>
         <li><a href="schedule.html"><span class="sidebar-nav-icon">&#9654;</span> Prod. Schedule</a></li>
+        <li><a href="operator_schedule.html"><span class="sidebar-nav-icon">&#9660;</span> Operator Schedule</a></li>
       </ul>
       <div class="sidebar-section-label">Configuration</div>
       <ul class="sidebar-nav">
         <li><a href="master.html"><span class="sidebar-nav-icon">&#9881;</span> Master Data</a></li>
+        <li><a href="roles.html"><span class="sidebar-nav-icon">&#9670;</span> Role Management</a></li>
+        <li><a href="users.html"><span class="sidebar-nav-icon">&#9671;</span> User Management</a></li>
       </ul>
     </nav>
     <div class="sidebar-footer">
@@ -55,266 +58,138 @@
 
     <main class="page-content">
 
-      <div class="page-header">
-        <h1 class="page-title">Downtime Entry</h1>
-        <p class="page-subtitle">Input Downtime / Laporan Downtime &mdash; Daftar Alasan Downtime</p>
+      <div class="page-header flex-between">
+        <div>
+          <h1 class="page-title">Downtime Entry</h1>
+          <p class="page-subtitle">Input Alasan Downtime — Downtime Reason Entry</p>
+        </div>
+        <span class="badge badge--inprogress" style="font-size:var(--font-size-sm);padding:6px 14px;">3 Pending Reason</span>
       </div>
 
-      <div class="grid-2 mb-lg" style="align-items:start;">
-
-        <!-- ENTRY FORM -->
-        <div class="card">
-          <div class="card-header">
-            <div>
-              <div class="card-title">Input Downtime</div>
-              <div class="card-subtitle">Laporan Downtime &mdash; Manual Input</div>
-            </div>
-            <span class="badge badge--submitted">Form</span>
-          </div>
-
-          <form>
-            <!-- Row 1: Machine, Line, Batch -->
-            <div class="form-row">
-              <div class="form-group">
-                <label class="form-label">Machine / Mesin</label>
-                <select class="form-control">
-                  <option value="">-- Select Machine --</option>
-                  <option>M-01 (Line 1)</option>
-                  <option selected>M-02 (Line 1)</option>
-                  <option>M-03 (Line 1)</option>
-                  <option>M-04 (Line 2)</option>
-                  <option>M-05 (Line 2)</option>
-                  <option>M-06 (Line 2)</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label class="form-label">Line <span class="label-id">(auto-filled)</span></label>
-                <input type="text" class="form-control" value="Line 1" readonly>
-              </div>
-              <div class="form-group">
-                <label class="form-label">Batch</label>
-                <select class="form-control">
-                  <option value="">-- Select Batch --</option>
-                  <option selected>B-2605-002</option>
-                  <option>B-2605-001</option>
-                  <option>B-2605-003</option>
-                </select>
-              </div>
-            </div>
-
-            <hr class="section-divider">
-
-            <!-- Row 2: Date, Time Start, Duration -->
-            <div class="form-row">
-              <div class="form-group">
-                <label class="form-label">Date / Tanggal</label>
-                <input type="date" class="form-control" value="2026-05-21">
-              </div>
-              <div class="form-group">
-                <label class="form-label">Time Start / Jam Mulai</label>
-                <input type="time" class="form-control" value="08:42">
-              </div>
-              <div class="form-group">
-                <label class="form-label">Duration (minutes) / Durasi</label>
-                <input type="number" class="form-control" placeholder="e.g. 30" min="1" value="34">
-              </div>
-            </div>
-
-            <hr class="section-divider">
-
-            <!-- Row 3: Loss Category, Reason Code -->
-            <div class="form-row">
-              <div class="form-group">
-                <label class="form-label">Loss Category / Kategori Kerugian</label>
-                <select class="form-control">
-                  <option value="">-- Select Category --</option>
-                  <optgroup label="Availability Loss">
-                    <option selected style="color:var(--color-unplanned-stops)">Unplanned Stop (Gangguan Tak Terencana)</option>
-                    <option>Planned Stop (Berhenti Terencana)</option>
-                  </optgroup>
-                  <optgroup label="Performance Loss">
-                    <option>Small Stop (Berhenti Singkat)</option>
-                    <option>Slow Cycle (Siklus Lambat)</option>
-                  </optgroup>
-                  <optgroup label="Quality Loss">
-                    <option>Production Reject (Produk Cacat)</option>
-                    <option>Startup Reject (Cacat Awal Produksi)</option>
-                  </optgroup>
-                </select>
-                <div class="form-hint">
-                  <span class="loss-badge loss-badge--unplanned" style="font-size:10px;padding:1px 6px;">Unplanned Stop</span> &nbsp; selected
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="form-label">Reason Code / Kode Alasan</label>
-                <select class="form-control">
-                  <option value="">-- Select Reason --</option>
-                  <optgroup label="Unplanned Stop">
-                    <option selected>U-001 — Mechanical Failure</option>
-                    <option>U-002 — Electrical Failure</option>
-                    <option>U-003 — Instrument Failure</option>
-                    <option>U-004 — Process Failure</option>
-                  </optgroup>
-                  <optgroup label="Planned Stop">
-                    <option>P-001 — Changeover / Setup</option>
-                    <option>P-002 — Preventive Maintenance</option>
-                    <option>P-003 — Scheduled Cleaning</option>
-                  </optgroup>
-                </select>
-              </div>
-            </div>
-
-            <!-- Row 4: Notes -->
-            <div class="form-group">
-              <label class="form-label">Notes / Keterangan</label>
-              <textarea class="form-control" placeholder="Describe the issue in detail / Jelaskan masalah secara rinci...">Bearing on conveyor drive shaft failed. Replacement part ordered.</textarea>
-            </div>
-
-            <!-- Row 5: Operator -->
-            <div class="form-row">
-              <div class="form-group">
-                <label class="form-label">Operator</label>
-                <input type="text" class="form-control" value="John Doe" readonly>
-              </div>
-              <div class="form-group">
-                <label class="form-label">Shift</label>
-                <input type="text" class="form-control" value="Morning" readonly>
-              </div>
-            </div>
-
-            <div class="flex gap-sm mt-md">
-              <button type="submit" class="btn btn--primary btn--lg">Submit Downtime Report</button>
-              <button type="reset" class="btn btn--outline">Reset</button>
-            </div>
-          </form>
+      <!-- FILTER BAR -->
+      <div class="filter-bar">
+        <div class="form-group">
+          <label class="form-label">Date</label>
+          <input type="date" class="form-control" value="2026-05-21">
         </div>
-
-        <!-- REASON REFERENCE -->
-        <div class="card">
-          <div class="card-header">
-            <div>
-              <div class="card-title">Daftar Alasan Downtime</div>
-              <div class="card-subtitle">Downtime Reason Reference — Sumber Data</div>
-            </div>
-            <a href="master.html#reasons" class="btn btn--outline btn--sm">Manage</a>
-          </div>
-          <div class="table-wrapper">
-            <table class="data-table">
-              <thead>
-                <tr>
-                  <th>&#9632;</th>
-                  <th>Code</th>
-                  <th>Category</th>
-                  <th>Reason (EN)</th>
-                  <th>Alasan (ID)</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><span class="color-swatch" style="background:var(--color-unplanned-stops)"></span></td>
-                  <td class="font-600">U-001</td>
-                  <td><span class="loss-badge loss-badge--unplanned" style="font-size:10px">Unplanned</span></td>
-                  <td>Mechanical Failure</td>
-                  <td class="text-muted">Kerusakan Mekanik</td>
-                </tr>
-                <tr>
-                  <td><span class="color-swatch" style="background:var(--color-unplanned-stops)"></span></td>
-                  <td class="font-600">U-002</td>
-                  <td><span class="loss-badge loss-badge--unplanned" style="font-size:10px">Unplanned</span></td>
-                  <td>Electrical Failure</td>
-                  <td class="text-muted">Kerusakan Listrik</td>
-                </tr>
-                <tr>
-                  <td><span class="color-swatch" style="background:var(--color-unplanned-stops)"></span></td>
-                  <td class="font-600">U-003</td>
-                  <td><span class="loss-badge loss-badge--unplanned" style="font-size:10px">Unplanned</span></td>
-                  <td>Instrument Failure</td>
-                  <td class="text-muted">Kerusakan Instrumen</td>
-                </tr>
-                <tr>
-                  <td><span class="color-swatch" style="background:var(--color-unplanned-stops)"></span></td>
-                  <td class="font-600">U-004</td>
-                  <td><span class="loss-badge loss-badge--unplanned" style="font-size:10px">Unplanned</span></td>
-                  <td>Process Failure</td>
-                  <td class="text-muted">Kegagalan Proses</td>
-                </tr>
-                <tr>
-                  <td><span class="color-swatch" style="background:var(--color-planned-stops)"></span></td>
-                  <td class="font-600">P-001</td>
-                  <td><span class="loss-badge loss-badge--planned" style="font-size:10px">Planned</span></td>
-                  <td>Changeover / Setup</td>
-                  <td class="text-muted">Pergantian Produk / Setup</td>
-                </tr>
-                <tr>
-                  <td><span class="color-swatch" style="background:var(--color-planned-stops)"></span></td>
-                  <td class="font-600">P-002</td>
-                  <td><span class="loss-badge loss-badge--planned" style="font-size:10px">Planned</span></td>
-                  <td>Preventive Maintenance</td>
-                  <td class="text-muted">Perawatan Preventif</td>
-                </tr>
-                <tr>
-                  <td><span class="color-swatch" style="background:var(--color-planned-stops)"></span></td>
-                  <td class="font-600">P-003</td>
-                  <td><span class="loss-badge loss-badge--planned" style="font-size:10px">Planned</span></td>
-                  <td>Scheduled Cleaning</td>
-                  <td class="text-muted">Pembersihan Terjadwal</td>
-                </tr>
-                <tr>
-                  <td><span class="color-swatch" style="background:var(--color-small-stops)"></span></td>
-                  <td class="font-600">S-001</td>
-                  <td><span class="loss-badge loss-badge--small-stops" style="font-size:10px">Small Stop</span></td>
-                  <td>Material Jam</td>
-                  <td class="text-muted">Macet Material</td>
-                </tr>
-                <tr>
-                  <td><span class="color-swatch" style="background:var(--color-slow-cycles)"></span></td>
-                  <td class="font-600">SC-001</td>
-                  <td><span class="loss-badge loss-badge--slow-cycles" style="font-size:10px">Slow Cycle</span></td>
-                  <td>Reduced Speed</td>
-                  <td class="text-muted">Kecepatan Dikurangi</td>
-                </tr>
-                <tr>
-                  <td><span class="color-swatch" style="background:var(--color-production-rejects)"></span></td>
-                  <td class="font-600">Q-001</td>
-                  <td><span class="loss-badge loss-badge--prod-reject" style="font-size:10px">Prod. Reject</span></td>
-                  <td>Out of Spec</td>
-                  <td class="text-muted">Di Luar Spesifikasi</td>
-                </tr>
-                <tr>
-                  <td><span class="color-swatch" style="background:var(--color-startup-rejects)"></span></td>
-                  <td class="font-600">Q-002</td>
-                  <td><span class="loss-badge loss-badge--start-reject" style="font-size:10px">Startup Reject</span></td>
-                  <td>Startup Scrap</td>
-                  <td class="text-muted">Scrap Awal Produksi</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+        <div class="form-group">
+          <label class="form-label">Line</label>
+          <select class="form-control">
+            <option selected>All Lines</option>
+            <option>Line 1</option>
+            <option>Line 2</option>
+          </select>
         </div>
-
+        <div class="form-group">
+          <label class="form-label">Shift</label>
+          <select class="form-control">
+            <option selected>Morning (06:00–14:00)</option>
+            <option>Afternoon (14:00–22:00)</option>
+            <option>Night (22:00–06:00)</option>
+          </select>
+        </div>
+        <div class="form-group" style="display:flex;align-items:flex-end;">
+          <button class="btn btn--primary">Apply</button>
+        </div>
       </div>
 
-      <!-- RECENT ENTRIES -->
+      <!-- TABLE 1: PENDING REASON ENTRY -->
+      <div class="card mb-lg">
+        <div class="card-header">
+          <div>
+            <div class="card-title">Pending Reason Entry</div>
+            <div class="card-subtitle">Downtime terdeteksi dari sinyal mesin — belum diisi alasannya</div>
+          </div>
+          <span class="badge badge--pending" style="font-size:var(--font-size-xs);padding:4px 10px;">3 Belum Diisi</span>
+        </div>
+
+        <!-- System info notice -->
+        <div style="margin:0 0 0 0;padding:10px 20px;background:#F0F6FF;border-bottom:1px solid #C9DFFB;display:flex;align-items:center;gap:10px;">
+          <span style="font-size:16px;color:#4DA6E8;">&#9432;</span>
+          <span style="font-size:var(--font-size-xs);color:#2E5F8A;">
+            Data downtime di bawah ini terdeteksi <strong>otomatis dari sinyal mesin</strong>. Operator hanya perlu mengisi alasan (kategori &amp; kode alasan) untuk setiap downtime.
+          </span>
+        </div>
+
+        <div class="table-wrapper">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>DT ID</th>
+                <th>Machine</th>
+                <th>Line</th>
+                <th>Batch</th>
+                <th>Start Time</th>
+                <th>Duration</th>
+                <th>Source</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="row-alert">
+                <td class="font-600">DT-2026</td>
+                <td>M-02</td>
+                <td>Line 1</td>
+                <td>B-2605-002</td>
+                <td>10:15</td>
+                <td style="color:var(--color-down);font-weight:600;">34 min &#9679;</td>
+                <td><span class="badge" style="background:#EEF4FF;color:#4DA6E8;border:1px solid #C9DFFB;font-size:10px;">Auto / Sinyal</span></td>
+                <td>
+                  <a href="#dt-reason-2026" class="btn btn--primary btn--sm">&#9998; Enter Reason</a>
+                </td>
+              </tr>
+              <tr>
+                <td class="font-600">DT-2025</td>
+                <td>M-04</td>
+                <td>Line 2</td>
+                <td>B-2605-004</td>
+                <td>09:52</td>
+                <td>8 min</td>
+                <td><span class="badge" style="background:#EEF4FF;color:#4DA6E8;border:1px solid #C9DFFB;font-size:10px;">Auto / Sinyal</span></td>
+                <td>
+                  <a href="#dt-reason-2025" class="btn btn--primary btn--sm">&#9998; Enter Reason</a>
+                </td>
+              </tr>
+              <tr class="row-alert">
+                <td class="font-600">DT-2024</td>
+                <td>M-01</td>
+                <td>Line 1</td>
+                <td>B-2605-001</td>
+                <td>09:30</td>
+                <td style="color:var(--color-down);font-weight:600;">45 min &#9679;</td>
+                <td><span class="badge" style="background:#EEF4FF;color:#4DA6E8;border:1px solid #C9DFFB;font-size:10px;">Auto / Sinyal</span></td>
+                <td>
+                  <a href="#dt-reason-2024" class="btn btn--primary btn--sm">&#9998; Enter Reason</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- TABLE 2: COMPLETED ENTRIES -->
       <div class="card">
         <div class="card-header">
           <div>
-            <div class="card-title">Recent Downtime Entries</div>
-            <div class="card-subtitle">Riwayat Laporan Downtime — current shift</div>
+            <div class="card-title">Completed Downtime Entries</div>
+            <div class="card-subtitle">Riwayat Laporan Downtime — sudah diisi alasannya</div>
           </div>
           <div class="flex gap-sm">
-            <select class="form-control" style="min-width:120px;font-size:var(--font-size-xs);">
+            <select class="form-control" style="min-width:130px;font-size:var(--font-size-xs);">
               <option>All Status</option>
               <option>Submitted</option>
               <option>Verified</option>
             </select>
+            <a href="master.html#reasons" class="btn btn--outline btn--sm">Reason Codes</a>
           </div>
         </div>
         <div class="table-wrapper">
           <table class="data-table">
             <thead>
               <tr>
-                <th>ID</th>
+                <th>DT ID</th>
                 <th>Machine</th>
+                <th>Line</th>
                 <th>Batch</th>
                 <th>Loss Category</th>
                 <th>Code</th>
@@ -327,22 +202,10 @@
               </tr>
             </thead>
             <tbody>
-              <tr class="row-alert">
-                <td class="font-600">DT-2024</td>
-                <td>M-02</td>
-                <td>B-2605-002</td>
-                <td><span class="loss-badge loss-badge--unplanned">Unplanned Stop</span></td>
-                <td>U-001</td>
-                <td>Mechanical Failure</td>
-                <td>08:42</td>
-                <td style="color:var(--color-down);font-weight:600">34 min &#9679;</td>
-                <td>John Doe</td>
-                <td><span class="badge badge--submitted">Submitted</span></td>
-                <td><button class="btn btn--outline btn--sm">&#9998; Edit</button></td>
-              </tr>
               <tr>
                 <td class="font-600">DT-2023</td>
                 <td>M-06</td>
+                <td>Line 2</td>
                 <td>B-2605-006</td>
                 <td><span class="loss-badge loss-badge--planned">Planned Stop</span></td>
                 <td>P-001</td>
@@ -351,11 +214,12 @@
                 <td>11 min</td>
                 <td>Jane Smith</td>
                 <td><span class="badge badge--submitted">Submitted</span></td>
-                <td><button class="btn btn--outline btn--sm">&#9998; Edit</button></td>
+                <td><button class="btn btn--outline btn--sm">View</button></td>
               </tr>
               <tr>
                 <td class="font-600">DT-2022</td>
                 <td>M-01</td>
+                <td>Line 1</td>
                 <td>B-2605-001</td>
                 <td><span class="loss-badge loss-badge--small-stops">Small Stop</span></td>
                 <td>S-001</td>
@@ -369,6 +233,7 @@
               <tr>
                 <td class="font-600">DT-2021</td>
                 <td>M-04</td>
+                <td>Line 2</td>
                 <td>B-2605-004</td>
                 <td><span class="loss-badge loss-badge--slow-cycles">Slow Cycle</span></td>
                 <td>SC-001</td>
@@ -382,6 +247,7 @@
               <tr>
                 <td class="font-600">DT-2020</td>
                 <td>M-05</td>
+                <td>Line 2</td>
                 <td>B-2605-005</td>
                 <td><span class="loss-badge loss-badge--prod-reject">Production Reject</span></td>
                 <td>Q-001</td>
@@ -395,6 +261,7 @@
               <tr>
                 <td class="font-600">DT-2019</td>
                 <td>M-03</td>
+                <td>Line 1</td>
                 <td>B-2605-003</td>
                 <td><span class="loss-badge loss-badge--start-reject">Startup Reject</span></td>
                 <td>Q-002</td>
@@ -402,6 +269,20 @@
                 <td>06:05</td>
                 <td>8 min</td>
                 <td>Jane Smith</td>
+                <td><span class="badge badge--verified">Verified</span></td>
+                <td><button class="btn btn--outline btn--sm">View</button></td>
+              </tr>
+              <tr>
+                <td class="font-600">DT-2018</td>
+                <td>M-02</td>
+                <td>Line 1</td>
+                <td>B-2605-002</td>
+                <td><span class="loss-badge loss-badge--unplanned">Unplanned Stop</span></td>
+                <td>U-002</td>
+                <td>Electrical Failure</td>
+                <td>06:20</td>
+                <td>22 min</td>
+                <td>John Doe</td>
                 <td><span class="badge badge--verified">Verified</span></td>
                 <td><button class="btn btn--outline btn--sm">View</button></td>
               </tr>
@@ -413,5 +294,348 @@
     </main>
   </div>
 </div>
+
+<!-- ============================================================
+     REASON ENTRY MODALS (CSS :target)
+     ============================================================ -->
+
+<!-- MODAL: DT-2026 — M-02, Line 1, 10:15, 34 min -->
+<div id="dt-reason-2026" class="perm-modal">
+  <div class="perm-modal__backdrop">
+    <div class="perm-modal__box perm-modal__box--lg">
+      <div class="perm-modal__header">
+        <div>
+          <div class="perm-modal__title">&#9998; Enter Downtime Reason — DT-2026</div>
+          <div class="perm-modal__subtitle">Input alasan downtime yang terdeteksi oleh sistem</div>
+        </div>
+        <a href="downtime.html" class="perm-modal__close">&#10005;</a>
+      </div>
+      <div class="perm-modal__body" style="padding:20px 24px;">
+
+        <!-- System-detected info (read-only) -->
+        <div style="background:#F0F6FF;border:1px solid #C9DFFB;border-radius:6px;padding:14px 16px;margin-bottom:20px;">
+          <div style="font-size:var(--font-size-xs);font-weight:700;color:#2E5F8A;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:10px;">
+            &#9432; Data Otomatis dari Sinyal Mesin
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:12px;">
+            <div>
+              <div style="font-size:10px;color:var(--color-text-muted);margin-bottom:2px;">DT ID</div>
+              <div style="font-weight:600;font-size:var(--font-size-sm);">DT-2026</div>
+            </div>
+            <div>
+              <div style="font-size:10px;color:var(--color-text-muted);margin-bottom:2px;">Machine</div>
+              <div style="font-weight:600;font-size:var(--font-size-sm);">M-02</div>
+            </div>
+            <div>
+              <div style="font-size:10px;color:var(--color-text-muted);margin-bottom:2px;">Line</div>
+              <div style="font-weight:600;font-size:var(--font-size-sm);">Line 1</div>
+            </div>
+            <div>
+              <div style="font-size:10px;color:var(--color-text-muted);margin-bottom:2px;">Batch</div>
+              <div style="font-weight:600;font-size:var(--font-size-sm);">B-2605-002</div>
+            </div>
+            <div>
+              <div style="font-size:10px;color:var(--color-text-muted);margin-bottom:2px;">Start / Duration</div>
+              <div style="font-weight:600;font-size:var(--font-size-sm);color:var(--color-down);">10:15 &nbsp;·&nbsp; 34 min</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Reason fields -->
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Loss Category / Kategori Kerugian</label>
+            <select class="form-control">
+              <option value="">-- Select Category --</option>
+              <optgroup label="Availability Loss">
+                <option>Unplanned Stop (Gangguan Tak Terencana)</option>
+                <option>Planned Stop (Berhenti Terencana)</option>
+              </optgroup>
+              <optgroup label="Performance Loss">
+                <option>Small Stop (Berhenti Singkat)</option>
+                <option>Slow Cycle (Siklus Lambat)</option>
+              </optgroup>
+              <optgroup label="Quality Loss">
+                <option>Production Reject (Produk Cacat)</option>
+                <option>Startup Reject (Cacat Awal Produksi)</option>
+              </optgroup>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Reason Code / Kode Alasan</label>
+            <select class="form-control">
+              <option value="">-- Select Reason --</option>
+              <optgroup label="Unplanned Stop">
+                <option>U-001 — Mechanical Failure</option>
+                <option>U-002 — Electrical Failure</option>
+                <option>U-003 — Instrument Failure</option>
+                <option>U-004 — Process Failure</option>
+              </optgroup>
+              <optgroup label="Planned Stop">
+                <option>P-001 — Changeover / Setup</option>
+                <option>P-002 — Preventive Maintenance</option>
+                <option>P-003 — Scheduled Cleaning</option>
+              </optgroup>
+              <optgroup label="Small Stop">
+                <option>S-001 — Material Jam</option>
+              </optgroup>
+              <optgroup label="Slow Cycle">
+                <option>SC-001 — Reduced Speed</option>
+              </optgroup>
+              <optgroup label="Quality">
+                <option>Q-001 — Out of Spec</option>
+                <option>Q-002 — Startup Scrap</option>
+              </optgroup>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Notes / Keterangan</label>
+          <textarea class="form-control" rows="3" placeholder="Jelaskan penyebab downtime secara rinci..."></textarea>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Operator <span class="label-id">(auto-filled)</span></label>
+            <input type="text" class="form-control" value="John Doe" readonly>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Shift <span class="label-id">(auto-filled)</span></label>
+            <input type="text" class="form-control" value="Morning (06:00–14:00)" readonly>
+          </div>
+        </div>
+
+      </div>
+      <div class="perm-modal__footer">
+        <button class="btn btn--primary">Submit Reason</button>
+        <a href="downtime.html" class="btn btn--outline">Cancel</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: DT-2025 — M-04, Line 2, 09:52, 8 min -->
+<div id="dt-reason-2025" class="perm-modal">
+  <div class="perm-modal__backdrop">
+    <div class="perm-modal__box perm-modal__box--lg">
+      <div class="perm-modal__header">
+        <div>
+          <div class="perm-modal__title">&#9998; Enter Downtime Reason — DT-2025</div>
+          <div class="perm-modal__subtitle">Input alasan downtime yang terdeteksi oleh sistem</div>
+        </div>
+        <a href="downtime.html" class="perm-modal__close">&#10005;</a>
+      </div>
+      <div class="perm-modal__body" style="padding:20px 24px;">
+
+        <div style="background:#F0F6FF;border:1px solid #C9DFFB;border-radius:6px;padding:14px 16px;margin-bottom:20px;">
+          <div style="font-size:var(--font-size-xs);font-weight:700;color:#2E5F8A;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:10px;">
+            &#9432; Data Otomatis dari Sinyal Mesin
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:12px;">
+            <div>
+              <div style="font-size:10px;color:var(--color-text-muted);margin-bottom:2px;">DT ID</div>
+              <div style="font-weight:600;font-size:var(--font-size-sm);">DT-2025</div>
+            </div>
+            <div>
+              <div style="font-size:10px;color:var(--color-text-muted);margin-bottom:2px;">Machine</div>
+              <div style="font-weight:600;font-size:var(--font-size-sm);">M-04</div>
+            </div>
+            <div>
+              <div style="font-size:10px;color:var(--color-text-muted);margin-bottom:2px;">Line</div>
+              <div style="font-weight:600;font-size:var(--font-size-sm);">Line 2</div>
+            </div>
+            <div>
+              <div style="font-size:10px;color:var(--color-text-muted);margin-bottom:2px;">Batch</div>
+              <div style="font-weight:600;font-size:var(--font-size-sm);">B-2605-004</div>
+            </div>
+            <div>
+              <div style="font-size:10px;color:var(--color-text-muted);margin-bottom:2px;">Start / Duration</div>
+              <div style="font-weight:600;font-size:var(--font-size-sm);">09:52 &nbsp;·&nbsp; 8 min</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Loss Category / Kategori Kerugian</label>
+            <select class="form-control">
+              <option value="">-- Select Category --</option>
+              <optgroup label="Availability Loss">
+                <option>Unplanned Stop (Gangguan Tak Terencana)</option>
+                <option>Planned Stop (Berhenti Terencana)</option>
+              </optgroup>
+              <optgroup label="Performance Loss">
+                <option>Small Stop (Berhenti Singkat)</option>
+                <option>Slow Cycle (Siklus Lambat)</option>
+              </optgroup>
+              <optgroup label="Quality Loss">
+                <option>Production Reject (Produk Cacat)</option>
+                <option>Startup Reject (Cacat Awal Produksi)</option>
+              </optgroup>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Reason Code / Kode Alasan</label>
+            <select class="form-control">
+              <option value="">-- Select Reason --</option>
+              <optgroup label="Unplanned Stop">
+                <option>U-001 — Mechanical Failure</option>
+                <option>U-002 — Electrical Failure</option>
+                <option>U-003 — Instrument Failure</option>
+                <option>U-004 — Process Failure</option>
+              </optgroup>
+              <optgroup label="Planned Stop">
+                <option>P-001 — Changeover / Setup</option>
+                <option>P-002 — Preventive Maintenance</option>
+                <option>P-003 — Scheduled Cleaning</option>
+              </optgroup>
+              <optgroup label="Small Stop">
+                <option>S-001 — Material Jam</option>
+              </optgroup>
+              <optgroup label="Slow Cycle">
+                <option>SC-001 — Reduced Speed</option>
+              </optgroup>
+              <optgroup label="Quality">
+                <option>Q-001 — Out of Spec</option>
+                <option>Q-002 — Startup Scrap</option>
+              </optgroup>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Notes / Keterangan</label>
+          <textarea class="form-control" rows="3" placeholder="Jelaskan penyebab downtime secara rinci..."></textarea>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Operator <span class="label-id">(auto-filled)</span></label>
+            <input type="text" class="form-control" value="John Doe" readonly>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Shift <span class="label-id">(auto-filled)</span></label>
+            <input type="text" class="form-control" value="Morning (06:00–14:00)" readonly>
+          </div>
+        </div>
+
+      </div>
+      <div class="perm-modal__footer">
+        <button class="btn btn--primary">Submit Reason</button>
+        <a href="downtime.html" class="btn btn--outline">Cancel</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: DT-2024 — M-01, Line 1, 09:30, 45 min -->
+<div id="dt-reason-2024" class="perm-modal">
+  <div class="perm-modal__backdrop">
+    <div class="perm-modal__box perm-modal__box--lg">
+      <div class="perm-modal__header">
+        <div>
+          <div class="perm-modal__title">&#9998; Enter Downtime Reason — DT-2024</div>
+          <div class="perm-modal__subtitle">Input alasan downtime yang terdeteksi oleh sistem</div>
+        </div>
+        <a href="downtime.html" class="perm-modal__close">&#10005;</a>
+      </div>
+      <div class="perm-modal__body" style="padding:20px 24px;">
+
+        <div style="background:#FFF3F0;border:1px solid #F9CBBD;border-radius:6px;padding:14px 16px;margin-bottom:20px;">
+          <div style="font-size:var(--font-size-xs);font-weight:700;color:#B03A22;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:10px;">
+            &#9888; Data Otomatis dari Sinyal Mesin — Durasi Panjang
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:12px;">
+            <div>
+              <div style="font-size:10px;color:var(--color-text-muted);margin-bottom:2px;">DT ID</div>
+              <div style="font-weight:600;font-size:var(--font-size-sm);">DT-2024</div>
+            </div>
+            <div>
+              <div style="font-size:10px;color:var(--color-text-muted);margin-bottom:2px;">Machine</div>
+              <div style="font-weight:600;font-size:var(--font-size-sm);">M-01</div>
+            </div>
+            <div>
+              <div style="font-size:10px;color:var(--color-text-muted);margin-bottom:2px;">Line</div>
+              <div style="font-weight:600;font-size:var(--font-size-sm);">Line 1</div>
+            </div>
+            <div>
+              <div style="font-size:10px;color:var(--color-text-muted);margin-bottom:2px;">Batch</div>
+              <div style="font-weight:600;font-size:var(--font-size-sm);">B-2605-001</div>
+            </div>
+            <div>
+              <div style="font-size:10px;color:var(--color-text-muted);margin-bottom:2px;">Start / Duration</div>
+              <div style="font-weight:600;font-size:var(--font-size-sm);color:var(--color-down);">09:30 &nbsp;·&nbsp; 45 min &#9679;</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Loss Category / Kategori Kerugian</label>
+            <select class="form-control">
+              <option value="">-- Select Category --</option>
+              <optgroup label="Availability Loss">
+                <option selected>Unplanned Stop (Gangguan Tak Terencana)</option>
+                <option>Planned Stop (Berhenti Terencana)</option>
+              </optgroup>
+              <optgroup label="Performance Loss">
+                <option>Small Stop (Berhenti Singkat)</option>
+                <option>Slow Cycle (Siklus Lambat)</option>
+              </optgroup>
+              <optgroup label="Quality Loss">
+                <option>Production Reject (Produk Cacat)</option>
+                <option>Startup Reject (Cacat Awal Produksi)</option>
+              </optgroup>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Reason Code / Kode Alasan</label>
+            <select class="form-control">
+              <option value="">-- Select Reason --</option>
+              <optgroup label="Unplanned Stop">
+                <option>U-001 — Mechanical Failure</option>
+                <option>U-002 — Electrical Failure</option>
+                <option>U-003 — Instrument Failure</option>
+                <option>U-004 — Process Failure</option>
+              </optgroup>
+              <optgroup label="Planned Stop">
+                <option>P-001 — Changeover / Setup</option>
+                <option>P-002 — Preventive Maintenance</option>
+                <option>P-003 — Scheduled Cleaning</option>
+              </optgroup>
+              <optgroup label="Small Stop">
+                <option>S-001 — Material Jam</option>
+              </optgroup>
+              <optgroup label="Slow Cycle">
+                <option>SC-001 — Reduced Speed</option>
+              </optgroup>
+              <optgroup label="Quality">
+                <option>Q-001 — Out of Spec</option>
+                <option>Q-002 — Startup Scrap</option>
+              </optgroup>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Notes / Keterangan</label>
+          <textarea class="form-control" rows="3" placeholder="Jelaskan penyebab downtime secara rinci..."></textarea>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Operator <span class="label-id">(auto-filled)</span></label>
+            <input type="text" class="form-control" value="John Doe" readonly>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Shift <span class="label-id">(auto-filled)</span></label>
+            <input type="text" class="form-control" value="Morning (06:00–14:00)" readonly>
+          </div>
+        </div>
+
+      </div>
+      <div class="perm-modal__footer">
+        <button class="btn btn--primary">Submit Reason</button>
+        <a href="downtime.html" class="btn btn--outline">Cancel</a>
+      </div>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>

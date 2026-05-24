@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Operator Schedule — OEE System</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <span>Manufacturing</span>
+      OEE System
+    </div>
+    <nav>
+      <div class="sidebar-section-label">Overview</div>
+      <ul class="sidebar-nav">
+        <li><a href="index.html"><span class="sidebar-nav-icon">&#9632;</span> Dashboard</a></li>
+      </ul>
+      <div class="sidebar-section-label">Operations</div>
+      <ul class="sidebar-nav">
+        <li><a href="monitoring.html"><span class="sidebar-nav-icon">&#9675;</span> Line Monitoring</a></li>
+        <li><a href="downtime.html"><span class="sidebar-nav-icon">&#9650;</span> Downtime Entry</a></li>
+      </ul>
+      <div class="sidebar-section-label">Analysis</div>
+      <ul class="sidebar-nav">
+        <li><a href="report.html"><span class="sidebar-nav-icon">&#9781;</span> OEE Reports</a></li>
+        <li><a href="schedule.html"><span class="sidebar-nav-icon">&#9654;</span> Prod. Schedule</a></li>
+        <li><a href="operator_schedule.html" class="active"><span class="sidebar-nav-icon">&#9660;</span> Operator Schedule</a></li>
+      </ul>
+      <div class="sidebar-section-label">Configuration</div>
+      <ul class="sidebar-nav">
+        <li><a href="master.html"><span class="sidebar-nav-icon">&#9881;</span> Master Data</a></li>
+        <li><a href="roles.html"><span class="sidebar-nav-icon">&#9670;</span> Role Management</a></li>
+        <li><a href="users.html"><span class="sidebar-nav-icon">&#9671;</span> User Management</a></li>
+      </ul>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="text-xs text-muted">Operator: John Doe</div>
+      <div class="text-xs text-muted">Shift: Morning (06:00–14:00)</div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="main-wrapper">
+
+    <header class="topbar">
+      <div class="topbar-title">Operator Schedule</div>
+      <div class="topbar-breadcrumb">Home / Analysis / Operator Schedule</div>
+      <div class="topbar-spacer"></div>
+      <div class="topbar-info">
+        <span class="text-sm text-muted">21 May 2026 &nbsp;|&nbsp; Morning Shift</span>
+      </div>
+    </header>
+
+    <main class="page-content">
+
+      <div class="page-header flex-between">
+        <div>
+          <h1 class="page-title">Operator Schedule</h1>
+          <p class="page-subtitle">Penugasan operator per shift dan line — Operator Assignment</p>
+        </div>
+        <a href="#op-add" class="btn btn--primary">+ Add Operator</a>
+      </div>
+
+      <!-- FILTER BAR -->
+      <div class="filter-bar">
+        <div class="form-group">
+          <label class="form-label">Date</label>
+          <input type="date" class="form-control" value="2026-05-21">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Shift</label>
+          <select class="form-control">
+            <option selected>All Shifts</option>
+            <option>Morning (06:00–14:00)</option>
+            <option>Afternoon (14:00–22:00)</option>
+            <option>Night (22:00–06:00)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Line</label>
+          <select class="form-control">
+            <option selected>All Lines</option>
+            <option>Line 1</option>
+            <option>Line 2</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Status</label>
+          <select class="form-control">
+            <option selected>All Status</option>
+            <option>Active</option>
+            <option>Standby</option>
+            <option>Absent</option>
+          </select>
+        </div>
+        <div class="form-group" style="display:flex;align-items:flex-end;">
+          <button class="btn btn--primary">Apply</button>
+        </div>
+      </div>
+
+      <!-- OPERATOR SCHEDULE TABLE -->
+      <div class="card mb-lg">
+        <div class="card-header">
+          <div>
+            <div class="card-title">Operator Assignments</div>
+            <div class="card-subtitle">Penugasan Operator — 21 May 2026</div>
+          </div>
+          <div class="flex gap-sm">
+            <span class="badge badge--inprogress">4 Active</span>
+            <span class="badge badge--pending">2 Standby</span>
+          </div>
+        </div>
+        <div class="table-wrapper">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Sched ID</th>
+                <th>Date</th>
+                <th>Shift</th>
+                <th>Line</th>
+                <th>Operator</th>
+                <th>Employee ID</th>
+                <th>Role / Position</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="font-600">OS-2605-001</td>
+                <td>21 May 2026</td>
+                <td>Morning</td>
+                <td>Line 1</td>
+                <td>John Doe</td>
+                <td class="text-muted">EMP-001</td>
+                <td>Machine Operator</td>
+                <td><span class="badge badge--inprogress">Active</span></td>
+                <td><a href="#op-edit" class="btn btn--outline btn--sm">&#9998; Edit</a></td>
+              </tr>
+              <tr>
+                <td class="font-600">OS-2605-002</td>
+                <td>21 May 2026</td>
+                <td>Morning</td>
+                <td>Line 1</td>
+                <td>Jane Smith</td>
+                <td class="text-muted">EMP-002</td>
+                <td>Line Supervisor</td>
+                <td><span class="badge badge--inprogress">Active</span></td>
+                <td><a href="#op-edit" class="btn btn--outline btn--sm">&#9998; Edit</a></td>
+              </tr>
+              <tr class="row-alert">
+                <td class="font-600">OS-2605-003</td>
+                <td>21 May 2026</td>
+                <td>Morning</td>
+                <td>Line 2</td>
+                <td>Alex Turner</td>
+                <td class="text-muted">EMP-007</td>
+                <td>Machine Operator</td>
+                <td><span class="badge badge--inprogress">Active</span></td>
+                <td><a href="#op-edit" class="btn btn--outline btn--sm">&#9998; Edit</a></td>
+              </tr>
+              <tr>
+                <td class="font-600">OS-2605-004</td>
+                <td>21 May 2026</td>
+                <td>Morning</td>
+                <td>Line 2</td>
+                <td>Sarah Lee</td>
+                <td class="text-muted">EMP-004</td>
+                <td>Machine Operator</td>
+                <td><span class="badge badge--inprogress">Active</span></td>
+                <td><a href="#op-edit" class="btn btn--outline btn--sm">&#9998; Edit</a></td>
+              </tr>
+              <tr>
+                <td class="font-600">OS-2605-005</td>
+                <td>21 May 2026</td>
+                <td>Afternoon</td>
+                <td>Line 1</td>
+                <td>Mike Chen</td>
+                <td class="text-muted">EMP-005</td>
+                <td>Machine Operator</td>
+                <td><span class="badge badge--pending">Standby</span></td>
+                <td><a href="#op-edit" class="btn btn--outline btn--sm">&#9998; Edit</a></td>
+              </tr>
+              <tr>
+                <td class="font-600">OS-2605-006</td>
+                <td>21 May 2026</td>
+                <td>Afternoon</td>
+                <td>Line 2</td>
+                <td>Lisa Wang</td>
+                <td class="text-muted">EMP-006</td>
+                <td>Machine Operator</td>
+                <td><span class="badge badge--pending">Standby</span></td>
+                <td><a href="#op-edit" class="btn btn--outline btn--sm">&#9998; Edit</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- OPERATOR SCHEDULE REVISION HISTORY -->
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title">Operator Schedule Revision History</div>
+            <div class="card-subtitle">Riwayat Revisi Jadwal Operator — Operator Assignment Revision</div>
+          </div>
+        </div>
+        <div class="table-wrapper">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Sched ID</th>
+                <th>Revision #</th>
+                <th>Changed By</th>
+                <th>Changed At</th>
+                <th>Reason / Alasan</th>
+                <th>Field Changed</th>
+                <th>Old Value</th>
+                <th>New Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="font-600">OS-2605-003</td>
+                <td>Rev 1</td>
+                <td>Supervisor A</td>
+                <td>20 May 15:00</td>
+                <td>Sick leave — Bob Johnson</td>
+                <td>Operator</td>
+                <td class="text-muted">Bob Johnson (EMP-003)</td>
+                <td>Alex Turner (EMP-007)</td>
+              </tr>
+              <tr>
+                <td class="font-600">OS-2605-001</td>
+                <td>Rev 1</td>
+                <td>Planner B</td>
+                <td>19 May 10:30</td>
+                <td>Shift swap request</td>
+                <td>Shift</td>
+                <td class="text-muted">Afternoon</td>
+                <td>Morning</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<!-- ============================================================
+     MODALS (CSS :target)
+     ============================================================ -->
+
+<!-- MODAL: ADD OPERATOR SCHEDULE -->
+<div id="op-add" class="perm-modal">
+  <div class="perm-modal__backdrop">
+    <div class="perm-modal__box perm-modal__box--lg">
+      <div class="perm-modal__header">
+        <div>
+          <div class="perm-modal__title">+ Add Operator Schedule</div>
+          <div class="perm-modal__subtitle">Tambah Penugasan Operator</div>
+        </div>
+        <a href="operator_schedule.html" class="perm-modal__close">&#10005;</a>
+      </div>
+      <div class="perm-modal__body" style="padding:20px 24px;">
+        <form>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Sched ID <span class="label-id">(auto-generated)</span></label>
+              <input type="text" class="form-control" value="OS-2605-007" readonly>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Date / Tanggal</label>
+              <input type="date" class="form-control" value="2026-05-21">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Shift</label>
+              <select class="form-control">
+                <option selected>Morning (06:00–14:00)</option>
+                <option>Afternoon (14:00–22:00)</option>
+                <option>Night (22:00–06:00)</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Line</label>
+              <select class="form-control">
+                <option value="">-- Select Line --</option>
+                <option>Line 1</option>
+                <option>Line 2</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Operator</label>
+              <select class="form-control">
+                <option value="">-- Select Operator --</option>
+                <option>John Doe (EMP-001)</option>
+                <option>Jane Smith (EMP-002)</option>
+                <option>Bob Johnson (EMP-003)</option>
+                <option>Sarah Lee (EMP-004)</option>
+                <option>Mike Chen (EMP-005)</option>
+                <option>Lisa Wang (EMP-006)</option>
+                <option>Alex Turner (EMP-007)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Role / Position <span class="label-id">(auto-filled)</span></label>
+              <input type="text" class="form-control" placeholder="Select operator first..." readonly>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="perm-modal__footer">
+        <button class="btn btn--primary">Save Assignment</button>
+        <a href="operator_schedule.html" class="btn btn--outline">Cancel</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: EDIT OPERATOR SCHEDULE (pre-filled with OS-2605-003) -->
+<div id="op-edit" class="perm-modal">
+  <div class="perm-modal__backdrop">
+    <div class="perm-modal__box perm-modal__box--lg">
+      <div class="perm-modal__header">
+        <div>
+          <div class="perm-modal__title">&#9998; Edit Operator Schedule — OS-2605-003</div>
+          <div class="perm-modal__subtitle">Ubah Penugasan Operator · Line 2 · Morning · Active</div>
+        </div>
+        <a href="operator_schedule.html" class="perm-modal__close">&#10005;</a>
+      </div>
+      <div class="perm-modal__body" style="padding:20px 24px;">
+        <form>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Sched ID <span class="label-id">(read-only)</span></label>
+              <input type="text" class="form-control" value="OS-2605-003" readonly>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Date / Tanggal</label>
+              <input type="date" class="form-control" value="2026-05-21">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Shift</label>
+              <select class="form-control">
+                <option selected>Morning (06:00–14:00)</option>
+                <option>Afternoon (14:00–22:00)</option>
+                <option>Night (22:00–06:00)</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Line</label>
+              <select class="form-control">
+                <option>Line 1</option>
+                <option selected>Line 2</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Operator</label>
+              <select class="form-control">
+                <option>John Doe (EMP-001)</option>
+                <option>Jane Smith (EMP-002)</option>
+                <option>Bob Johnson (EMP-003)</option>
+                <option>Sarah Lee (EMP-004)</option>
+                <option>Mike Chen (EMP-005)</option>
+                <option>Lisa Wang (EMP-006)</option>
+                <option selected>Alex Turner (EMP-007)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Role / Position</label>
+              <input type="text" class="form-control" value="Machine Operator" readonly>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Revision Reason / Alasan Revisi</label>
+            <textarea class="form-control" rows="2" placeholder="Tuliskan alasan perubahan penugasan operator..."></textarea>
+            <div class="form-hint">Wajib diisi — akan dicatat di Operator Schedule Revision History</div>
+          </div>
+        </form>
+      </div>
+      <div class="perm-modal__footer">
+        <button class="btn btn--primary">Save Changes</button>
+        <a href="operator_schedule.html" class="btn btn--outline">Cancel</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

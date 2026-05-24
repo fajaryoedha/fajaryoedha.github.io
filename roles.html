@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Role Management — OEE System</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <span>Manufacturing</span>
+      OEE System
+    </div>
+    <nav>
+      <div class="sidebar-section-label">Overview</div>
+      <ul class="sidebar-nav">
+        <li><a href="index.html"><span class="sidebar-nav-icon">&#9632;</span> Dashboard</a></li>
+      </ul>
+      <div class="sidebar-section-label">Operations</div>
+      <ul class="sidebar-nav">
+        <li><a href="monitoring.html"><span class="sidebar-nav-icon">&#9675;</span> Line Monitoring</a></li>
+        <li><a href="downtime.html"><span class="sidebar-nav-icon">&#9650;</span> Downtime Entry</a></li>
+      </ul>
+      <div class="sidebar-section-label">Analysis</div>
+      <ul class="sidebar-nav">
+        <li><a href="report.html"><span class="sidebar-nav-icon">&#9781;</span> OEE Reports</a></li>
+        <li><a href="schedule.html"><span class="sidebar-nav-icon">&#9654;</span> Prod. Schedule</a></li>
+        <li><a href="operator_schedule.html"><span class="sidebar-nav-icon">&#9660;</span> Operator Schedule</a></li>
+      </ul>
+      <div class="sidebar-section-label">Configuration</div>
+      <ul class="sidebar-nav">
+        <li><a href="master.html"><span class="sidebar-nav-icon">&#9881;</span> Master Data</a></li>
+        <li><a href="roles.html" class="active"><span class="sidebar-nav-icon">&#9670;</span> Role Management</a></li>
+        <li><a href="users.html"><span class="sidebar-nav-icon">&#9671;</span> User Management</a></li>
+      </ul>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="text-xs text-muted">Operator: John Doe</div>
+      <div class="text-xs text-muted">Shift: Morning (06:00–14:00)</div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="main-wrapper">
+
+    <header class="topbar">
+      <div class="topbar-title">Role Management</div>
+      <div class="topbar-breadcrumb">Home / Configuration / Role Management</div>
+      <div class="topbar-spacer"></div>
+      <div class="topbar-info">
+        <span class="text-sm text-muted">21 May 2026 &nbsp;|&nbsp; Admin</span>
+      </div>
+    </header>
+
+    <main class="page-content">
+
+      <div class="page-header flex-between">
+        <div>
+          <h1 class="page-title">Role Management</h1>
+          <p class="page-subtitle">Manajemen Peran &amp; Hak Akses — role &amp; permission management</p>
+        </div>
+        <button class="btn btn--primary">+ Add Role</button>
+      </div>
+
+      <!-- ROLES LIST -->
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title">Roles</div>
+            <div class="card-subtitle">Daftar Peran — role list</div>
+          </div>
+          <span class="text-sm text-muted">6 roles defined</span>
+        </div>
+        <div class="table-wrapper">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Role Name</th>
+                <th>Description / Deskripsi</th>
+                <th>Users</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="font-600">Admin</td>
+                <td>Full system access — all pages, all actions</td>
+                <td>2</td>
+                <td><span class="badge badge--completed">Active</span></td>
+                <td class="flex gap-sm">
+                  <a href="#perm-admin" class="btn btn--primary btn--sm">&#9670; Permissions</a>
+                  <button class="btn btn--outline btn--sm">&#9998; Edit</button>
+                  <button class="btn btn--ghost btn--sm" style="color:var(--color-down)" title="Cannot delete system role">&#10005;</button>
+                </td>
+              </tr>
+              <tr>
+                <td class="font-600">Supervisor</td>
+                <td>Production oversight — most access, limited config</td>
+                <td>3</td>
+                <td><span class="badge badge--completed">Active</span></td>
+                <td class="flex gap-sm">
+                  <a href="#perm-supervisor" class="btn btn--primary btn--sm">&#9670; Permissions</a>
+                  <button class="btn btn--outline btn--sm">&#9998; Edit</button>
+                  <button class="btn btn--ghost btn--sm" style="color:var(--color-down)">&#10005;</button>
+                </td>
+              </tr>
+              <tr>
+                <td class="font-600">Operator</td>
+                <td>Shift floor operator — downtime input &amp; monitoring only</td>
+                <td>8</td>
+                <td><span class="badge badge--completed">Active</span></td>
+                <td class="flex gap-sm">
+                  <a href="#perm-operator" class="btn btn--primary btn--sm">&#9670; Permissions</a>
+                  <button class="btn btn--outline btn--sm">&#9998; Edit</button>
+                  <button class="btn btn--ghost btn--sm" style="color:var(--color-down)">&#10005;</button>
+                </td>
+              </tr>
+              <tr>
+                <td class="font-600">Planner</td>
+                <td>Production planner — schedule &amp; batch management</td>
+                <td>2</td>
+                <td><span class="badge badge--completed">Active</span></td>
+                <td class="flex gap-sm">
+                  <a href="#perm-planner" class="btn btn--primary btn--sm">&#9670; Permissions</a>
+                  <button class="btn btn--outline btn--sm">&#9998; Edit</button>
+                  <button class="btn btn--ghost btn--sm" style="color:var(--color-down)">&#10005;</button>
+                </td>
+              </tr>
+              <tr>
+                <td class="font-600">QC Inspector</td>
+                <td>Quality control — reports &amp; reject data only</td>
+                <td>3</td>
+                <td><span class="badge badge--completed">Active</span></td>
+                <td class="flex gap-sm">
+                  <a href="#perm-qc" class="btn btn--primary btn--sm">&#9670; Permissions</a>
+                  <button class="btn btn--outline btn--sm">&#9998; Edit</button>
+                  <button class="btn btn--ghost btn--sm" style="color:var(--color-down)">&#10005;</button>
+                </td>
+              </tr>
+              <tr>
+                <td class="font-600">Viewer</td>
+                <td>Read-only access — dashboards &amp; reports, no edit</td>
+                <td>5</td>
+                <td><span class="badge badge--completed">Active</span></td>
+                <td class="flex gap-sm">
+                  <a href="#perm-viewer" class="btn btn--primary btn--sm">&#9670; Permissions</a>
+                  <button class="btn btn--outline btn--sm">&#9998; Edit</button>
+                  <button class="btn btn--ghost btn--sm" style="color:var(--color-down)">&#10005;</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<!-- ===================== PERMISSION MODALS ===================== -->
+
+<!-- MODAL: Admin (all permissions) -->
+<div id="perm-admin" class="perm-modal">
+  <div class="perm-modal__backdrop">
+    <div class="perm-modal__box">
+      <div class="perm-modal__header">
+        <div>
+          <div class="perm-modal__title">Edit Permissions &mdash; Admin</div>
+          <div class="perm-modal__subtitle">Atur hak akses per halaman &amp; aksi — view / edit / delete per section</div>
+        </div>
+        <a href="roles.html" class="perm-modal__close" title="Close">&#10005;</a>
+      </div>
+      <div class="perm-modal__body">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th style="width:46%">Page / Section</th>
+              <th class="text-center">View</th>
+              <th class="text-center">Edit</th>
+              <th class="text-center">Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="perm-group-row"><td colspan="4" class="perm-group-header">Overview</td></tr>
+            <tr>
+              <td class="perm-section-name">Dashboard</td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+            </tr>
+            <tr class="perm-group-row"><td colspan="4" class="perm-group-header">Operations</td></tr>
+            <tr>
+              <td class="perm-section-name">Line Monitoring</td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+            </tr>
+            <tr>
+              <td class="perm-section-name">Downtime Entry</td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+            </tr>
+            <tr class="perm-group-row"><td colspan="4" class="perm-group-header">Analysis</td></tr>
+            <tr>
+              <td class="perm-section-name">OEE Reports</td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+            </tr>
+            <tr>
+              <td class="perm-section-name">Production Schedule</td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+            </tr>
+            <tr class="perm-group-row"><td colspan="4" class="perm-group-header">Master Data</td></tr>
+            <tr>
+              <td class="perm-section-name">Products</td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+            </tr>
+            <tr>
+              <td class="perm-section-name">Recipes</td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+            </tr>
+            <tr>
+              <td class="perm-section-name">Lines</td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+            </tr>
+            <tr>
+              <td class="perm-section-name">Machines</td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+            </tr>
+            <tr>
+              <td class="perm-section-name">Operators</td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+            </tr>
+            <tr>
+              <td class="perm-section-name">Downtime Reasons</td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+            </tr>
+            <tr class="perm-group-row"><td colspan="4" class="perm-group-header">Configuration</td></tr>
+            <tr>
+              <td class="perm-section-name">Role Management</td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+            </tr>
+            <tr>
+              <td class="perm-section-name">User Management</td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="perm-modal__footer">
+        <button class="btn btn--primary btn--sm">Save Permissions</button>
+        <a href="roles.html" class="btn btn--outline btn--sm">Cancel</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: Supervisor -->
+<div id="perm-supervisor" class="perm-modal">
+  <div class="perm-modal__backdrop">
+    <div class="perm-modal__box">
+      <div class="perm-modal__header">
+        <div>
+          <div class="perm-modal__title">Edit Permissions &mdash; Supervisor</div>
+          <div class="perm-modal__subtitle">Atur hak akses per halaman &amp; aksi — view / edit / delete per section</div>
+        </div>
+        <a href="roles.html" class="perm-modal__close" title="Close">&#10005;</a>
+      </div>
+      <div class="perm-modal__body">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th style="width:46%">Page / Section</th>
+              <th class="text-center">View</th>
+              <th class="text-center">Edit</th>
+              <th class="text-center">Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="perm-group-row"><td colspan="4" class="perm-group-header">Overview</td></tr>
+            <tr>
+              <td class="perm-section-name">Dashboard</td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+            </tr>
+            <tr class="perm-group-row"><td colspan="4" class="perm-group-header">Operations</td></tr>
+            <tr>
+              <td class="perm-section-name">Line Monitoring</td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+            </tr>
+            <tr>
+              <td class="perm-section-name">Downtime Entry</td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+            </tr>
+            <tr class="perm-group-row"><td colspan="4" class="perm-group-header">Analysis</td></tr>
+            <tr>
+              <td class="perm-section-name">OEE Reports</td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+            </tr>
+            <tr>
+              <td class="perm-section-name">Production Schedule</td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+            </tr>
+            <tr class="perm-group-row"><td colspan="4" class="perm-group-header">Master Data</td></tr>
+            <tr>
+              <td class="perm-section-name">Products</td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+            </tr>
+            <tr>
+              <td class="perm-section-name">Recipes</td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+            </tr>
+            <tr>
+              <td class="perm-section-name">Lines</td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+            </tr>
+            <tr>
+              <td class="perm-section-name">Machines</td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+            </tr>
+            <tr>
+              <td class="perm-section-name">Operators</td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+            </tr>
+            <tr>
+              <td class="perm-section-name">Downtime Reasons</td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+            </tr>
+            <tr class="perm-group-row"><td colspan="4" class="perm-group-header">Configuration</td></tr>
+            <tr>
+              <td class="perm-section-name">Role Management</td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+            </tr>
+            <tr>
+              <td class="perm-section-name">User Management</td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="perm-modal__footer">
+        <button class="btn btn--primary btn--sm">Save Permissions</button>
+        <a href="roles.html" class="btn btn--outline btn--sm">Cancel</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: Operator -->
+<div id="perm-operator" class="perm-modal">
+  <div class="perm-modal__backdrop">
+    <div class="perm-modal__box">
+      <div class="perm-modal__header">
+        <div>
+          <div class="perm-modal__title">Edit Permissions &mdash; Operator</div>
+          <div class="perm-modal__subtitle">Atur hak akses per halaman &amp; aksi — view / edit / delete per section</div>
+        </div>
+        <a href="roles.html" class="perm-modal__close" title="Close">&#10005;</a>
+      </div>
+      <div class="perm-modal__body">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th style="width:46%">Page / Section</th>
+              <th class="text-center">View</th>
+              <th class="text-center">Edit</th>
+              <th class="text-center">Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="perm-group-row"><td colspan="4" class="perm-group-header">Overview</td></tr>
+            <tr>
+              <td class="perm-section-name">Dashboard</td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+            </tr>
+            <tr class="perm-group-row"><td colspan="4" class="perm-group-header">Operations</td></tr>
+            <tr>
+              <td class="perm-section-name">Line Monitoring</td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+            </tr>
+            <tr>
+              <td class="perm-section-name">Downtime Entry</td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+            </tr>
+            <tr class="perm-group-row"><td colspan="4" class="perm-group-header">Analysis</td></tr>
+            <tr>
+              <td class="perm-section-name">OEE Reports</td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+            </tr>
+            <tr>
+              <td class="perm-section-name">Production Schedule</td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+            </tr>
+            <tr class="perm-group-row"><td colspan="4" class="perm-group-header">Master Data</td></tr>
+            <tr>
+              <td class="perm-section-name">Products</td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+            </tr>
+            <tr>
+              <td class="perm-section-name">Recipes</td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+            </tr>
+            <tr>
+              <td class="perm-section-name">Lines</td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+            </tr>
+            <tr>
+              <td class="perm-section-name">Machines</td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+            </tr>
+            <tr>
+              <td class="perm-section-name">Operators</td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+            </tr>
+            <tr>
+              <td class="perm-section-name">Downtime Reasons</td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+            </tr>
+            <tr class="perm-group-row"><td colspan="4" class="perm-group-header">Configuration</td></tr>
+            <tr>
+              <td class="perm-section-name">Role Management</td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+            </tr>
+            <tr>
+              <td class="perm-section-name">User Management</td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="perm-modal__footer">
+        <button class="btn btn--primary btn--sm">Save Permissions</button>
+        <a href="roles.html" class="btn btn--outline btn--sm">Cancel</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: Planner -->
+<div id="perm-planner" class="perm-modal">
+  <div class="perm-modal__backdrop">
+    <div class="perm-modal__box">
+      <div class="perm-modal__header">
+        <div>
+          <div class="perm-modal__title">Edit Permissions &mdash; Planner</div>
+          <div class="perm-modal__subtitle">Atur hak akses per halaman &amp; aksi — view / edit / delete per section</div>
+        </div>
+        <a href="roles.html" class="perm-modal__close" title="Close">&#10005;</a>
+      </div>
+      <div class="perm-modal__body">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th style="width:46%">Page / Section</th>
+              <th class="text-center">View</th>
+              <th class="text-center">Edit</th>
+              <th class="text-center">Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="perm-group-row"><td colspan="4" class="perm-group-header">Overview</td></tr>
+            <tr>
+              <td class="perm-section-name">Dashboard</td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+            </tr>
+            <tr class="perm-group-row"><td colspan="4" class="perm-group-header">Operations</td></tr>
+            <tr>
+              <td class="perm-section-name">Line Monitoring</td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+            </tr>
+            <tr>
+              <td class="perm-section-name">Downtime Entry</td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+            </tr>
+            <tr class="perm-group-row"><td colspan="4" class="perm-group-header">Analysis</td></tr>
+            <tr>
+              <td class="perm-section-name">OEE Reports</td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+            </tr>
+            <tr>
+              <td class="perm-section-name">Production Schedule</td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+            </tr>
+            <tr class="perm-group-row"><td colspan="4" class="perm-group-header">Master Data</td></tr>
+            <tr>
+              <td class="perm-section-name">Products</td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+            </tr>
+            <tr>
+              <td class="perm-section-name">Recipes</td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+            </tr>
+            <tr>
+              <td class="perm-section-name">Lines</td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+            </tr>
+            <tr>
+              <td class="perm-section-name">Machines</td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+            </tr>
+            <tr>
+              <td class="perm-section-name">Operators</td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+            </tr>
+            <tr>
+              <td class="perm-section-name">Downtime Reasons</td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+            </tr>
+            <tr class="perm-group-row"><td colspan="4" class="perm-group-header">Configuration</td></tr>
+            <tr>
+              <td class="perm-section-name">Role Management</td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+            </tr>
+            <tr>
+              <td class="perm-section-name">User Management</td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="perm-modal__footer">
+        <button class="btn btn--primary btn--sm">Save Permissions</button>
+        <a href="roles.html" class="btn btn--outline btn--sm">Cancel</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: QC Inspector -->
+<div id="perm-qc" class="perm-modal">
+  <div class="perm-modal__backdrop">
+    <div class="perm-modal__box">
+      <div class="perm-modal__header">
+        <div>
+          <div class="perm-modal__title">Edit Permissions &mdash; QC Inspector</div>
+          <div class="perm-modal__subtitle">Atur hak akses per halaman &amp; aksi — view / edit / delete per section</div>
+        </div>
+        <a href="roles.html" class="perm-modal__close" title="Close">&#10005;</a>
+      </div>
+      <div class="perm-modal__body">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th style="width:46%">Page / Section</th>
+              <th class="text-center">View</th>
+              <th class="text-center">Edit</th>
+              <th class="text-center">Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="perm-group-row"><td colspan="4" class="perm-group-header">Overview</td></tr>
+            <tr>
+              <td class="perm-section-name">Dashboard</td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+            </tr>
+            <tr class="perm-group-row"><td colspan="4" class="perm-group-header">Operations</td></tr>
+            <tr>
+              <td class="perm-section-name">Line Monitoring</td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+            </tr>
+            <tr>
+              <td class="perm-section-name">Downtime Entry</td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+            </tr>
+            <tr class="perm-group-row"><td colspan="4" class="perm-group-header">Analysis</td></tr>
+            <tr>
+              <td class="perm-section-name">OEE Reports</td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+            </tr>
+            <tr>
+              <td class="perm-section-name">Production Schedule</td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+            </tr>
+            <tr class="perm-group-row"><td colspan="4" class="perm-group-header">Master Data</td></tr>
+            <tr>
+              <td class="perm-section-name">Products</td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+            </tr>
+            <tr>
+              <td class="perm-section-name">Recipes</td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+            </tr>
+            <tr>
+              <td class="perm-section-name">Lines</td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+            </tr>
+            <tr>
+              <td class="perm-section-name">Machines</td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+            </tr>
+            <tr>
+              <td class="perm-section-name">Operators</td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+            </tr>
+            <tr>
+              <td class="perm-section-name">Downtime Reasons</td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+            </tr>
+            <tr class="perm-group-row"><td colspan="4" class="perm-group-header">Configuration</td></tr>
+            <tr>
+              <td class="perm-section-name">Role Management</td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+            </tr>
+            <tr>
+              <td class="perm-section-name">User Management</td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="perm-modal__footer">
+        <button class="btn btn--primary btn--sm">Save Permissions</button>
+        <a href="roles.html" class="btn btn--outline btn--sm">Cancel</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: Viewer (read-only) -->
+<div id="perm-viewer" class="perm-modal">
+  <div class="perm-modal__backdrop">
+    <div class="perm-modal__box">
+      <div class="perm-modal__header">
+        <div>
+          <div class="perm-modal__title">Edit Permissions &mdash; Viewer</div>
+          <div class="perm-modal__subtitle">Atur hak akses per halaman &amp; aksi — view / edit / delete per section</div>
+        </div>
+        <a href="roles.html" class="perm-modal__close" title="Close">&#10005;</a>
+      </div>
+      <div class="perm-modal__body">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th style="width:46%">Page / Section</th>
+              <th class="text-center">View</th>
+              <th class="text-center">Edit</th>
+              <th class="text-center">Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="perm-group-row"><td colspan="4" class="perm-group-header">Overview</td></tr>
+            <tr>
+              <td class="perm-section-name">Dashboard</td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+            </tr>
+            <tr class="perm-group-row"><td colspan="4" class="perm-group-header">Operations</td></tr>
+            <tr>
+              <td class="perm-section-name">Line Monitoring</td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+            </tr>
+            <tr>
+              <td class="perm-section-name">Downtime Entry</td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+            </tr>
+            <tr class="perm-group-row"><td colspan="4" class="perm-group-header">Analysis</td></tr>
+            <tr>
+              <td class="perm-section-name">OEE Reports</td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+            </tr>
+            <tr>
+              <td class="perm-section-name">Production Schedule</td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+            </tr>
+            <tr class="perm-group-row"><td colspan="4" class="perm-group-header">Master Data</td></tr>
+            <tr>
+              <td class="perm-section-name">Products</td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+            </tr>
+            <tr>
+              <td class="perm-section-name">Recipes</td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+            </tr>
+            <tr>
+              <td class="perm-section-name">Lines</td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+            </tr>
+            <tr>
+              <td class="perm-section-name">Machines</td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+            </tr>
+            <tr>
+              <td class="perm-section-name">Operators</td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+            </tr>
+            <tr>
+              <td class="perm-section-name">Downtime Reasons</td>
+              <td class="text-center"><input type="checkbox" class="perm-check" checked></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+            </tr>
+            <tr class="perm-group-row"><td colspan="4" class="perm-group-header">Configuration</td></tr>
+            <tr>
+              <td class="perm-section-name">Role Management</td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+            </tr>
+            <tr>
+              <td class="perm-section-name">User Management</td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+              <td class="text-center"><input type="checkbox" class="perm-check"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="perm-modal__footer">
+        <button class="btn btn--primary btn--sm">Save Permissions</button>
+        <a href="roles.html" class="btn btn--outline btn--sm">Cancel</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
