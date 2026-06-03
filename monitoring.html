@@ -214,30 +214,8 @@
         </div>
         <div class="form-group">
           <label class="form-label">Reason Code</label>
-          <select class="form-control" id="rm-code">
-            <option value="">-- Select Reason --</option>
-            <optgroup label="Equipment Failure">
-              <option>U-001 — Mechanical Failure</option>
-              <option>U-002 — Electrical Failure</option>
-              <option>U-003 — Instrument Failure</option>
-              <option>U-004 — Process Failure</option>
-            </optgroup>
-            <optgroup label="Setup &amp; Adjustments">
-              <option>P-001 — Changeover / Setup</option>
-              <option>P-002 — Preventive Maintenance</option>
-              <option>P-003 — Scheduled Cleaning</option>
-            </optgroup>
-            <optgroup label="Idling &amp; Minor Stoppages">
-              <option>S-001 — Material Jam</option>
-              <option>S-002 — Sensor Trigger</option>
-            </optgroup>
-            <optgroup label="Reduced Speed">
-              <option>SC-001 — Reduced Speed</option>
-            </optgroup>
-            <optgroup label="Quality">
-              <option>Q-001 — Out of Spec</option>
-              <option>Q-002 — Startup Scrap</option>
-            </optgroup>
+          <select class="form-control" id="rm-code" disabled>
+            <option value="">-- Select Category First --</option>
           </select>
         </div>
       </div>
@@ -278,6 +256,29 @@
 </div>
 
 <script>
+var RM_REASON_CODES = {
+  equipment_failure:  ["U-001 — Mechanical Failure","U-002 — Electrical Failure","U-003 — Instrument Failure","U-004 — Process Failure"],
+  setup_adjustment:   ["P-001 — Changeover / Setup","P-002 — Preventive Maintenance","P-003 — Scheduled Cleaning"],
+  idling_minor_stops: ["S-001 — Material Jam","S-002 — Sensor Trigger"],
+  reduced_speed:      ["SC-001 — Reduced Speed"],
+  process_defects:    ["Q-001 — Out of Spec","Q-002 — Startup Scrap"],
+  reduced_yield:      ["Q-001 — Out of Spec","Q-002 — Startup Scrap"],
+};
+
+function updateRmCode() {
+  var cat = document.getElementById("rm-category").value;
+  var codeSel = document.getElementById("rm-code");
+  codeSel.innerHTML = "";
+  if (!cat || !RM_REASON_CODES[cat]) {
+    codeSel.disabled = true;
+    codeSel.appendChild(new Option("-- Select Category First --", ""));
+    return;
+  }
+  codeSel.disabled = false;
+  codeSel.appendChild(new Option("-- Select Reason --", ""));
+  RM_REASON_CODES[cat].forEach(function(r) { codeSel.appendChild(new Option(r, r)); });
+}
+
 var NOW = "10:15"; // reference "current" time on 21 May 2026 for duration calc
 
 // Demo machine — down with no reason yet (shows "Enter Reason" button)
@@ -404,6 +405,8 @@ function openReasonModal(machineId) {
     infoCell("Down Since", s.since) + infoCell("Duration", '<span style="color:var(--color-down)">' + fmtDur(minutesSince(s.since)) + '</span>') +
     '</div>';
   document.getElementById("rm-operator").value = s.operator || "—";
+  document.getElementById("rm-category").value = "";
+  updateRmCode();
   document.getElementById("reason-modal").classList.add("is-open");
 }
 function closeReasonModal() { document.getElementById("reason-modal").classList.remove("is-open"); }
@@ -552,6 +555,7 @@ function renderAll() {
 
   document.getElementById("filter-line").addEventListener("change", renderAll);
   document.getElementById("filter-status").addEventListener("change", renderAll);
+  document.getElementById("rm-category").addEventListener("change", updateRmCode);
 
   // machine card clicks — route to reason modal or detail modal
   document.getElementById("machine-cards").addEventListener("click", function (e) {
