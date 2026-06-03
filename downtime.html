@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Downtime Entry — OEE System</title>
   <link rel="stylesheet" href="style.css">
+  <script src="data/master.js"></script>
+  <script src="data/oee.js"></script>
+  <script src="js/data.js"></script>
 </head>
 <body>
 <div class="app-layout">
@@ -66,30 +69,23 @@
         <span class="badge badge--inprogress" style="font-size:var(--font-size-sm);padding:6px 14px;">3 Pending Reason</span>
       </div>
 
-      <!-- FILTER BAR -->
+      <!-- FILTER BAR — date range -->
       <div class="filter-bar">
         <div class="form-group">
-          <label class="form-label">Date</label>
-          <input type="date" class="form-control" value="2026-05-21">
+          <label class="form-label">Date From</label>
+          <input type="date" class="form-control" id="dt-from" value="2026-05-01" min="2026-05-01" max="2026-05-31">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Date To</label>
+          <input type="date" class="form-control" id="dt-to" value="2026-05-31" min="2026-05-01" max="2026-05-31">
         </div>
         <div class="form-group">
           <label class="form-label">Line</label>
-          <select class="form-control">
-            <option selected>All Lines</option>
-            <option>Line 1</option>
-            <option>Line 2</option>
-          </select>
+          <select class="form-control" id="dt-line"><option value="all" selected>All Lines</option></select>
         </div>
         <div class="form-group">
           <label class="form-label">Shift</label>
-          <select class="form-control">
-            <option selected>Morning (06:00–14:00)</option>
-            <option>Afternoon (14:00–22:00)</option>
-            <option>Night (22:00–06:00)</option>
-          </select>
-        </div>
-        <div class="form-group" style="display:flex;align-items:flex-end;">
-          <button class="btn btn--primary">Apply</button>
+          <select class="form-control" id="dt-shift"><option value="all" selected>All Shifts</option></select>
         </div>
       </div>
 
@@ -175,10 +171,10 @@
             <div class="card-subtitle">Riwayat Laporan Downtime — sudah diisi alasannya</div>
           </div>
           <div class="flex gap-sm">
-            <select class="form-control" style="min-width:130px;font-size:var(--font-size-xs);">
-              <option>All Status</option>
-              <option>Submitted</option>
-              <option>Verified</option>
+            <select class="form-control" id="dt-pagesize" style="min-width:130px;font-size:var(--font-size-xs);">
+              <option value="10" selected>10 / page</option>
+              <option value="20">20 / page</option>
+              <option value="50">50 / page</option>
             </select>
             <a href="master.html#reasons" class="btn btn--outline btn--sm">Reason Codes</a>
           </div>
@@ -201,94 +197,10 @@
                 <th>Action</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td class="font-600">DT-2023</td>
-                <td>M-06</td>
-                <td>Line 2</td>
-                <td>B-2605-006</td>
-                <td><span class="loss-badge loss-badge--planned">Planned Stop</span></td>
-                <td>P-001</td>
-                <td>Changeover / Setup</td>
-                <td>09:15</td>
-                <td>11 min</td>
-                <td>Jane Smith</td>
-                <td><span class="badge badge--submitted">Submitted</span></td>
-                <td><button class="btn btn--outline btn--sm">View</button></td>
-              </tr>
-              <tr>
-                <td class="font-600">DT-2022</td>
-                <td>M-01</td>
-                <td>Line 1</td>
-                <td>B-2605-001</td>
-                <td><span class="loss-badge loss-badge--small-stops">Small Stop</span></td>
-                <td>S-001</td>
-                <td>Material Jam</td>
-                <td>07:30</td>
-                <td>4 min</td>
-                <td>John Doe</td>
-                <td><span class="badge badge--verified">Verified</span></td>
-                <td><button class="btn btn--outline btn--sm">View</button></td>
-              </tr>
-              <tr>
-                <td class="font-600">DT-2021</td>
-                <td>M-04</td>
-                <td>Line 2</td>
-                <td>B-2605-004</td>
-                <td><span class="loss-badge loss-badge--slow-cycles">Slow Cycle</span></td>
-                <td>SC-001</td>
-                <td>Reduced Speed</td>
-                <td>07:05</td>
-                <td>18 min</td>
-                <td>Jane Smith</td>
-                <td><span class="badge badge--verified">Verified</span></td>
-                <td><button class="btn btn--outline btn--sm">View</button></td>
-              </tr>
-              <tr>
-                <td class="font-600">DT-2020</td>
-                <td>M-05</td>
-                <td>Line 2</td>
-                <td>B-2605-005</td>
-                <td><span class="loss-badge loss-badge--prod-reject">Production Reject</span></td>
-                <td>Q-001</td>
-                <td>Out of Spec</td>
-                <td>06:55</td>
-                <td>6 min</td>
-                <td>John Doe</td>
-                <td><span class="badge badge--verified">Verified</span></td>
-                <td><button class="btn btn--outline btn--sm">View</button></td>
-              </tr>
-              <tr>
-                <td class="font-600">DT-2019</td>
-                <td>M-03</td>
-                <td>Line 1</td>
-                <td>B-2605-003</td>
-                <td><span class="loss-badge loss-badge--start-reject">Startup Reject</span></td>
-                <td>Q-002</td>
-                <td>Startup Scrap</td>
-                <td>06:05</td>
-                <td>8 min</td>
-                <td>Jane Smith</td>
-                <td><span class="badge badge--verified">Verified</span></td>
-                <td><button class="btn btn--outline btn--sm">View</button></td>
-              </tr>
-              <tr>
-                <td class="font-600">DT-2018</td>
-                <td>M-02</td>
-                <td>Line 1</td>
-                <td>B-2605-002</td>
-                <td><span class="loss-badge loss-badge--unplanned">Unplanned Stop</span></td>
-                <td>U-002</td>
-                <td>Electrical Failure</td>
-                <td>06:20</td>
-                <td>22 min</td>
-                <td>John Doe</td>
-                <td><span class="badge badge--verified">Verified</span></td>
-                <td><button class="btn btn--outline btn--sm">View</button></td>
-              </tr>
-            </tbody>
+            <tbody id="dt-completed-body"></tbody>
           </table>
         </div>
+        <div class="pagination" id="dt-pagination"></div>
       </div>
 
     </main>
@@ -348,16 +260,16 @@
             <select class="form-control">
               <option value="">-- Select Category --</option>
               <optgroup label="Availability Loss">
-                <option>Unplanned Stop (Gangguan Tak Terencana)</option>
-                <option>Planned Stop (Berhenti Terencana)</option>
+                <option>Equipment Failure (Gangguan Tak Terencana)</option>
+                <option>Setup & Adjustments (Berhenti Terencana)</option>
               </optgroup>
               <optgroup label="Performance Loss">
-                <option>Small Stop (Berhenti Singkat)</option>
-                <option>Slow Cycle (Siklus Lambat)</option>
+                <option>Idling & Minor Stoppages (Berhenti Singkat)</option>
+                <option>Reduced Speed (Siklus Lambat)</option>
               </optgroup>
               <optgroup label="Quality Loss">
-                <option>Production Reject (Produk Cacat)</option>
-                <option>Startup Reject (Cacat Awal Produksi)</option>
+                <option>Process Defects (Produk Cacat)</option>
+                <option>Reduced Yield (Cacat Awal Produksi)</option>
               </optgroup>
             </select>
           </div>
@@ -365,21 +277,21 @@
             <label class="form-label">Reason Code / Kode Alasan</label>
             <select class="form-control">
               <option value="">-- Select Reason --</option>
-              <optgroup label="Unplanned Stop">
+              <optgroup label="Equipment Failure">
                 <option>U-001 — Mechanical Failure</option>
                 <option>U-002 — Electrical Failure</option>
                 <option>U-003 — Instrument Failure</option>
                 <option>U-004 — Process Failure</option>
               </optgroup>
-              <optgroup label="Planned Stop">
+              <optgroup label="Setup & Adjustments">
                 <option>P-001 — Changeover / Setup</option>
                 <option>P-002 — Preventive Maintenance</option>
                 <option>P-003 — Scheduled Cleaning</option>
               </optgroup>
-              <optgroup label="Small Stop">
+              <optgroup label="Idling & Minor Stoppages">
                 <option>S-001 — Material Jam</option>
               </optgroup>
-              <optgroup label="Slow Cycle">
+              <optgroup label="Reduced Speed">
                 <option>SC-001 — Reduced Speed</option>
               </optgroup>
               <optgroup label="Quality">
@@ -460,16 +372,16 @@
             <select class="form-control">
               <option value="">-- Select Category --</option>
               <optgroup label="Availability Loss">
-                <option>Unplanned Stop (Gangguan Tak Terencana)</option>
-                <option>Planned Stop (Berhenti Terencana)</option>
+                <option>Equipment Failure (Gangguan Tak Terencana)</option>
+                <option>Setup & Adjustments (Berhenti Terencana)</option>
               </optgroup>
               <optgroup label="Performance Loss">
-                <option>Small Stop (Berhenti Singkat)</option>
-                <option>Slow Cycle (Siklus Lambat)</option>
+                <option>Idling & Minor Stoppages (Berhenti Singkat)</option>
+                <option>Reduced Speed (Siklus Lambat)</option>
               </optgroup>
               <optgroup label="Quality Loss">
-                <option>Production Reject (Produk Cacat)</option>
-                <option>Startup Reject (Cacat Awal Produksi)</option>
+                <option>Process Defects (Produk Cacat)</option>
+                <option>Reduced Yield (Cacat Awal Produksi)</option>
               </optgroup>
             </select>
           </div>
@@ -477,21 +389,21 @@
             <label class="form-label">Reason Code / Kode Alasan</label>
             <select class="form-control">
               <option value="">-- Select Reason --</option>
-              <optgroup label="Unplanned Stop">
+              <optgroup label="Equipment Failure">
                 <option>U-001 — Mechanical Failure</option>
                 <option>U-002 — Electrical Failure</option>
                 <option>U-003 — Instrument Failure</option>
                 <option>U-004 — Process Failure</option>
               </optgroup>
-              <optgroup label="Planned Stop">
+              <optgroup label="Setup & Adjustments">
                 <option>P-001 — Changeover / Setup</option>
                 <option>P-002 — Preventive Maintenance</option>
                 <option>P-003 — Scheduled Cleaning</option>
               </optgroup>
-              <optgroup label="Small Stop">
+              <optgroup label="Idling & Minor Stoppages">
                 <option>S-001 — Material Jam</option>
               </optgroup>
-              <optgroup label="Slow Cycle">
+              <optgroup label="Reduced Speed">
                 <option>SC-001 — Reduced Speed</option>
               </optgroup>
               <optgroup label="Quality">
@@ -572,16 +484,16 @@
             <select class="form-control">
               <option value="">-- Select Category --</option>
               <optgroup label="Availability Loss">
-                <option selected>Unplanned Stop (Gangguan Tak Terencana)</option>
-                <option>Planned Stop (Berhenti Terencana)</option>
+                <option selected>Equipment Failure (Gangguan Tak Terencana)</option>
+                <option>Setup & Adjustments (Berhenti Terencana)</option>
               </optgroup>
               <optgroup label="Performance Loss">
-                <option>Small Stop (Berhenti Singkat)</option>
-                <option>Slow Cycle (Siklus Lambat)</option>
+                <option>Idling & Minor Stoppages (Berhenti Singkat)</option>
+                <option>Reduced Speed (Siklus Lambat)</option>
               </optgroup>
               <optgroup label="Quality Loss">
-                <option>Production Reject (Produk Cacat)</option>
-                <option>Startup Reject (Cacat Awal Produksi)</option>
+                <option>Process Defects (Produk Cacat)</option>
+                <option>Reduced Yield (Cacat Awal Produksi)</option>
               </optgroup>
             </select>
           </div>
@@ -589,21 +501,21 @@
             <label class="form-label">Reason Code / Kode Alasan</label>
             <select class="form-control">
               <option value="">-- Select Reason --</option>
-              <optgroup label="Unplanned Stop">
+              <optgroup label="Equipment Failure">
                 <option>U-001 — Mechanical Failure</option>
                 <option>U-002 — Electrical Failure</option>
                 <option>U-003 — Instrument Failure</option>
                 <option>U-004 — Process Failure</option>
               </optgroup>
-              <optgroup label="Planned Stop">
+              <optgroup label="Setup & Adjustments">
                 <option>P-001 — Changeover / Setup</option>
                 <option>P-002 — Preventive Maintenance</option>
                 <option>P-003 — Scheduled Cleaning</option>
               </optgroup>
-              <optgroup label="Small Stop">
+              <optgroup label="Idling & Minor Stoppages">
                 <option>S-001 — Material Jam</option>
               </optgroup>
-              <optgroup label="Slow Cycle">
+              <optgroup label="Reduced Speed">
                 <option>SC-001 — Reduced Speed</option>
               </optgroup>
               <optgroup label="Quality">
@@ -637,5 +549,85 @@
   </div>
 </div>
 
+<script>
+// Completed downtime entries — data-driven list with date-range filter + pagination.
+// Shows real stops only (equipment failure, setup, idling/minor stops), newest first.
+var STOP_CATEGORIES = ["equipment_failure", "setup_adjustment", "idling_minor_stops"];
+var dtPage = 1;
+
+function dtFilter() {
+  return {
+    dateFrom: document.getElementById("dt-from").value,
+    dateTo: document.getElementById("dt-to").value,
+    lineId: document.getElementById("dt-line").value,
+    shiftId: document.getElementById("dt-shift").value,
+    categories: STOP_CATEGORIES,
+  };
+}
+
+function renderCompleted() {
+  var pageSize = +document.getElementById("dt-pagesize").value;
+  var res = OEE.downtimeList(dtFilter(), dtPage, pageSize);
+  dtPage = res.page;
+
+  document.getElementById("dt-completed-body").innerHTML = res.rows.length ? res.rows.map(function (r) {
+    var when = r.startTime.slice(5, 10).replace("-", "/") + " " + r.startTime.slice(11);
+    var statusBadge = r.source === "Manual"
+      ? '<span class="badge badge--submitted">Submitted</span>'
+      : '<span class="badge badge--verified">Verified</span>';
+    return "<tr><td class='font-600'>" + r.id + "</td><td>" + r.machineId + "</td><td>" + r.line +
+      "</td><td>" + (r.batchId || "—") + "</td>" +
+      "<td><span class='loss-badge " + r.lossBadge + "'>" + r.lossLabel + "</span></td>" +
+      "<td>" + r.reasonCode + "</td><td>" + r.reasonEn + "</td><td>" + when + "</td>" +
+      "<td>" + Math.round(r.durationMin) + " min</td><td>" + r.operator + "</td>" +
+      "<td>" + statusBadge + "</td>" +
+      "<td><button class='btn btn--outline btn--sm'>View</button></td></tr>";
+  }).join("") : "<tr><td colspan='12' class='text-muted'>No downtime entries in this range.</td></tr>";
+
+  renderPagination(res);
+}
+
+function renderPagination(res) {
+  var start = res.total ? (res.page - 1) * res.pageSize + 1 : 0;
+  var end = Math.min(res.page * res.pageSize, res.total);
+  var info = "Showing " + start + "–" + end + " of " + res.total + " entries";
+  var ctrls = '<button class="pagination__btn" data-page="prev"' + (res.page <= 1 ? " disabled" : "") + ">&#8249; Prev</button>";
+  // windowed page numbers
+  var from = Math.max(1, res.page - 2), to = Math.min(res.pages, res.page + 2);
+  if (from > 1) ctrls += '<button class="pagination__btn" data-page="1">1</button>' + (from > 2 ? '<span class="pagination__info">…</span>' : "");
+  for (var p = from; p <= to; p++) {
+    ctrls += '<button class="pagination__btn' + (p === res.page ? " pagination__btn--active" : "") + '" data-page="' + p + '">' + p + "</button>";
+  }
+  if (to < res.pages) ctrls += (to < res.pages - 1 ? '<span class="pagination__info">…</span>' : "") + '<button class="pagination__btn" data-page="' + res.pages + '">' + res.pages + "</button>";
+  ctrls += '<button class="pagination__btn" data-page="next"' + (res.page >= res.pages ? " disabled" : "") + ">Next &#8250;</button>";
+  document.getElementById("dt-pagination").innerHTML =
+    '<div class="pagination__info">' + info + "</div><div class='pagination__controls'>" + ctrls + "</div>";
+}
+
+(async function () {
+  await OEE.load();
+  var lineSel = document.getElementById("dt-line");
+  OEE.options().lines.forEach(function (l) {
+    var o = document.createElement("option"); o.value = l.id; o.textContent = l.name; lineSel.appendChild(o);
+  });
+  var shiftSel = document.getElementById("dt-shift");
+  OEE.options().shifts.forEach(function (s) {
+    var o = document.createElement("option"); o.value = s.id; o.textContent = s.name; shiftSel.appendChild(o);
+  });
+
+  renderCompleted();
+
+  ["dt-from", "dt-to", "dt-line", "dt-shift", "dt-pagesize"].forEach(function (id) {
+    document.getElementById(id).addEventListener("change", function () { dtPage = 1; renderCompleted(); });
+  });
+  document.getElementById("dt-pagination").addEventListener("click", function (e) {
+    var btn = e.target.closest("[data-page]");
+    if (!btn || btn.disabled) return;
+    var v = btn.getAttribute("data-page");
+    if (v === "prev") dtPage--; else if (v === "next") dtPage++; else dtPage = +v;
+    renderCompleted();
+  });
+})();
+</script>
 </body>
 </html>

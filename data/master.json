@@ -1,0 +1,80 @@
+{
+  "_meta": {
+    "description": "OEE wireframe master data. Static, rarely changes. See data/SCHEMA.md.",
+    "generatedFor": "Task 0.2",
+    "idConvention": "Canonical IDs stored here; display labels resolved from this file at render time."
+  },
+
+  "suppliers": [
+    { "id": "SUP-001", "name": "PT Bahan Kimia Jaya", "active": true },
+    { "id": "SUP-002", "name": "PT Sumber Material", "active": true },
+    { "id": "SUP-003", "name": "CV Mitra Industri", "active": false }
+  ],
+
+  "rawMaterials": [
+    { "id": "RM-001", "name": "Resin A", "unit": "kg", "supplierId": "SUP-001" },
+    { "id": "RM-002", "name": "Resin B", "unit": "kg", "supplierId": "SUP-001" },
+    { "id": "RM-003", "name": "Compound C", "unit": "kg", "supplierId": "SUP-002" },
+    { "id": "RM-004", "name": "Additive D", "unit": "kg", "supplierId": "SUP-003" }
+  ],
+
+  "products": [
+    { "id": "PRD-A", "name": "Product Alpha", "unit": "units", "description": "Finished goods type A", "supplierId": "SUP-001", "rawMaterialId": "RM-001", "active": true },
+    { "id": "PRD-B", "name": "Product Beta", "unit": "units", "description": "Finished goods type B", "supplierId": "SUP-001", "rawMaterialId": "RM-002", "active": true },
+    { "id": "PRD-C", "name": "Product Gamma", "unit": "kg", "description": "Bulk product type C", "supplierId": "SUP-002", "rawMaterialId": "RM-003", "active": true },
+    { "id": "PRD-D", "name": "Product Delta", "unit": "units", "description": "Discontinued type D", "supplierId": "SUP-003", "rawMaterialId": "RM-004", "active": false }
+  ],
+
+  "recipes": [
+    { "id": "RCP-001", "version": "v2", "productId": "PRD-A", "cycleTimeMin": 0.5, "idealRunRate": 120, "setupTimeMin": 15, "validFrom": "2026-04-01", "validTo": null, "active": true },
+    { "id": "RCP-001", "version": "v1", "productId": "PRD-A", "cycleTimeMin": 0.6, "idealRunRate": 100, "setupTimeMin": 15, "validFrom": "2026-01-01", "validTo": "2026-03-31", "active": false },
+    { "id": "RCP-002", "version": "v1", "productId": "PRD-B", "cycleTimeMin": 0.75, "idealRunRate": 80, "setupTimeMin": 20, "validFrom": "2026-01-01", "validTo": null, "active": true },
+    { "id": "RCP-003", "version": "v1", "productId": "PRD-C", "cycleTimeMin": 1.0, "idealRunRate": 60, "setupTimeMin": 30, "validFrom": "2026-02-01", "validTo": null, "active": true }
+  ],
+
+  "lines": [
+    { "id": "L-01", "name": "Line 1", "area": "Plant A", "description": "Filling & Packaging line for PRD-A, PRD-B", "status": "active" },
+    { "id": "L-02", "name": "Line 2", "area": "Plant A", "description": "Mixing, Filling & Packaging line for PRD-C", "status": "active" },
+    { "id": "L-03", "name": "Line 3", "area": "Plant B", "description": "Reserved — under commissioning", "status": "inactive" }
+  ],
+
+  "machines": [
+    { "id": "M-01", "name": "Machine 01", "lineId": "L-01", "type": "Filling", "maxCapacity": 120, "installDate": "2020-01-01", "status": "active" },
+    { "id": "M-02", "name": "Machine 02", "lineId": "L-01", "type": "Filling", "maxCapacity": 120, "installDate": "2020-01-01", "status": "active" },
+    { "id": "M-03", "name": "Machine 03", "lineId": "L-01", "type": "Packaging", "maxCapacity": 80, "installDate": "2021-03-01", "status": "active" },
+    { "id": "M-04", "name": "Machine 04", "lineId": "L-02", "type": "Mixing", "maxCapacity": 60, "installDate": "2021-06-01", "status": "active" },
+    { "id": "M-05", "name": "Machine 05", "lineId": "L-02", "type": "Filling", "maxCapacity": 120, "installDate": "2021-06-01", "status": "active" },
+    { "id": "M-06", "name": "Machine 06", "lineId": "L-02", "type": "Packaging", "maxCapacity": 80, "installDate": "2021-06-01", "status": "active" },
+    { "id": "M-07", "name": "Machine 07 (Old)", "lineId": "L-01", "type": "Filling", "maxCapacity": 90, "installDate": "2015-01-01", "status": "inactive" }
+  ],
+
+  "operators": [
+    { "id": "EMP-001", "name": "John Doe", "defaultShift": "morning", "lineId": "L-01", "role": "Operator", "contact": "ext. 101", "active": true },
+    { "id": "EMP-002", "name": "Jane Smith", "defaultShift": "morning", "lineId": "L-02", "role": "Operator", "contact": "ext. 102", "active": true },
+    { "id": "EMP-003", "name": "Ahmad Fauzi", "defaultShift": "afternoon", "lineId": "L-01", "role": "Operator", "contact": "ext. 103", "active": true },
+    { "id": "EMP-004", "name": "Siti Rahayu", "defaultShift": "afternoon", "lineId": "L-02", "role": "Operator", "contact": "ext. 104", "active": true },
+    { "id": "EMP-010", "name": "Budi Santoso", "defaultShift": "morning", "lineId": null, "role": "Supervisor", "contact": "ext. 110", "active": true },
+    { "id": "EMP-011", "name": "Dewi Kusuma", "defaultShift": null, "lineId": null, "role": "Planner", "contact": "ext. 111", "active": true }
+  ],
+
+  "shifts": [
+    { "id": "morning", "name": "Morning", "start": "06:00", "end": "14:00" },
+    { "id": "afternoon", "name": "Afternoon", "start": "14:00", "end": "22:00" },
+    { "id": "night", "name": "Night", "start": "22:00", "end": "06:00" }
+  ],
+
+  "reasons": [
+    { "code": "U-001", "lossCategory": "equipment_failure", "planned": false, "reasonEn": "Mechanical Failure", "reasonId": "Kerusakan Mekanik", "oeeComponent": "availability", "color": "#E8452B", "active": true },
+    { "code": "U-002", "lossCategory": "equipment_failure", "planned": false, "reasonEn": "Electrical Failure", "reasonId": "Kerusakan Listrik", "oeeComponent": "availability", "color": "#E8452B", "active": true },
+    { "code": "U-003", "lossCategory": "equipment_failure", "planned": false, "reasonEn": "Instrument Failure", "reasonId": "Kerusakan Instrumen", "oeeComponent": "availability", "color": "#E8452B", "active": true },
+    { "code": "U-004", "lossCategory": "equipment_failure", "planned": false, "reasonEn": "Process Failure", "reasonId": "Kegagalan Proses", "oeeComponent": "availability", "color": "#E8452B", "active": true },
+    { "code": "P-001", "lossCategory": "setup_adjustment", "planned": true, "reasonEn": "Changeover / Setup", "reasonId": "Pergantian Produk / Setup", "oeeComponent": "availability", "color": "#F4821E", "active": true },
+    { "code": "P-002", "lossCategory": "setup_adjustment", "planned": true, "reasonEn": "Preventive Maintenance", "reasonId": "Perawatan Preventif", "oeeComponent": "availability", "color": "#F4821E", "active": true },
+    { "code": "P-003", "lossCategory": "setup_adjustment", "planned": true, "reasonEn": "Scheduled Cleaning", "reasonId": "Pembersihan Terjadwal", "oeeComponent": "availability", "color": "#F4821E", "active": true },
+    { "code": "S-001", "lossCategory": "idling_minor_stops", "planned": false, "reasonEn": "Material Jam", "reasonId": "Macet Material", "oeeComponent": "performance", "color": "#4DA6E8", "active": true },
+    { "code": "S-002", "lossCategory": "idling_minor_stops", "planned": false, "reasonEn": "Sensor Trigger", "reasonId": "Aktivasi Sensor", "oeeComponent": "performance", "color": "#4DA6E8", "active": true },
+    { "code": "SC-001", "lossCategory": "reduced_speed", "planned": false, "reasonEn": "Reduced Speed", "reasonId": "Kecepatan Dikurangi", "oeeComponent": "performance", "color": "#6EA8C8", "active": true },
+    { "code": "Q-001", "lossCategory": "process_defects", "planned": false, "reasonEn": "Out of Spec", "reasonId": "Di Luar Spesifikasi", "oeeComponent": "quality", "color": "#8B5BB4", "active": true },
+    { "code": "Q-002", "lossCategory": "reduced_yield", "planned": false, "reasonEn": "Startup Scrap", "reasonId": "Scrap Awal Produksi", "oeeComponent": "quality", "color": "#B08FCC", "active": true }
+  ]
+}

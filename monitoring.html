@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Line Monitoring — OEE System</title>
   <link rel="stylesheet" href="style.css">
+  <script src="data/master.js"></script>
+  <script src="data/oee.js"></script>
+  <script src="js/data.js"></script>
 </head>
 <body>
 <div class="app-layout">
@@ -67,99 +70,23 @@
         <button class="btn btn--outline">&#8635; Refresh</button>
       </div>
 
-      <!-- FILTER BAR -->
+      <!-- FILTER BAR — Status + Line only -->
       <div class="filter-bar">
         <div class="form-group">
           <label class="form-label">Line</label>
-          <select class="form-control">
-            <option selected>All Lines</option>
-            <option>Line 1</option>
-            <option>Line 2</option>
+          <select class="form-control" id="filter-line">
+            <option value="all" selected>All Lines</option>
           </select>
         </div>
         <div class="form-group">
           <label class="form-label">Status</label>
-          <select class="form-control">
-            <option selected>All Status</option>
-            <option>Running</option>
-            <option>Down</option>
-            <option>Idle</option>
+          <select class="form-control" id="filter-status">
+            <option value="all" selected>All Status</option>
+            <option value="running">Running</option>
+            <option value="down">Down</option>
+            <option value="idle">Idle</option>
           </select>
         </div>
-        <div class="form-group">
-          <label class="form-label">Shift</label>
-          <select class="form-control">
-            <option selected>Morning (06:00–14:00)</option>
-            <option>Afternoon (14:00–22:00)</option>
-            <option>Night (22:00–06:00)</option>
-          </select>
-        </div>
-        <div class="form-group" style="display:flex;align-items:flex-end;">
-          <button class="btn btn--primary">Apply</button>
-        </div>
-      </div>
-
-      <!-- LINE SUMMARY ROW -->
-      <div class="grid-2 mb-lg">
-
-        <div class="card">
-          <div class="card-header">
-            <div>
-              <div class="card-title">Line 1</div>
-              <div class="card-subtitle">3 machines &nbsp;|&nbsp; 2 Running &nbsp;|&nbsp; 1 Down &nbsp;|&nbsp; 0 Idle</div>
-            </div>
-            <div style="text-align:right;">
-              <div style="font-size:var(--font-size-xl);font-weight:700;color:var(--color-idle)">72%</div>
-              <div class="text-xs text-muted">OEE</div>
-            </div>
-          </div>
-          <div class="line-stat">
-            <div class="line-stat__label"><span>Availability</span><span>85%</span></div>
-            <div class="progress-bar"><div class="progress-fill progress-fill--avail" style="width:85%"></div></div>
-          </div>
-          <div class="line-stat">
-            <div class="line-stat__label"><span>Performance</span><span>91%</span></div>
-            <div class="progress-bar"><div class="progress-fill progress-fill--perf" style="width:91%"></div></div>
-          </div>
-          <div class="line-stat">
-            <div class="line-stat__label"><span>Quality</span><span>93%</span></div>
-            <div class="progress-bar"><div class="progress-fill progress-fill--qual" style="width:93%"></div></div>
-          </div>
-          <div class="line-stat mt-sm">
-            <div class="line-stat__label"><span>Line Utilization</span><span style="color:var(--color-idle)">67%</span></div>
-            <div class="progress-bar"><div class="progress-fill" style="width:67%;background:var(--color-idle)"></div></div>
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="card-header">
-            <div>
-              <div class="card-title">Line 2</div>
-              <div class="card-subtitle">3 machines &nbsp;|&nbsp; 2 Running &nbsp;|&nbsp; 1 Down &nbsp;|&nbsp; 0 Idle</div>
-            </div>
-            <div style="text-align:right;">
-              <div style="font-size:var(--font-size-xl);font-weight:700;color:var(--color-idle)">68%</div>
-              <div class="text-xs text-muted">OEE</div>
-            </div>
-          </div>
-          <div class="line-stat">
-            <div class="line-stat__label"><span>Availability</span><span>83%</span></div>
-            <div class="progress-bar"><div class="progress-fill progress-fill--avail" style="width:83%"></div></div>
-          </div>
-          <div class="line-stat">
-            <div class="line-stat__label"><span>Performance</span><span>88%</span></div>
-            <div class="progress-bar"><div class="progress-fill progress-fill--perf" style="width:88%"></div></div>
-          </div>
-          <div class="line-stat">
-            <div class="line-stat__label"><span>Quality</span><span>93%</span></div>
-            <div class="progress-bar"><div class="progress-fill progress-fill--qual" style="width:93%"></div></div>
-          </div>
-          <div class="line-stat mt-sm">
-            <div class="line-stat__label"><span>Line Utilization</span><span style="color:var(--color-idle)">61%</span></div>
-            <div class="progress-bar"><div class="progress-fill" style="width:61%;background:var(--color-idle)"></div></div>
-          </div>
-        </div>
-
       </div>
 
       <!-- MACHINE CARDS -->
@@ -167,156 +94,11 @@
         <div class="card-header">
           <div>
             <div class="card-title">Machine Detail</div>
-            <div class="card-subtitle">6 machines total — morning shift</div>
+            <div class="card-subtitle" id="machine-subtitle">All machines</div>
           </div>
-          <div class="flex gap-sm">
-            <span class="badge badge--running">&#9679; 4 Running</span>
-            <span class="badge badge--down">&#9679; 2 Down</span>
-            <span class="badge badge--idle">&#9679; 0 Idle</span>
-          </div>
+          <div class="flex gap-sm" id="machine-status-badges"></div>
         </div>
-
-        <div class="grid-auto">
-
-          <!-- M-01 Running -->
-          <div class="machine-card machine-card--running">
-            <div class="machine-card__header">
-              <div>
-                <div class="machine-card__name">M-01</div>
-                <div class="machine-card__line">Line 1</div>
-              </div>
-              <span class="badge badge--running"><span class="status-dot status-dot--running"></span>Running</span>
-            </div>
-            <div class="machine-card__body">
-              <div class="machine-card__row"><span class="machine-card__key">Batch</span><span class="machine-card__val">B-2605-001</span></div>
-              <div class="machine-card__row"><span class="machine-card__key">Product</span><span class="machine-card__val">PRD-A</span></div>
-              <div class="machine-card__row"><span class="machine-card__key">Recipe</span><span class="machine-card__val">RCP-001</span></div>
-              <div class="machine-card__row"><span class="machine-card__key">Start</span><span class="machine-card__val">06:05</span></div>
-              <div class="machine-card__row"><span class="machine-card__key">Elapsed</span><span class="machine-card__val">3h 52m</span></div>
-              <div class="machine-card__row"><span class="machine-card__key">OEE</span><span class="machine-card__val" style="color:var(--color-oee-green)">88%</span></div>
-            </div>
-            <div class="machine-card__actions">
-              <a href="downtime.html" class="btn btn--danger btn--sm">&#9650; Report Downtime</a>
-              <button class="btn btn--outline btn--sm">Details</button>
-            </div>
-          </div>
-
-          <!-- M-02 Down -->
-          <div class="machine-card machine-card--down">
-            <div class="machine-card__header">
-              <div>
-                <div class="machine-card__name">M-02</div>
-                <div class="machine-card__line">Line 1</div>
-              </div>
-              <span class="badge badge--down"><span class="status-dot status-dot--down"></span>Down</span>
-            </div>
-            <div class="machine-card__body">
-              <div class="machine-card__row"><span class="machine-card__key">Category</span><span class="machine-card__val" style="color:var(--color-down)">Unplanned</span></div>
-              <div class="machine-card__row"><span class="machine-card__key">Code</span><span class="machine-card__val">U-001</span></div>
-              <div class="machine-card__row"><span class="machine-card__key">Reason</span><span class="machine-card__val">Mechanical Failure</span></div>
-              <div class="machine-card__row"><span class="machine-card__key">Down Since</span><span class="machine-card__val">08:42</span></div>
-              <div class="machine-card__row"><span class="machine-card__key">Duration</span><span class="machine-card__val" style="color:var(--color-down)">34 min</span></div>
-              <div class="machine-card__row"><span class="machine-card__key">Operator</span><span class="machine-card__val">John Doe</span></div>
-            </div>
-            <div class="machine-card__actions">
-              <a href="downtime.html" class="btn btn--warning btn--sm">&#9998; Update</a>
-              <button class="btn btn--success btn--sm">&#9654; Resolve</button>
-            </div>
-          </div>
-
-          <!-- M-03 Idle -->
-          <div class="machine-card machine-card--idle">
-            <div class="machine-card__header">
-              <div>
-                <div class="machine-card__name">M-03</div>
-                <div class="machine-card__line">Line 1</div>
-              </div>
-              <span class="badge badge--idle"><span class="status-dot status-dot--idle"></span>Idle</span>
-            </div>
-            <div class="machine-card__body">
-              <div class="machine-card__row"><span class="machine-card__key">Reason</span><span class="machine-card__val">Planned Stop</span></div>
-              <div class="machine-card__row"><span class="machine-card__key">Code</span><span class="machine-card__val">P-003</span></div>
-              <div class="machine-card__row"><span class="machine-card__key">Batch Next</span><span class="machine-card__val">B-2605-003</span></div>
-              <div class="machine-card__row"><span class="machine-card__key">Product</span><span class="machine-card__val">PRD-B</span></div>
-              <div class="machine-card__row"><span class="machine-card__key">Scheduled</span><span class="machine-card__val">10:00</span></div>
-              <div class="machine-card__row"><span class="machine-card__key">Idle Since</span><span class="machine-card__val">09:30</span></div>
-            </div>
-            <div class="machine-card__actions">
-              <a href="downtime.html" class="btn btn--danger btn--sm">&#9650; Report Downtime</a>
-              <button class="btn btn--outline btn--sm">Details</button>
-            </div>
-          </div>
-
-          <!-- M-04 Running -->
-          <div class="machine-card machine-card--running">
-            <div class="machine-card__header">
-              <div>
-                <div class="machine-card__name">M-04</div>
-                <div class="machine-card__line">Line 2</div>
-              </div>
-              <span class="badge badge--running"><span class="status-dot status-dot--running"></span>Running</span>
-            </div>
-            <div class="machine-card__body">
-              <div class="machine-card__row"><span class="machine-card__key">Batch</span><span class="machine-card__val">B-2605-004</span></div>
-              <div class="machine-card__row"><span class="machine-card__key">Product</span><span class="machine-card__val">PRD-C</span></div>
-              <div class="machine-card__row"><span class="machine-card__key">Recipe</span><span class="machine-card__val">RCP-003</span></div>
-              <div class="machine-card__row"><span class="machine-card__key">Start</span><span class="machine-card__val">06:00</span></div>
-              <div class="machine-card__row"><span class="machine-card__key">Elapsed</span><span class="machine-card__val">3h 57m</span></div>
-              <div class="machine-card__row"><span class="machine-card__key">OEE</span><span class="machine-card__val" style="color:var(--color-idle)">79%</span></div>
-            </div>
-            <div class="machine-card__actions">
-              <a href="downtime.html" class="btn btn--danger btn--sm">&#9650; Report Downtime</a>
-              <button class="btn btn--outline btn--sm">Details</button>
-            </div>
-          </div>
-
-          <!-- M-05 Running -->
-          <div class="machine-card machine-card--running">
-            <div class="machine-card__header">
-              <div>
-                <div class="machine-card__name">M-05</div>
-                <div class="machine-card__line">Line 2</div>
-              </div>
-              <span class="badge badge--running"><span class="status-dot status-dot--running"></span>Running</span>
-            </div>
-            <div class="machine-card__body">
-              <div class="machine-card__row"><span class="machine-card__key">Batch</span><span class="machine-card__val">B-2605-005</span></div>
-              <div class="machine-card__row"><span class="machine-card__key">Product</span><span class="machine-card__val">PRD-A</span></div>
-              <div class="machine-card__row"><span class="machine-card__key">Recipe</span><span class="machine-card__val">RCP-001</span></div>
-              <div class="machine-card__row"><span class="machine-card__key">Start</span><span class="machine-card__val">06:10</span></div>
-              <div class="machine-card__row"><span class="machine-card__key">Elapsed</span><span class="machine-card__val">3h 47m</span></div>
-              <div class="machine-card__row"><span class="machine-card__key">OEE</span><span class="machine-card__val" style="color:var(--color-oee-green)">91%</span></div>
-            </div>
-            <div class="machine-card__actions">
-              <a href="downtime.html" class="btn btn--danger btn--sm">&#9650; Report Downtime</a>
-              <button class="btn btn--outline btn--sm">Details</button>
-            </div>
-          </div>
-
-          <!-- M-06 Down -->
-          <div class="machine-card machine-card--down">
-            <div class="machine-card__header">
-              <div>
-                <div class="machine-card__name">M-06</div>
-                <div class="machine-card__line">Line 2</div>
-              </div>
-              <span class="badge badge--down"><span class="status-dot status-dot--down"></span>Down</span>
-            </div>
-            <div class="machine-card__body">
-              <div class="machine-card__row"><span class="machine-card__key">Category</span><span class="machine-card__val" style="color:var(--color-planned-stops)">Planned</span></div>
-              <div class="machine-card__row"><span class="machine-card__key">Code</span><span class="machine-card__val">P-001</span></div>
-              <div class="machine-card__row"><span class="machine-card__key">Reason</span><span class="machine-card__val">Changeover / Setup</span></div>
-              <div class="machine-card__row"><span class="machine-card__key">Down Since</span><span class="machine-card__val">09:15</span></div>
-              <div class="machine-card__row"><span class="machine-card__key">Duration</span><span class="machine-card__val" style="color:var(--color-down)">11 min</span></div>
-              <div class="machine-card__row"><span class="machine-card__key">Operator</span><span class="machine-card__val">Jane Smith</span></div>
-            </div>
-            <div class="machine-card__actions">
-              <a href="downtime.html" class="btn btn--warning btn--sm">&#9998; Update</a>
-              <button class="btn btn--success btn--sm">&#9654; Resolve</button>
-            </div>
-          </div>
-
-        </div>
+        <div class="grid-auto" id="machine-cards"></div>
       </div>
 
       <!-- ACTIVE DOWNTIME TABLE -->
@@ -324,55 +106,481 @@
         <div class="card-header">
           <div>
             <div class="card-title">Active Downtime Events</div>
-            <div class="card-subtitle">Currently open — requires resolution</div>
+            <div class="card-subtitle">Machines currently down — requires resolution</div>
           </div>
-          <a href="downtime.html" class="btn btn--primary btn--sm">+ New Entry</a>
         </div>
         <div class="table-wrapper">
           <table class="data-table">
             <thead>
               <tr>
-                <th>Machine</th>
-                <th>Line</th>
-                <th>Loss Category</th>
-                <th>Reason Code</th>
-                <th>Reason</th>
-                <th>Start Time</th>
-                <th>Duration</th>
-                <th>Operator</th>
-                <th>Action</th>
+                <th>Machine</th><th>Line</th><th>Loss Category</th><th>Reason Code</th>
+                <th>Reason</th><th>Start Time</th><th>Duration</th><th>Operator</th><th>Action</th>
               </tr>
             </thead>
-            <tbody>
-              <tr class="row-alert">
-                <td class="font-600">M-02</td>
-                <td>Line 1</td>
-                <td><span class="loss-badge loss-badge--unplanned">Unplanned Stop</span></td>
-                <td>U-001</td>
-                <td>Mechanical Failure</td>
-                <td>08:42</td>
-                <td style="color:var(--color-down);font-weight:600">34 min</td>
-                <td>John Doe</td>
-                <td><button class="btn btn--success btn--sm">Resolve</button></td>
-              </tr>
-              <tr>
-                <td class="font-600">M-06</td>
-                <td>Line 2</td>
-                <td><span class="loss-badge loss-badge--planned">Planned Stop</span></td>
-                <td>P-001</td>
-                <td>Changeover / Setup</td>
-                <td>09:15</td>
-                <td>11 min</td>
-                <td>Jane Smith</td>
-                <td><button class="btn btn--success btn--sm">Resolve</button></td>
-              </tr>
-            </tbody>
+            <tbody id="active-downtime"></tbody>
           </table>
         </div>
+      </div>
+
+      <!-- MACHINE SCORE RANK -->
+      <div class="card mt-lg mb-lg">
+        <div class="card-header">
+          <div>
+            <div class="card-title">Machine Score Rank</div>
+            <div class="card-subtitle">OEE ranking today — 21 May 2026, sorted highest → lowest</div>
+          </div>
+        </div>
+        <div class="table-wrapper">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th style="width:40px">#</th>
+                <th>Machine</th>
+                <th>Line</th>
+                <th>Status</th>
+                <th style="min-width:100px">OEE</th>
+                <th style="min-width:130px">Availability</th>
+                <th style="min-width:130px">Performance</th>
+                <th style="min-width:130px">Quality</th>
+                <th>Downtime Today</th>
+              </tr>
+            </thead>
+            <tbody id="machine-rank-body"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- REALTIME INFO ROW -->
+      <div class="grid-2">
+
+        <!-- Shift Snapshot -->
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Shift Snapshot</div>
+              <div class="card-subtitle">Today · Morning Shift performance</div>
+            </div>
+          </div>
+          <div id="shift-snapshot"></div>
+        </div>
+
+        <!-- Top Loss Causes -->
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Top Loss Causes</div>
+              <div class="card-subtitle">Downtime by category — today</div>
+            </div>
+          </div>
+          <div id="top-loss-causes"></div>
+        </div>
+
       </div>
 
     </main>
   </div>
 </div>
+
+<!-- REASON ENTRY MODAL -->
+<div class="modal-overlay" id="reason-modal">
+  <div class="modal" style="width:660px;max-width:95vw;">
+    <div class="modal__header" style="padding:var(--space-lg);">
+      <div>
+        <div class="modal__title">&#9998; Enter Downtime Reason</div>
+        <div class="modal__sub" id="reason-modal-sub"></div>
+      </div>
+      <button class="modal__close" id="reason-modal-close">&times;</button>
+    </div>
+    <div style="padding:0 var(--space-lg) var(--space-lg);">
+      <div id="reason-modal-info" style="background:#F0F6FF;border:1px solid #C9DFFB;border-radius:6px;padding:14px 16px;margin-bottom:var(--space-md);"></div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Loss Category</label>
+          <select class="form-control" id="rm-category">
+            <option value="">-- Select Category --</option>
+            <optgroup label="Availability Loss">
+              <option value="equipment_failure">Equipment Failure</option>
+              <option value="setup_adjustment">Setup &amp; Adjustments</option>
+            </optgroup>
+            <optgroup label="Performance Loss">
+              <option value="idling_minor_stops">Idling &amp; Minor Stoppages</option>
+              <option value="reduced_speed">Reduced Speed</option>
+            </optgroup>
+            <optgroup label="Quality Loss">
+              <option value="process_defects">Process Defects</option>
+              <option value="reduced_yield">Reduced Yield</option>
+            </optgroup>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Reason Code</label>
+          <select class="form-control" id="rm-code">
+            <option value="">-- Select Reason --</option>
+            <optgroup label="Equipment Failure">
+              <option>U-001 — Mechanical Failure</option>
+              <option>U-002 — Electrical Failure</option>
+              <option>U-003 — Instrument Failure</option>
+              <option>U-004 — Process Failure</option>
+            </optgroup>
+            <optgroup label="Setup &amp; Adjustments">
+              <option>P-001 — Changeover / Setup</option>
+              <option>P-002 — Preventive Maintenance</option>
+              <option>P-003 — Scheduled Cleaning</option>
+            </optgroup>
+            <optgroup label="Idling &amp; Minor Stoppages">
+              <option>S-001 — Material Jam</option>
+              <option>S-002 — Sensor Trigger</option>
+            </optgroup>
+            <optgroup label="Reduced Speed">
+              <option>SC-001 — Reduced Speed</option>
+            </optgroup>
+            <optgroup label="Quality">
+              <option>Q-001 — Out of Spec</option>
+              <option>Q-002 — Startup Scrap</option>
+            </optgroup>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Notes</label>
+        <textarea class="form-control" rows="3" placeholder="Describe the downtime cause in detail..."></textarea>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Operator <span style="color:var(--color-text-muted);font-size:var(--font-size-xs)">(auto-filled)</span></label>
+          <input type="text" class="form-control" id="rm-operator" readonly>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Shift <span style="color:var(--color-text-muted);font-size:var(--font-size-xs)">(auto-filled)</span></label>
+          <input type="text" class="form-control" value="Morning (06:00–14:00)" readonly>
+        </div>
+      </div>
+    </div>
+    <div style="padding:var(--space-md) var(--space-lg);border-top:1px solid var(--color-border);display:flex;gap:var(--space-sm);justify-content:flex-end;">
+      <button class="btn btn--outline" id="reason-modal-cancel">Cancel</button>
+      <button class="btn btn--primary">Submit Reason</button>
+    </div>
+  </div>
+</div>
+
+<!-- MACHINE DETAIL POPUP -->
+<div class="modal-overlay" id="machine-modal">
+  <div class="modal">
+    <div class="modal__header">
+      <div>
+        <div class="modal__title" id="modal-title">Machine</div>
+        <div class="modal__sub" id="modal-sub"></div>
+      </div>
+      <button class="modal__close" id="modal-close">&times;</button>
+    </div>
+    <div class="modal__body" id="modal-body"></div>
+  </div>
+</div>
+
+<script>
+var NOW = "10:15"; // reference "current" time on 21 May 2026 for duration calc
+
+// Demo machine — down with no reason yet (shows "Enter Reason" button)
+var DEMO_MACHINE = {
+  machineId: "M-07", name: "Machine 07", lineId: "L-01", line: "Line 1", type: "Filling",
+  status: "down", operator: "John Doe",
+  batchId: "B-2605-128", product: "Product Alpha", recipeId: "RCP-001", batchStart: null,
+  reasonCode: null, reason: null, reasonId: null, lossLabel: null, lossBadge: null,
+  since: "10:05", currentOee: 0
+};
+
+function minutesSince(hhmm) {
+  if (!hhmm) return 0;
+  var a = hhmm.split(":"), b = NOW.split(":");
+  return (b[0] * 60 + +b[1]) - (a[0] * 60 + +a[1]);
+}
+function fmtDur(min) {
+  if (min < 60) return min + " min";
+  return Math.floor(min / 60) + "h " + (min % 60) + "m";
+}
+function currentFilter() {
+  return {
+    lineId: document.getElementById("filter-line").value,
+    status: document.getElementById("filter-status").value,
+  };
+}
+
+function activeLines() {
+  // lines that actually have (active) machines — excludes commissioning/inactive lines
+  var withMachines = {};
+  OEE.options().machines.forEach(function (m) { withMachines[m.lineId] = true; });
+  return OEE.options().lines.filter(function (l) { return withMachines[l.id]; });
+}
+
+// Machine card — NOTE: OEE deliberately omitted from machine status (req 2.1)
+function machineCard(s) {
+  var cls = "machine-card machine-card--" + s.status;
+  var badge = '<span class="badge badge--' + s.status + '"><span class="status-dot status-dot--' +
+    s.status + '"></span>' + cap(s.status) + '</span>';
+  var rows = "";
+  if (s.status === "down") {
+    var pending = !s.reasonCode
+      ? '<div class="machine-card__pending">&#9888; Pending downtime reason entry</div>'
+      : '';
+    rows = pending +
+      row("Category", s.lossLabel ? '<span style="color:var(--color-down)">' + s.lossLabel + '</span>' : '—') +
+      row("Code", s.reasonCode || '—') + row("Reason", s.reason || '—') +
+      row("Down Since", s.since) +
+      row("Duration", '<span style="color:var(--color-down)">' + fmtDur(minutesSince(s.since)) + '</span>') +
+      row("Operator", s.operator);
+  } else if (s.status === "idle") {
+    rows = row("Batch", s.batchId || "—") + row("Product", s.product) +
+      row("Recipe", s.recipeId || "—") + row("Operator", s.operator);
+  } else { // running
+    rows = row("Batch", s.batchId) + row("Product", s.product) +
+      row("Recipe", s.recipeId || "—") + row("Start", s.batchStart || "—") + row("Operator", s.operator);
+  }
+  var actions = (s.status === "down" && !s.reasonCode)
+    ? '<button class="btn btn--outline btn--sm js-detail">Details</button><button class="btn btn--warning btn--sm js-enter-reason">&#9998; Enter Reason</button>'
+    : '<button class="btn btn--outline btn--sm js-detail">Details</button>';
+  return '<div class="' + cls + '" data-machine="' + s.machineId + '">' +
+    '<div class="machine-card__header"><div><div class="machine-card__name">' + s.machineId +
+    '</div><div class="machine-card__line">' + s.line + '</div></div>' + badge + '</div>' +
+    '<div class="machine-card__body">' + rows + '</div>' +
+    '<div class="machine-card__actions">' + actions + '</div></div>';
+}
+function row(k, v) {
+  return '<div class="machine-card__row"><span class="machine-card__key">' + k +
+    '</span><span class="machine-card__val">' + v + '</span></div>';
+}
+function cap(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
+
+function demoVisible(f) {
+  return (f.lineId === "all" || f.lineId === "L-01") && (f.status === "all" || f.status === "down");
+}
+
+function renderMachines(f) {
+  var list = OEE.machineStatusList(f);
+  if (demoVisible(f)) list = [DEMO_MACHINE].concat(list);
+  document.getElementById("machine-cards").innerHTML =
+    list.length ? list.map(machineCard).join("")
+                : '<div class="text-muted" style="padding:var(--space-md)">No machines match the filter.</div>';
+  document.getElementById("machine-subtitle").textContent = list.length + " machine(s)";
+
+  var all = OEE.statusSummary({ lineId: f.lineId });
+  if (f.lineId === "all" || f.lineId === "L-01") { all = Object.assign({}, all); all.down++; all.total++; }
+  document.getElementById("machine-status-badges").innerHTML =
+    '<span class="badge badge--running">&#9679; ' + all.running + ' Running</span>' +
+    '<span class="badge badge--down">&#9679; ' + all.down + ' Down</span>' +
+    '<span class="badge badge--idle">&#9679; ' + all.idle + ' Idle</span>';
+}
+
+function renderActiveDowntime(f) {
+  var down = OEE.machineStatusList({ lineId: f.lineId, status: "down" });
+  if (f.lineId === "all" || f.lineId === "L-01") down = [DEMO_MACHINE].concat(down);
+  document.getElementById("active-downtime").innerHTML = down.length ? down.map(function (s) {
+    var lossTd = s.lossLabel
+      ? '<td><span class="loss-badge ' + s.lossBadge + '">' + s.lossLabel + '</span></td>'
+      : '<td><span class="badge badge--pending">Pending</span></td>';
+    return '<tr' + (minutesSince(s.since) > 30 ? ' class="row-alert"' : '') + '>' +
+      '<td class="font-600">' + s.machineId + '</td><td>' + s.line + '</td>' +
+      lossTd +
+      '<td>' + (s.reasonCode || '—') + '</td><td>' + (s.reason || '—') + '</td><td>' + s.since + '</td>' +
+      '<td style="color:var(--color-down);font-weight:600">' + fmtDur(minutesSince(s.since)) + '</td>' +
+      '<td>' + s.operator + '</td>' +
+      '<td><button class="btn btn--success btn--sm">Resolve</button></td></tr>';
+  }).join("") : '<tr><td colspan="9" class="text-muted">No active downtime.</td></tr>';
+}
+
+// Reason entry modal
+function infoCell(label, val) {
+  return '<div><div style="font-size:10px;color:var(--color-text-muted);margin-bottom:2px;">' + label +
+    '</div><div style="font-weight:600;font-size:var(--font-size-sm);">' + val + '</div></div>';
+}
+function openReasonModal(machineId) {
+  var s = OEE.machineStatusList({}).filter(function (x) { return x.machineId === machineId; })[0];
+  if (!s && machineId === DEMO_MACHINE.machineId) s = DEMO_MACHINE;
+  if (!s) return;
+  document.getElementById("reason-modal-sub").textContent = s.machineId + " · " + s.line + " · Down since " + s.since;
+  document.getElementById("reason-modal-info").innerHTML =
+    '<div style="font-size:var(--font-size-xs);font-weight:700;color:#2E5F8A;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:10px;">&#9432; Auto-Detected Machine Signal</div>' +
+    '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;">' +
+    infoCell("Machine", s.machineId) + infoCell("Line", s.line) +
+    infoCell("Down Since", s.since) + infoCell("Duration", '<span style="color:var(--color-down)">' + fmtDur(minutesSince(s.since)) + '</span>') +
+    '</div>';
+  document.getElementById("rm-operator").value = s.operator || "—";
+  document.getElementById("reason-modal").classList.add("is-open");
+}
+function closeReasonModal() { document.getElementById("reason-modal").classList.remove("is-open"); }
+
+// Popup — full machine detail (OEE is fine to show here, just not on the status card)
+function openModal(machineId) {
+  var s = OEE.machineStatusList({}).filter(function (x) { return x.machineId === machineId; })[0];
+  if (!s) return;
+  document.getElementById("modal-title").textContent = s.machineId + " — " + s.name;
+  document.getElementById("modal-sub").textContent = s.line + " · " + (s.type || "") +
+    "  ·  " + cap(s.status);
+  var rows = [
+    ["Status", cap(s.status)], ["Line", s.line], ["Type", s.type || "—"],
+    ["Current Batch", s.batchId || "—"], ["Product", s.product],
+    ["Recipe", s.recipeId || "—"], ["Operator", s.operator],
+    ["Current OEE", OEE.pct(s.currentOee)],
+  ];
+  if (s.status === "down") {
+    rows.push(["Loss Category", s.lossLabel], ["Reason Code", s.reasonCode],
+      ["Reason", s.reason + " / " + s.reasonId], ["Down Since", s.since],
+      ["Duration", fmtDur(minutesSince(s.since))]);
+  } else if (s.status === "running") {
+    rows.push(["Started", s.batchStart || "—"]);
+  }
+  document.getElementById("modal-body").innerHTML = rows.map(function (r) {
+    return '<div class="modal__row"><span class="modal__key">' + r[0] +
+      '</span><span class="modal__val">' + r[1] + '</span></div>';
+  }).join("");
+  document.getElementById("machine-modal").classList.add("is-open");
+}
+function closeModal() { document.getElementById("machine-modal").classList.remove("is-open"); }
+
+var TODAY = "2026-05-21";
+
+function rankMiniBar(val, cls) {
+  return '<div class="rank-mini"><div class="progress-bar"><div class="progress-fill ' + cls +
+    '" style="width:' + (val * 100).toFixed(0) + '%"></div></div>' +
+    '<span class="rank-mini__pct">' + OEE.pct(val) + '</span></div>';
+}
+
+function renderMachineRank(f) {
+  var filter = { dateFrom: TODAY, dateTo: TODAY };
+  if (f.lineId !== "all") filter.lineId = f.lineId;
+  var ranks = OEE.machineRank(filter);
+  var stMap = {};
+  OEE.machineStatusList({}).forEach(function (s) { stMap[s.machineId] = s; });
+
+  document.getElementById("machine-rank-body").innerHTML = ranks.length
+    ? ranks.map(function (r, i) {
+        var n = i + 1;
+        var rankEl = '<span class="rank-num' + (n <= 3 ? ' rank-num--' + n : '') + '">' + n + '</span>';
+        var st = stMap[r.machineId];
+        var statusEl = st
+          ? '<span class="badge badge--' + st.status + '"><span class="status-dot status-dot--' + st.status + '"></span>' + cap(st.status) + '</span>'
+          : '<span class="text-muted">—</span>';
+        var oeeCls = r.oee >= 0.85 ? 'rank-oee--good' : r.oee >= 0.70 ? 'rank-oee--warn' : 'rank-oee--poor';
+        var oeeEl = '<span class="rank-oee ' + oeeCls + '">' + OEE.pct(r.oee) + '</span>' +
+          '<div class="progress-bar" style="height:4px;margin-top:3px">' +
+          '<div class="progress-fill progress-fill--oee" style="width:' + (r.oee * 100).toFixed(0) + '%"></div></div>';
+        return '<tr>' +
+          '<td>' + rankEl + '</td>' +
+          '<td class="font-600">' + r.machineId + '</td>' +
+          '<td>' + r.lineName + '</td>' +
+          '<td>' + statusEl + '</td>' +
+          '<td>' + oeeEl + '</td>' +
+          '<td>' + rankMiniBar(r.availability, "progress-fill--avail") + '</td>' +
+          '<td>' + rankMiniBar(r.performance, "progress-fill--perf") + '</td>' +
+          '<td>' + rankMiniBar(r.quality, "progress-fill--qual") + '</td>' +
+          '<td style="color:var(--color-down);font-weight:600">' + Math.round(r.downtimeMin) + ' min</td></tr>';
+      }).join("")
+    : '<tr><td colspan="9" class="text-muted">No production data for today.</td></tr>';
+}
+
+function renderShiftSnapshot(f) {
+  var filter = { dateFrom: TODAY, dateTo: TODAY };
+  if (f.lineId !== "all") filter.lineId = f.lineId;
+  var k = OEE.kpis(filter);
+  var oeeCls = k.oee >= 0.85 ? 'var(--color-oee-green)' : k.oee >= 0.70 ? 'var(--color-idle)' : 'var(--color-down)';
+
+  function snapBar(label, val, cls, color) {
+    return '<div class="line-stat">' +
+      '<div class="line-stat__label"><span style="color:' + color + ';font-weight:600">' + label + '</span>' +
+      '<span>' + OEE.pct(val) + '</span></div>' +
+      '<div class="progress-bar"><div class="progress-fill ' + cls + '" style="width:' + (val * 100).toFixed(0) + '%"></div></div></div>';
+  }
+
+  function snapStat(label, val, color) {
+    return '<div class="snap-stat"><div class="snap-stat__label">' + label + '</div>' +
+      '<div class="snap-stat__val"' + (color ? ' style="color:' + color + '"' : '') + '>' + val + '</div></div>';
+  }
+
+  document.getElementById("shift-snapshot").innerHTML =
+    '<div class="snap-body">' +
+    '<div class="snap-oee"><div class="snap-oee__val" style="color:' + oeeCls + '">' + OEE.pct(k.oee) + '</div>' +
+    '<div class="snap-oee__label">OEE Today</div></div>' +
+    '<div class="snap-bars">' +
+    snapBar("Availability", k.availability, "progress-fill--avail", "var(--color-availability)") +
+    snapBar("Performance",  k.performance,  "progress-fill--perf",  "var(--color-performance)") +
+    snapBar("Quality",      k.quality,      "progress-fill--qual",  "var(--color-quality)") +
+    '</div></div>' +
+    '<div class="snap-footer">' +
+    snapStat("Good Output",     k.goodUnits.toLocaleString() + " units", null) +
+    snapStat("Total Downtime",  Math.round(k.downtimeMin) + " min", "var(--color-down)") +
+    snapStat("Planned Time",    Math.round(k.plannedMin) + " min", null) +
+    snapStat("Run Time",        Math.round(k.runMin) + " min", "var(--color-oee-green)") +
+    '</div>';
+}
+
+function renderTopLoss(f) {
+  var filter = { dateFrom: TODAY, dateTo: TODAY };
+  if (f.lineId !== "all") filter.lineId = f.lineId;
+  var rows = OEE.pareto(filter);
+  var maxMin = rows.length ? rows[0].minutes : 1;
+
+  document.getElementById("top-loss-causes").innerHTML = rows.length
+    ? rows.map(function (r) {
+        var pct = Math.round(r.minutes / maxMin * 100);
+        return '<div class="loss-cause">' +
+          '<div class="loss-cause__header">' +
+          '<span class="loss-cause__name" style="color:' + r.color + '">' + r.label + '</span>' +
+          '<span class="loss-cause__min">' + r.minutes + ' min &nbsp;·&nbsp; ' + Math.round(r.cumulativePct * 100) + '% cum.</span>' +
+          '</div>' +
+          '<div class="progress-bar"><div class="progress-fill" style="width:' + pct + '%;background:' + r.color + '"></div></div>' +
+          '</div>';
+      }).join("")
+    : '<div style="padding:var(--space-md)" class="text-muted">No downtime events today.</div>';
+}
+
+function renderAll() {
+  var f = currentFilter();
+  renderMachines(f);
+  renderActiveDowntime(f);
+  renderMachineRank(f);
+  renderShiftSnapshot(f);
+  renderTopLoss(f);
+}
+
+(async function () {
+  await OEE.load();
+  // populate line filter
+  var sel = document.getElementById("filter-line");
+  activeLines().forEach(function (l) {
+    var o = document.createElement("option"); o.value = l.id; o.textContent = l.name; sel.appendChild(o);
+  });
+  renderAll();
+
+  document.getElementById("filter-line").addEventListener("change", renderAll);
+  document.getElementById("filter-status").addEventListener("change", renderAll);
+
+  // machine card clicks — route to reason modal or detail modal
+  document.getElementById("machine-cards").addEventListener("click", function (e) {
+    if (e.target.closest(".js-enter-reason")) {
+      var card = e.target.closest("[data-machine]");
+      if (card) openReasonModal(card.getAttribute("data-machine"));
+      return;
+    }
+    var card = e.target.closest("[data-machine]");
+    if (card) openModal(card.getAttribute("data-machine"));
+  });
+
+  // detail modal close
+  document.getElementById("modal-close").addEventListener("click", closeModal);
+  document.getElementById("machine-modal").addEventListener("click", function (e) {
+    if (e.target === this) closeModal();
+  });
+
+  // reason modal close
+  document.getElementById("reason-modal-close").addEventListener("click", closeReasonModal);
+  document.getElementById("reason-modal-cancel").addEventListener("click", closeReasonModal);
+  document.getElementById("reason-modal").addEventListener("click", function (e) {
+    if (e.target === this) closeReasonModal();
+  });
+
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") { closeModal(); closeReasonModal(); }
+  });
+})();
+</script>
 </body>
 </html>
