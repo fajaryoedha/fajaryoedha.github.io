@@ -1,0 +1,1 @@
+import{G as s,r as e,g as o}from"./db-q7UqGOfb.js";import"./index-CSW8S3FT.js";async function a(i){await s(e(o(),`sessions/${i}`))}async function r(){await s(e(o(),"sessions"))}export{r as deleteAllSessions,a as deleteSession};
